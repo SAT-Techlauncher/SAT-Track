@@ -1,12 +1,12 @@
-# Semi-Automated Satellite Tracking System
+Welcome to the SAT-Track wiki!
 
 ### Content
 
-* [Project Statement](#Project Statement)
-* [Project Software & Source](#Project Sofware & Source)
-* [Project Documentation](#Project Documentation)
-* [Audit Pages](#Audit Pages)
-* [Group Members](#Group Members)
+* [Project Statement](#1)
+* [Project Software & Source](#2)
+* [Project Documentation](#3)
+* [Audit Pages](#4)
+* [Group Members](#5)
 
 Test
  
@@ -25,7 +25,7 @@ Test
 Test
  
 
-## Project Statement <a name="Project Statement"></a>
+## Project Statement <a id="1"></a>
 
 (Need to edit)
  
@@ -37,29 +37,13 @@ Test
  
 (Need to edit)
 
-* [Introduction & Background](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/Introduction%20&%20Background?)
-* [Problem & Requirement](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/Problem-&-Requirement)
-* [User Story](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/User-Story)
-* [Project Stakeholder](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/Project-Stakeholder)
-* [Cost & Risk](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/Cost-&-Risk)
+* [Introduction & Background](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Introduction-&-Background)
+* [Problem & Requirement](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Problem-&-Requirements)
+* [User Stories](https://github.com/SAT-Techlauncher/SAT-Track/wiki/User-Stories)
+* [Project Stakeholders](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Project-Stakeholders)
+* [Cost & Risk](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Cost-&-Risk)
 
-## Project Software & Source <a name="Project Software & Source"></a>
-
-(Need to edit)
-
-(Need to edit)
-
-(Need to edit)
- 
-(Need to edit)
- 
-(Need to edit)
-
-* [Software Introduction](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/Software%20Introduction?)
-* [How to use](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/How-to-use)
-* [Environment requirements](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/Environment-Requirements)
-
-## Project Documentation <a name="Project Documentation"></a>
+## Project Software & Source <a id="2"></a>
 
 (Need to edit)
 
@@ -68,14 +52,16 @@ Test
 (Need to edit)
  
 (Need to edit)
-
+ 
 (Need to edit)
 
-* [Schedule](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/Schedule)
-* [Decision Log](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/Decision-Log)
-* [Reflection Log](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/Reflection-Log)
+* [Software Introduction](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Software-Introduction)
+* [How To Use](https://github.com/SAT-Techlauncher/SAT-Track/wiki/How-To-Use)
+* [Environment Requirements](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Environment-Requirements)
 
-## Audit Pages <a name="Audit Pages"></a>
+## Project Documentation <a id="3"></a>
+
+(Need to edit)
 
 (Need to edit)
 
@@ -84,12 +70,12 @@ Test
 (Need to edit)
 
 (Need to edit)
- 
-(Need to edit)
 
-* [Audit 1](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/Audit%201?)
+* [Schedule](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Schedule)
+* [Decision Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Decision-Log)
+* [Reflection Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Reflection-Log)
 
-## Group Members <a name="Group Members"></a>
+## Audit Pages <a id="4"></a>
 
 (Need to edit)
 
@@ -101,6 +87,20 @@ Test
  
 (Need to edit)
 
-* [Member Introduction](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/Member-Introduction)
+* [Audit 1](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Audit-1)
 
-* [Group Role & Responsibility ](https://gitlab.cecs.anu.edu.au/u5643010/sat-track/wikis/Group-Role-&-Responsibility)
+## Group Members <a id="5"></a>
+
+(Need to edit)
+
+(Need to edit)
+ 
+(Need to edit)
+
+(Need to edit)
+ 
+(Need to edit)
+
+* [Member Introduction](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Member-Introduction)
+
+* [Group Role & Responsibility ](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Group-Role-&-Responsibility)
