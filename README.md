@@ -8,34 +8,10 @@ Welcome to the SAT-Track wiki!
 * [Audit Pages](#4)
 * [Group Members](#5)
 
-Test
- 
-Test
- 
-Test
- 
-Test
- 
-Test
- 
-Test
- 
-Test
- 
-Test
- 
 
 ## Project Statement <a id="1"></a>
 
-(Need to edit)
- 
-(Need to edit)
-
-(Need to edit)
- 
-(Need to edit)
- 
-(Need to edit)
+The SAT-Track project aims to provide a method for successfully tracking overhead systems without reliance on foreign data. The intention is to develop a satellite tracking system which is able to identify various satellites via spectrum analysis, position, and travel.
 
 * [Introduction & Background](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Introduction-&-Background)
 * [Problem & Requirement](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Problem-&-Requirements)
@@ -61,45 +37,15 @@ Test
 
 ## Project Documentation <a id="3"></a>
 
-(Need to edit)
-
-(Need to edit)
-
-(Need to edit)
- 
-(Need to edit)
-
-(Need to edit)
-
 * [Schedule](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Schedule)
 * [Decision Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Decision-Log)
 * [Reflection Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Reflection-Log)
 
 ## Audit Pages <a id="4"></a>
 
-(Need to edit)
-
-(Need to edit)
- 
-(Need to edit)
-
-(Need to edit)
- 
-(Need to edit)
-
 * [Audit 1](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Audit-1)
 
 ## Group Members <a id="5"></a>
-
-(Need to edit)
-
-(Need to edit)
- 
-(Need to edit)
-
-(Need to edit)
- 
-(Need to edit)
 
 * [Member Introduction](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Member-Introduction)
 
