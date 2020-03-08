@@ -21,16 +21,6 @@ The SAT-Track project aims to provide a method for successfully tracking overhea
 
 ## Project Software & Source <a id="2"></a>
 
-(Need to edit)
-
-(Need to edit)
-
-(Need to edit)
- 
-(Need to edit)
- 
-(Need to edit)
-
 * [Software Introduction](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Software-Introduction)
 * [How To Use](https://github.com/SAT-Techlauncher/SAT-Track/wiki/How-To-Use)
 * [Environment Requirements](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Environment-Requirements)
