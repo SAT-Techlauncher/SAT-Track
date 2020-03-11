@@ -1,16 +1,15 @@
-Welcome to the SAT-Track wiki!
+# Developing a Semi-Automated Satellite Tracking System (Sat-Track)
+This repository is for the semi-automated satellite tracking system project currently being run through the TechLauncher program at the Australian National University. 
 
 ### Content
-
+This repository utilises the GitHub wiki pages system to record team information and artifacts. For a more detailed list of available information, navigate to the [wiki](https://github.com/SAT-Techlauncher/SAT-Track/wiki), or simply use the following subheadings to find more specific information.
 * [Project Statement](#1)
-* [Project Software & Source](#2)
-* [Project Documentation](#3)
-* [Audit Pages](#4)
+* [Project Stakeholders](#2)
+* [Project Software & Source](#4)
+* [Project Documentation](#4)
 * [Group Members](#5)
 
-
 ## Project Statement <a id="1"></a>
-
 The SAT-Track project aims to provide a method for successfully tracking overhead systems without reliance on foreign data. The intention is to develop a satellite tracking system which is able to identify various satellites via spectrum analysis, position, and travel.
 
 * [Introduction & Background](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Introduction-&-Background)
@@ -20,23 +19,22 @@ The SAT-Track project aims to provide a method for successfully tracking overhea
 * [Project Stakeholders](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Project-Stakeholders)
 * [Cost & Risk](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Cost-&-Risk)
 
-## Project Software & Source <a id="2"></a>
+## Project Stakeholders
+This project was proposed by [Clearbox Systems](http://www.clearboxsystems.com.au/). Clearbox requires accurate and reliable satellite data to be readily available as they need it. Therefore this project will aid them in actively tracking satellites as they require. They are the sole stakeholder for this project and are also the only planned users. 
+* [Project Stakeholders](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Project-Stakeholders)
 
+## Project Software & Source <a id="2"></a>
+As stated above the end product will be run on a local system within Clearbox Systems. To aid Clearbox users and potential new teammates we will maitain documentation on how to use this project. 
 * [Software Introduction](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Software-Introduction)
 * [How To Use](https://github.com/SAT-Techlauncher/SAT-Track/wiki/How-To-Use)
 * [Environment Requirements](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Environment-Requirements)
 
 ## Project Documentation <a id="3"></a>
-
-* [Schedule](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Schedule)
+Our team aims to document our discussions during team and client meetings through the use of minutes. Both these seperate meetings will take place weekly. We also aim to maintain a decision log to track key development choices and a reflection log to document our learning as a team. 
 * [Decision Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Decision-Log)
 * [Reflection Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Reflection-Log)
 * [Meeting Minutes](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Meeting-Minutes)
 
-## Audit Pages <a id="4"></a>
-
-* [Audit 1](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Audit-1)
-
 ## Group Members <a id="5"></a>
-
-* [Group members](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Group-members)
+Our team consists of six members, all Australian National University students, who are completing degrees within Computer Science. For this project we divided the roles based on each members strengths but we plan to communicate often and are open to rotating roles should there be a need to do so.
+* [Group Members](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Group-members)
