@@ -1,0 +1,14 @@
+Our final goal of the project in this semester is that delivering a deployable minimal viable product. In our product, user inputs a satellite name or id and the system will get some meta data from external systems and controll our aerial device pointing to corresponding satellite. Then the device will receive and return data signals from the satellite and the system will store those data in database and show them to users. 
+
+After our client meeting and group meeting, we designed the first version system architecture as follow:
+
+
+* System: There are three subsystems of our system: (1) hardware controlling system, (2) data receiver system and (3) data storage system.
+
+* Subsystem: (1) Hardware controlling system is a software to controll aerial locating satellites accurately, receive data from satellites and send them back to data receiver system. (2) Then data receiver system get data from hardware, do some logic process and send them to data storage system. It's a host-slave computer relationship between the former two subsystems. (3) Finally, the data storage system will store satellite data and information into database and show them to our user-interface. It's a server-client structure as we usually see in the Internet.
+
+* Programming Language: (1) Since raspberry pi is very powerful in mechanic and robot fields, we will choose it as our micro controller to controll the aerial. Our client will provide the implementation of hardware part so that we only need to develop software to controll it. Thus, we develop it with Python as raspberry pi requires. (2) As to data receiver system and data storage system, we will also use Python since it is not only efficient for developing because of its open source community but also a perfect language to calculate high accuracy data, which is suitable for this project. (3) As to user-interface, our clients do not require too much about it so we will use jquery to implement it efficiently.
+
+* Deployment Plan: We plan to use linux server such as ubuntu or centos as our server system since linux shows better performance than windows in web security and distributive server if further development requires.
+
+Above is what we talked about this week. For more specific technical details, we will discuss and design in next weeks.
