@@ -39,6 +39,4 @@ The SAT-Track project aims to provide a method for successfully tracking overhea
 
 ## Group Members <a id="5"></a>
 
-* [Member Introduction](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Member-Introduction)
-
-* [Group Role & Responsibility ](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Group-Role-&-Responsibility)
+* [Group members](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Group-members)
