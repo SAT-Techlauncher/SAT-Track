@@ -1,7 +1,7 @@
 # Developing a Semi-Automated Satellite Tracking System (Sat-Track)
 This repository is for the semi-automated satellite tracking system project currently being run through the TechLauncher program at the Australian National University. 
 
-### Content
+### Contents
 This repository utilises the GitHub wiki pages system to record team information and artifacts. For a more detailed list of available information, navigate to the [wiki](https://github.com/SAT-Techlauncher/SAT-Track/wiki), or simply use the following subheadings to find more specific information.
 * [Project Statement](#1)
 * [Project Stakeholders](#2)
@@ -10,14 +10,13 @@ This repository utilises the GitHub wiki pages system to record team information
 * [Group Members & Workflow](#5)
 
 ## Project Statement <a id="1"></a>
-The SAT-Track project aims to provide a method for successfully tracking overhead systems without reliance on foreign data. The intention is to develop a satellite tracking system which is able to identify various satellites via spectrum analysis, position, and travel.
+The SAT-Track project aims to provide a method for successfully tracking overhead systems without reliance on foreign data. The intention is to develop a satellite tracking system which is able to identify various satellites via spectrum analysis, position, and travel. Additionally a statement of work has been developed in collaboration with our client.
 
 * [Introduction & Background](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Introduction-&-Background)
 * [Problem & Requirement](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Problem-&-Requirements)
-* [User Stories](https://github.com/SAT-Techlauncher/SAT-Track/wiki/User-Stories)
 * [Our goals](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Our-goals)
-* [Project Stakeholders](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Project-Stakeholders)
 * [Cost & Risk](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Cost-&-Risk)
+* [Statement of Work](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Statement-of-Work)
 
 ## Project Stakeholders
 This project was proposed by [Clearbox Systems](http://www.clearboxsystems.com.au/). Clearbox requires accurate and reliable satellite data to be readily available as they need it. Therefore this project will aid them in actively tracking satellites as they require. They are the sole stakeholder for this project and are also the only planned users. 
