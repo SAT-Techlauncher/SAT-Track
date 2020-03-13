@@ -1,0 +1,13 @@
+
+
+def insert_new_satellite_info():
+    ...
+
+def search_satellite_in_database():
+    ...
+
+def update_existed_satellite_info():
+    ...
+
+def delete():
+    ...

@@ -1,0 +1,37 @@
+body {
+    text-align: center;
+}
+
+.no_select {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#satellite_input {
+    margin-top: 10%;
+    height: 2em;
+    width: 61.8%;
+    font-size: 1.5em;;
+}
+
+#search_button {
+    background: #00b0f0;
+    opacity: 0.7;
+    top: 20%;
+    margin: 0 auto;
+    margin-top: 0.5em;
+    width: 20%;
+}
+
+    #search_button a {
+        text-decoration: none;
+    }
+
+    #search_button p {
+        color: #000717;
+        text-align: center;
+        font-family: 'Comic Sans MS';
+        font-style: italic;
+        font-size: 2em;
+    }
