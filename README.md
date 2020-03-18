@@ -39,4 +39,4 @@ Our team aims to document our discussions during team and client meetings throug
 Our team consists of six members, all Australian National University students, who are completing degrees within Computer Science. For this project we divided the roles based on each members strengths but we plan to communicate often and are open to rotating roles should there be a need to do so. We manage tasks via Trello and evaluate and re-evaluate tasks at weekly meetings to manage progress. We also use Slack to communicate with our client and between members.
 * [Group Members](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Group-members)
 * [Trello](https://trello.com/b/0Rm060eC/satellites-track-system)
-* [Gant Chart](https://anu365-my.sharepoint.com/:x:/g/personal/u6744888_anu_edu_au/EdnMeaP2PcJBqvZmjH8-5DIBaTfP3taOqXs81NUIu8k__w?e=nircHw)
+* [Gant Chart](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Gant-Chart)
