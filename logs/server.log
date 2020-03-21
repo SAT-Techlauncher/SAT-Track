@@ -1,0 +1,6 @@
+[2020-03-21 10:32:25,414][routes.py:20][INFO][12524] - {"api_name":"http://127.0.0.1:5000/index", "user_ip":"127.0.0.1", "user_name":"None"}
+[2020-03-21 10:32:25,555][routes.py:36][INFO][12524] - {"api_name": "http://127.0.0.1:5000/index", "user_ip": "127.0.0.1", "user_name": "None", "status_code":"200"}
+[2020-03-21 10:32:44,297][routes.py:20][INFO][13004] - {"api_name":"http://127.0.0.1:5000/search_satellite", "user_ip":"127.0.0.1", "user_name":"None"}
+[2020-03-21 10:32:45,621][routes.py:20][INFO][12900] - {"api_name":"http://127.0.0.1:5000/search_satellite", "user_ip":"127.0.0.1", "user_name":"None"}
+[2020-03-21 10:32:47,018][routes.py:36][INFO][12900] - {"api_name": "http://127.0.0.1:5000/search_satellite", "user_ip": "127.0.0.1", "user_name": "None", "status_code":"200"}
+[2020-03-21 10:33:02,076][routes.py:36][INFO][13004] - {"api_name": "http://127.0.0.1:5000/search_satellite", "user_ip": "127.0.0.1", "user_name": "None", "status_code":"200"}
