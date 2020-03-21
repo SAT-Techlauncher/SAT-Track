@@ -1,37 +1,160 @@
-body {
-    text-align: center;
+#satellite_input_div {
+    position: absolute;
+    top: 60px;
+    left: 205px;
+    right: 300px;
+    height: 130px;
+    /*background-color: yellow;*/
 }
 
-.no_select {
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
+#data_output_div {
+    position: absolute;
+    top: 200px;
+    left: 205px;
+    right: 300px;
+    height: 450px;
+    /*background-color: red;*/
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    user-select: text;
 }
+
+#priority_list_div {
+    position: fixed;
+    top: 58px;
+    right: 20px;
+    width: 270px;
+    height: 100%;
+    /*background-color: white;*/
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+    #priority_list_div::-webkit-scrollbar {
+        display: none;
+    }
 
 #satellite_input {
-    margin-top: 10%;
-    height: 2em;
-    width: 61.8%;
+    margin-top: 60px;
+    margin-left: 170px;
+    height: 45px;
+    width: 360px;
     font-size: 1.5em;;
+    border-radius: 3px;
+    padding: 0 15px 0 15px;
+    outline: none;
 }
 
-#search_button {
-    background: #00b0f0;
+#submit_button {
+    position: absolute;
+    margin-top: 60px;
+    width: 140px;
+    height: 47px;
+    border: none;
+    outline: none;
+    background: #0099d2;
+    color: white;
+    font-size: 35px;
+    font-style: italic;
+    border-radius: 3px;
+    cursor: pointer;
     opacity: 0.7;
-    top: 20%;
-    margin: 0 auto;
-    margin-top: 0.5em;
-    width: 20%;
 }
 
-    #search_button a {
-        text-decoration: none;
-    }
+#submit_button:hover {
+    opacity: 1.0;
+}
 
-    #search_button p {
-        color: #000717;
-        text-align: center;
-        font-family: 'Comic Sans MS';
-        font-style: italic;
-        font-size: 2em;
-    }
+#data_output_table {
+    margin-left: 80px;
+    margin-right: 80px;
+    height: 90%;
+    background-color: white;
+    box-shadow: 0 2px 2px 0 #99bcd7;
+    padding: 18px;
+    font-family: 'Arial Unicode MS';
+}
+
+#priority_list_layer {
+    position: fixed;
+    right: 20px;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    padding-right: 20px;
+    box-shadow: 0 3px 3px 0 #99bcd7;
+    background-color: #3a38b5;
+    opacity: 0.45;
+}
+
+.task {
+    position: relative;
+    float: left;
+    margin-top: 7px;
+    margin-left: 10px;
+    width: 250px;
+    height: 70px;
+    background-color: #fff;
+    box-shadow: 0 2px 1px 0 #99bcd7;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#task_placeholder_head {
+    position: relative;
+    float: left;
+    margin-top: 7px;
+    margin-left: 10px;
+    width: 250px;
+    height: 60px;
+    text-align: center;
+    padding-top: 20px;
+    font-size: 24px;
+    color: white;
+}
+
+#task_placeholder_tail {
+    position: relative;
+    float: left;
+    margin-top: 7px;
+    margin-left: 10px;
+    width: 250px;
+    height: 60px;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 50px;
+    font-size: 18px;
+    font-style: italic;
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
