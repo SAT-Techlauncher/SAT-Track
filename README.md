@@ -33,8 +33,10 @@ Our team aims to document our discussions during team and client meetings throug
 * [Decision Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Decision-Log)
 * [Reflection Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Reflection-Log)
 * [Meeting Minutes](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Client-Meeting-Minutes)
+* [Team Work](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Team-Work)
 
 ## Group Members & Workflow <a id="5"></a>
 Our team consists of six members, all Australian National University students, who are completing degrees within Computer Science. For this project we divided the roles based on each members strengths but we plan to communicate often and are open to rotating roles should there be a need to do so. We manage tasks via Trello and evaluate and re-evaluate tasks at weekly meetings to manage progress. We also use Slack to communicate with our client and between members.
 * [Group Members](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Group-members)
 * [Trello](https://trello.com/b/0Rm060eC/satellites-track-system)
+* [Gantt Chart](https://github.com/SAT-Techlauncher/SAT-Track/blob/master/Sate_Track%20Gant%20Chart%20version%2018_03_20.xlsx)
