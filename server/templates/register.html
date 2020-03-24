@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{{ title }} - SAT-Tracking</title>
+        <link rel="stylesheet" type="text/css" href="../static/contents/layout.css" />
+    <link rel="stylesheet" type="text/css" href="../static/contents/auth.css" />
+    <script src="../static/scripts/lib/modernizr-2.6.2.js"></script>
+</head>
+
+<body>
+     <!-- top navigator -->
+     <div id="top_bar_div">
+         <div id="page_link_div" class="no_select">
+             <a id="sat_track_title" class="no_select" href="">SAT-Tracking</a>
+         </div>
+     </div>
+
+    <!-- login/register form -->
+    <div id="authority_block_div" class="horizontal_middle no_select">
+        <p id="auth_title_p" class="horizontal_middle">SAT-Tracking</p>
+        <p id="auth_slogan_p" class="horizontal_middle">Whatever you wanna say</p>
+        <div id="auth_switcher_div" class="horizontal_middle">
+            <a id="login_a" href="{{ url_for('auth.login') }}">Login</a> |
+            <a id="register_a" style="font-weight: bold;" href="">Register</a>
+        </div>
+
+        <div id="auth_form_div">
+            <!--Register Form-->
+            <form id="register_form" method="post" action="{{ url_for('auth.register') }}">
+                <label id="register_email_label" class="user_input" for="email">
+                    <input id="register_email_input" type="text" name="email" class="horizontal_middle txt_placeholder" required placeholder="Email" />
+                    <span id="register_email_span"></span>
+                </label>
+                <label id="register_password_label" class="user_input" for="password">
+                    <input id="register_password_input" type="password" name="password" class="horizontal_middle txt_placeholder" required placeholder="Password" />
+                    <span id="register_password_span"></span>
+                </label>
+                <label id="register_repassword_label" class="user_input" for="repassword">
+                    <input id="register_repassword_input" type="password" name="repassword" class="horizontal_middle txt_placeholder" required placeholder="Confirm Password" />
+                    <span id="register_repassword_span"></span>
+                </label>
+                <label id="register_submit_label" class="sat_track_submit horizontal_middle" for="submit">
+                    <input id="register_submit_input" type="submit" name="submit" value="Register" />
+                </label>
+                <input id="register_csrf_input" type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            </form>
+
+        </div>
+
+        <a href="" id="how_to_a">How to use SAT-Track?</a>
+    </div>
+    <script src="../static/scripts/lib/jquery-1.10.2.js"></script>
+     <script src="../static/scripts/src/cookie.js"></script>
+    <script src="../static/scripts/src/register.js"></script>
+</body>
+</html>

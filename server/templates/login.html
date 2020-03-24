@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{{ title }} - SAT-Tracking</title>
+    <link rel="stylesheet" type="text/css" href="../static/contents/layout.css" />
+    <link rel="stylesheet" type="text/css" href="../static/contents/auth.css" />
+    <script src="../static/scripts/lib/modernizr-2.6.2.js"></script>
+</head>
+
+<body>
+     <!-- top navigator -->
+    <div id="top_bar_div">
+        <div id="page_link_div" class="no_select">
+            <a id="sat_track_title" class="no_select" href="">SAT-Tracking</a>
+        </div>
+    </div>
+
+    <!-- login/register form -->
+    <div id="authority_block_div" class="horizontal_middle no_select">
+        <p id="auth_title_p" class="horizontal_middle">SAT-Tracking</p>
+        <p id="auth_slogan_p" class="horizontal_middle">Whatever you wanna say</p>
+        <div id="auth_switcher_div" class="horizontal_middle">
+            <a id="login_a" style="font-weight: bold;" href="">Login</a> |
+            <a id="register_a" href="{{ url_for('auth.register') }}">Register</a>
+        </div>
+
+        <div id="auth_form_div">
+            <!--Login Form-->
+            <form id="login_form" method="post" action="{{ url_for('auth.login') }}">
+                <label id="login_email_label" class="user_input" for="email">
+                    <input id="login_email_input" type="text" name="email" class="horizontal_middle txt_placeholder" required placeholder="Email" />
+                    <span id="login_account_span"></span>
+                </label>
+                <label id="login_password_label" class="user_input" for="password">
+                    <input id="login_password_input" type="password" name="password" class="horizontal_middle txt_placeholder" required placeholder="Password" />
+                    <span id="login_password_span"></span>
+                </label>
+                <label id="remember_checkbox_label" for="remember_me">
+                    <input type="checkbox" name="remember_me" />
+                    <p>Auto login</p>
+                </label>
+                <a href="" id="forget_password_a">Forget password?</a>
+                <label id="login_submit_label" class="sat_track_submit horizontal_middle" for="submit">
+                    <input id="login_submit_input" type="submit" name="submit" value="Login" />
+                </label>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            </form>
+
+        </div>
+
+        <a href="" id="how_to_a">How to use SAT-Track?</a>
+    </div>
+    <script src="../static/scripts/lib/jquery-1.10.2.js"></script>
+     <script src="../static/scripts/src/cookie.js"></script>
+    <script src="../static/scripts/src/login.js"></script>
+</body>
+</html>

@@ -129,8 +129,22 @@
     color: white;
 }
 
+#back_to_top {
+    position: fixed;
+    bottom: 80px;
+    margin-left: 110px;
+    width: 45px;
+    height: 40px;
+    cursor: pointer;
+    background: url(../assets/ui/top.png) 0 0 no-repeat;
+    background-size: 45px 40px;
+    opacity: 0.3;
+    z-index: 5;
+}
 
-
+#back_to_top:hover {
+    opacity: 0.9;
+}
 
 
 

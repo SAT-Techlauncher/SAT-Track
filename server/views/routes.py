@@ -1,30 +1,8 @@
-from flask import request, current_app, render_template, jsonify, redirect, session, url_for, g
-import json
-from server.views import bp
+from . import *
+from . import routes_bp
 
 # app routes
-@bp.route('/', methods=['GET'])
-def index():
-    # user_id = session.get('user_id')
-    # if user_id is None:
-    #     g.user = None
-    #     return redirect(url_for('auth.login'))
-    return render_template('index.html', title = "Index")
-
-@bp.route('/test_error_log', methods=['GET', 'POST'])
-def test_error_log():
-    try:
-        x = 1 / 0
-    except Exception as e:
-        current_app.logger.error('[Calculating error] x = 1 / 0')
-    return 'testErrorLog'
-
-@bp.route('/version', methods=['GET', 'POST'])
-def version():
-    # test version auto-update
-    return 'test version 0.0.01'
-
-@bp.route('/search_satellite', methods=['GET', 'POST'])
+@routes_bp.route('/search_satellite', methods=['GET', 'POST'])
 def search_satellite():
     """
     1. Get satellite id from frontend.
@@ -53,18 +31,24 @@ def search_satellite():
 
     return 'None'
 
+@routes_bp.route('/getPriorityList', methods=['GET'])
+def get_priority_list():
+    if request.method == 'GET':
+        user_id = session.get('user_id')
 
-@bp.route('/register', methods=('GET', 'POST'))
-def register():
-    return render_template('register.html', title="Register")
 
 
-@bp.route('/login', methods=('GET', 'POST'))
-def login():
-    return render_template('login.html', title="Login")
+        return jsonify(
+            code=RET.OK,
+        )
+
+    return jsonify(
+        code=RET.SNTERR
+    )
+
 
 # log recording api request
-@bp.before_request
+@routes_bp.before_request
 def before_app_request():
     api_name = request.url
     user_ip = request.remote_addr
@@ -81,7 +65,7 @@ def before_app_request():
                             % (api_name, user_ip, user_name))
 
 # log report api response
-@bp.after_request
+@routes_bp.after_request
 def after_app_request(response):
     api_name = request.url
     user_ip = request.remote_addr
@@ -96,3 +80,8 @@ def after_app_request(response):
         current_app.logger.info('{"api_name": "%s", "user_ip": "%s", "user_name": "%s", "status_code":"%s"}' % (
         api_name, user_ip, user_name, response.status_code))
     return response
+
+
+@view_bp.route('/test', methods=['GET'])
+def test():
+    return 'data of a satellite'

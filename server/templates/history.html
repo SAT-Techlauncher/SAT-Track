@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SAT-Track</title>
+    <title>{{ title }} - SAT-Track</title>
     <link rel="stylesheet" type="text/css" href="../static/contents/layout.css" />
-    <link rel="stylesheet" type="text/css" href="../static/contents/index.css" />
-    <link rel="stylesheet" type="text/css" href="../static/contents/task.css" />
     <script src="../static/scripts/lib/modernizr-2.6.2.js"></script>
 </head>
 <body>
@@ -29,8 +27,7 @@
 
     <!-- left navigator -->
     <div id="navigator_div">
-        <div class="drop_down_content"><a href="">My info</a></div>
-        <div class="drop_down_content"><a href="./history.html">Data history</a></div>
+        <div class="drop_down_content"><a href="">Profile</a></div>
         <div class="drop_down_content"><a href="">Setting</a></div>
         <div class="drop_down_content"><a href="">About us</a></div>
         <div class="drop_down_content"><a href="">Contacts</a></div>
@@ -41,30 +38,6 @@
     <!-- main interface -->
     <div id="main_interface_div">
 
-        <div id="satellite_input_div">
-            <form>
-                <input id="satellite_input" type="text" placeholder="Please input a satellite number ...">
-                <input id="submit_button" type="submit" value="Search" class="sat_track_submit">
-            </form>
-        </div>
-
-        <div id="data_output_div">
-            <div id="data_output_table">
-                long: 13;<br>lat: 85;
-            </div>
-        </div>
-
-        <div id="priority_list_div">
-            <div id="priority_list">
-                <div id="priority_list_layer"></div>
-                <div id="task_placeholder_head">Your priority list</div>
-                <div id="tasks">
-
-                </div>
-                <div id="task_placeholder_tail">No more tasks...</div>
-                <div id="back_to_top"></div>
-            </div>
-        </div>
     </div>
 
     <script src="../static/scripts/lib/jquery-1.10.2.js"></script>

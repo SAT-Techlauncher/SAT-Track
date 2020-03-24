@@ -216,7 +216,7 @@ body {
     margin-left: 20px;
 }
 
-#navigator_div .drop_down_content:nth-child(5) {
+#navigator_div .drop_down_content:nth-last-child(2) {
     margin-top: 50px;
 }
 

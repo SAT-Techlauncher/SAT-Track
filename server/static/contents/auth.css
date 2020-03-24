@@ -1,0 +1,189 @@
+.horizontal_middle {
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#authority_block_div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 480px;
+    background-color: #fff;
+    box-shadow: 0 2px 1px 0 #99bcd7;
+}
+
+#auth_title_p {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    font-size: 23pt;
+}
+
+#auth_slogan_p {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    font-family: Calibri;
+    font-size: 12pt;
+    font-style: italic;
+}
+
+#auth_switcher_div {
+    position: absolute;
+    top: 130px;
+    left: 50%;
+}
+
+    #auth_switcher_div a {
+        text-decoration: none;
+        font-size: 14pt;
+        color: #4c4cc0;
+    }
+
+        #auth_switcher_div a:hover {
+            color: #000717;
+        }
+
+#how_to_a {
+    position: absolute;
+    bottom: 30px;
+    left: 130px;
+    font-size: 10pt;
+}
+
+    #how_to_a:hover {
+        color: #000717;
+    }
+
+.txt_placeholder::-webkit-input-placeholder { /* WebKit browsers */
+    color: #a5a5a5;
+    font-size: 12pt;
+}
+
+.txt_placeholder:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #a5a5a5;
+    font-size: 12pt;
+}
+
+.txt_placeholder::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #a5a5a5;
+    font-size: 12pt;
+}
+
+.txt_placeholder:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: #a5a5a5;
+    font-size: 12pt;
+}
+
+.user_input {
+    left: 50%;
+}
+    .user_input input {
+        width: 250px;
+        height: 30px;
+        border: 2px solid #266195;
+        font-size: 12pt;
+        outline: none;
+    }
+    .user_input span {
+        position: absolute;
+        top: 20px;
+        left: -50%;
+        font-size: 7.5pt;
+    }
+
+#login_form {
+    position: absolute;
+    top: 195px;
+    left: 50%;
+}
+
+#login_email_label {
+    position: absolute;
+    top: 0px;
+}
+
+#login_password_label {
+    position: absolute;
+    top: 65px;
+}
+
+#remember_checkbox_label {
+    position: absolute;
+    top: 105px;
+    left: -133px;
+}
+
+    #remember_checkbox_label input {
+        float: left;
+        zoom: 150%;
+    }
+
+    #remember_checkbox_label p {
+        float: left;
+        margin-top: 3px;
+        left: 10px;
+        font-size: 10pt;
+        color: #000717;
+    }
+
+#forget_password_a {
+    position: absolute;
+    top: 108px;
+    left: 15px;
+    width: 120px;
+    font-size: 10pt;
+    text-decoration: none;
+}
+
+    #forget_password_a:hover {
+        color: #000717;
+    }
+
+#login_submit_label {
+    position: absolute;
+    top: 180px;
+    left: 50%;
+}
+
+    #login_submit_label input {
+        width: 160px;
+        border-radius: 5px;
+    }
+
+
+#register_form {
+    position: absolute;
+    top: 195px;
+    left: 50%;
+}
+
+#register_email_label {
+    position: absolute;
+    top: 0px;
+}
+
+#register_password_label {
+    position: absolute;
+    top: 65px;
+}
+
+#register_repassword_label {
+    position: absolute;
+    top: 130px;
+}
+
+#register_submit_label {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+}
+
+    #register_submit_label input {
+        width: 160px;
+        border-radius: 5px;
+    }

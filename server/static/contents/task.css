@@ -1,0 +1,97 @@
+.task {
+    position: relative;
+    float: left;
+    margin-top: 7px;
+    margin-left: 10px;
+    width: 250px;
+    height: 70px;
+    background-color: #fff;
+    box-shadow: 0 2px 1px 0 #99bcd7;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.satellite_name {
+    position: absolute;
+    top: 0;
+    left: 40px;
+    font-size: 20px;
+    z-index: 2;
+}
+
+.order_up {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background: url(../assets/ui/up_arrow.png) 0 0 no-repeat;
+    background-size: 20px 20px;
+    opacity: 0.6;
+    z-index: 3;
+}
+
+.order_up:hover {
+    opacity: 0.9;
+}
+
+.order_down {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background: url(../assets/ui/down_arrow.png) 0 0 no-repeat;
+    background-size: 20px 20px;
+    opacity: 0.6;
+    z-index: 3;
+}
+
+.order_down:hover {
+    opacity: 0.9;
+}
+
+.delete_task {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background: url(../assets/ui/delete_button.png) 0 0 no-repeat;
+    background-size: 30px 30px;
+    opacity: 0.4;
+}
+
+        .delete_task:hover {
+            opacity: 0.9;
+        }
+
+        .delete_task:active {
+            width: 29px;
+            height: 29px;
+            background-size: 29px 29px;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
