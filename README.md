@@ -40,3 +40,4 @@ Our team consists of six members, all Australian National University students, w
 * [Group Members](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Group-members)
 * [Trello](https://trello.com/b/0Rm060eC/satellites-track-system)
 * [Gantt Chart](https://github.com/SAT-Techlauncher/SAT-Track/blob/master/Sate_Track%20Gant%20Chart%20version%2024_03_20.xlsx)
+* [Deliverable](https://github.com/SAT-Techlauncher/SAT-Track/blob/master/Deliverables.docx)
