@@ -15,7 +15,7 @@ The SAT-Track project aims to provide a method for successfully tracking overhea
 * [Introduction & Background](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Introduction-&-Background)
 * [Problem & Requirement](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Problem-&-Requirements)
 * [Our goals](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Our-goals)
-* [Cost & Risk](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Cost-&-Risk)
+* [Risk Management](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Cost-&-Risk)
 * [Statement of Work](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Statement-of-Work)
 
 ## Project Stakeholders
