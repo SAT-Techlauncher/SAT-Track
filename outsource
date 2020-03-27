@@ -1,4 +1,4 @@
-redist: https://github.com/microsoftarchive/redis/releases/tag/win-2.8.2401
+redis: https://github.com/microsoftarchive/redis/releases/tag/win-2.8.2401
 elasticsearch: https://www.elastic.co/cn/downloads/past-releases/elasticsearch-6-5-0
 elasticsearch-head: https://github.com/mobz/elasticsearch-head
 nodejs: https://nodejs.org/en/
