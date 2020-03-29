@@ -1,8 +1,10 @@
-from flask import Flask
 import logging
-from logging.handlers import RotatingFileHandler, SMTPHandler
+from logging.handlers import RotatingFileHandler
+
+from flask import Flask
 from flask_cors import CORS
-from config import LOG_PATH
+
+from config import conf
 
 app = Flask(__name__)
 
@@ -17,7 +19,7 @@ CORS(app, supports_credentials=True,
 
 # server log
 #  log size: maxBytes=1024000, remain logs number: backupCount
-file_handler = RotatingFileHandler(LOG_PATH, maxBytes=1024000, backupCount=100, encoding='utf-8')
+file_handler = RotatingFileHandler(conf.LOG_PATH, maxBytes=1024000, backupCount=100, encoding='utf-8')
 app.logger.setLevel(logging.INFO)  # control the logger level
 logging_format = logging.Formatter(
     '[%(asctime)s][%(filename)s:%(lineno)d][%(levelname)s][%(thread)d] - %(message)s')
@@ -34,10 +36,10 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
-from server.models.model import User
+from server.services.data_storage_service import UserManager
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(user_id)
+    return UserManager.get(user_id)
 
 from server.views.routes import routes_bp
 from server.views.view import view_bp
@@ -47,11 +49,11 @@ app.register_blueprint(routes_bp)
 app.register_blueprint(view_bp)
 app.register_blueprint(auth_bp)
 
-from server.controllers import user_info_pool, user_satelites_pool, satellite_users_pool
-user_info_pool.show()
-user_satelites_pool.show()
-satellite_users_pool.show()
+from server.controllers import user_info_pool
+if conf.CLEAR_REDIS:
+    user_info_pool.clear()
+else:
+    user_info_pool.show()
 
-from redis_pool import RedisOperator
-RedisOperator.clear()
-
+from server.services.redis_pool_io import RedisOperator
+# RedisOperator.show()

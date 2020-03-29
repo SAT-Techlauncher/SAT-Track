@@ -4,4 +4,7 @@ $(document).ready(function () {
 
     $('#login_email_input').val(email);
     $('#login_password_input').val(password);
+
+    setCookie('email', '');
+    setCookie('password', '');
 });

@@ -75,9 +75,51 @@
             background-size: 29px 29px;
         }
 
+@keyframes darkening {
+    0% {
+        background-color: #ffffff;
+    }
+    100% {
+        background-color: #fcff9b;
+    }
+}
 
+@-webkit-keyframes darkening {
+    0% {
+        background-color: #ffffff;
+    }
+    100% {
+        background-color: #fcff9b;
+    }
+}
 
+.darker {
+    animation: darkening 800ms 1;
+    -webkit-animation: darkening 800ms 1;
+}
 
+@keyframes lightening {
+    0% {
+        background-color: #fcff9b;
+    }
+    100% {
+        background-color: #ffffff;
+    }
+}
+
+@-webkit-keyframes lightening {
+    0% {
+        background-color: #fcff9b;
+    }
+    100% {
+        background-color: #ffffff;
+    }
+}
+
+.lighter {
+    animation: lightening 800ms 1;
+    -webkit-animation: lightening 800ms 1;
+}
 
 
 

@@ -6,9 +6,9 @@ def validate():
     if request.method == 'POST':
         email = request.form.get('email')
 
-        print(email, User.get(Utils.to_hash(email)))
+        print(email, UserManager.get(Utils.to_hash(email)))
 
-        if User.get(Utils.to_hash(email)) is not None:
+        if UserManager.get(Utils.to_hash(email)) is not None:
             print('user has been existed before register')
             return jsonify(
                 code=RET.AUTHERR
@@ -19,7 +19,7 @@ def validate():
         )
 
     return jsonify(
-        code=RET.SNTERR
+        code=RET.REQERR
     )
 
 
@@ -33,11 +33,11 @@ def register():
             password=Utils.to_hash(form.password.data)
         )
 
-        if User.get(Utils.to_hash(form.email.data)) is not None:
+        if UserManager.get(Utils.to_hash(form.email.data)) is not None:
             print('user has been existed when register')
             return redirect(url_for('auth.register', code=RET.OK))
 
-        User.create(user)
+        UserManager.create(user)
         print('user', user.to_dict())
 
         return redirect(url_for('auth.login'))
@@ -52,13 +52,13 @@ def login():
     password = Utils.to_hash(request.form.get('password'))
 
     if form.validate_on_submit():
-        validation, id = User.validate_user(email, password)
+        validation, id = UserManager.validate_user(email, password)
 
         if validation is RET.OK:
-            # session.clear()
-            # session['user_id'] = id
+            session.clear()
+            session['user_id'] = id
 
-            user = User.get(id)
+            user = UserManager.get(id)
             login_user(user, form.remember_me.data)
 
             return redirect(url_for('view.index'))
@@ -74,7 +74,24 @@ def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
-@auth_bp.before_app_request
-def load_logged_in_user():
-    user_id = session.get('user_id')
-    g.user = User.get(user_id) if user_id is not None else None
+# @auth_bp.before_app_request
+# def load_logged_in_user():
+#     user_id = session.get('user_id')
+#     g.user = User.get(user_id) if user_id is not None else None
+#
+# # log report api response
+# @auth_bp.after_request
+# def after_app_request(response):
+#     api_name = request.url
+#     user_ip = request.remote_addr
+#     try:
+#         user_name = request.remote_user
+#     except Exception as e:
+#         user_name = e
+#     response_data = response.json
+#     if str(response.status_code).startswith('4') or str(response.status_code).startswith('5') :
+#          current_app.logger.info('{"api_name": "%s", "user_ip": "%s", "user_name": "%s", "status_code":"%s"}' %(api_name, user_ip, user_name, response.status_code))
+#     else:
+#         current_app.logger.info('{"api_name": "%s", "user_ip": "%s", "user_name": "%s", "status_code":"%s"}' % (
+#         api_name, user_ip, user_name, response.status_code))
+#     return response

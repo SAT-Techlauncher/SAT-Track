@@ -7,11 +7,9 @@ def satellite_tracking(id):
     :return: data and information received from the tracked satellite
     """
 
-    from server.services import search_satellite_in_database
 
-
-    from server.services import fetch_satellite_location
-    location = fetch_satellite_location(id)
+    from server.services import fetch_satellite_info
+    location = fetch_satellite_info(id)
 
 
 

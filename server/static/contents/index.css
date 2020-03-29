@@ -99,6 +99,7 @@
     box-shadow: 0 2px 1px 0 #99bcd7;
     border-radius: 5px;
     cursor: pointer;
+    z-index: 7;
 }
 
 #task_placeholder_head {
@@ -139,7 +140,7 @@
     background: url(../assets/ui/top.png) 0 0 no-repeat;
     background-size: 45px 40px;
     opacity: 0.3;
-    z-index: 5;
+    z-index: 10;
 }
 
 #back_to_top:hover {
