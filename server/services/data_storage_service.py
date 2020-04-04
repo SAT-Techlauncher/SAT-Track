@@ -114,34 +114,19 @@ class PriorityManager:
             print('failed to insert', satellite_id)
             return RET.EXECERR, None
 
-
 class SatelliteManager:
     @staticmethod
-    def get(id):
-        res = satellite_database.get(id)
-        if res is not None:
-            return Satellite(
-                id=id,
-                name=res['name'],
-                long=res['long'],
-                lat=res['lat'],
-                data=res['data']
-            )
-        return None
-
-    @staticmethod
     def create(satellite):
-        satellite_database.set(str(satellite.id), {
+        satellite_pool.set(str(satellite.id), {
             'name': satellite.name,
             'long': satellite.long,
             'lat': satellite.lat,
-            'data': satellite.data
         })
-        satellite_database.show()
+        satellite_pool.show()
 
     @staticmethod
     def get(id):
-        res = satellite_database.get(str(id))
+        res = satellite_pool.get(str(id))
         if res is None:
             return None
 
@@ -150,5 +135,34 @@ class SatelliteManager:
             name=res['name'],
             long=res['long'],
             lat=res['lat'],
-            data=res['data']
         )
+
+    @staticmethod
+    def set(satellite):
+        satellite_pool.set(str(satellite.id), {'data': satellite.data})
+        print('set satellite(', satellite.id, ')\'s info:', satellite.data)
+
+    @staticmethod
+    def upload(satellite_shd):
+        executor = ThreadPoolExecutor(max_workers=conf.MAX_WORKERS)
+        ConcurrentTask(
+            executor,
+            task=SatelliteManager.upload_task,
+            targs=(satellite_database, satellite_shd, 0),
+            callback=SatelliteManager.upload_callback,
+            cargs=()
+        ).run()
+
+    @staticmethod
+    def upload_task(es_obj, data, placeholder):
+        print('es upload starts')
+        response = es_obj.upload_batch(data)
+        return response
+
+    @staticmethod
+    def upload_callback():
+        print('es upload ends')
+
+    @staticmethod
+    def search(query):
+        ...

@@ -1,6 +1,15 @@
+from flask_apscheduler import APScheduler
+from concurrent.futures import ThreadPoolExecutor
+
 from config import conf
 from server.models.status_code import *
+from server.services.es_io import ES
 from server.services.redis_pool_io import RedisPool
+from server.services.concurrent_task import ConcurrentTask, ConcurrentTaskPool
+from server.controllers.controller_manager import ControllerManager
+
+# 定时任务
+scheduler = APScheduler()
 
 # 用户信息池 { key : user_id, value: { email, password }}
 user_info_pool = RedisPool(conf.USER_POOL_NAME)
@@ -10,6 +19,6 @@ user_info_pool = RedisPool(conf.USER_POOL_NAME)
 # satellite_users_pool = RedisPool(conf.SATELLITE_USERS_POOL_NAME)
 
 # 卫星信息数据库 { key: sat_id, value: { name, location, data } }
-satellite_database = RedisPool(conf.ES_DATA_INDEX)
-# satellite_database = ES(ES_DATA_INDEX, create=True)
+satellite_pool = RedisPool(conf.ES_DATA_INDEX)
+satellite_database = ES(conf.ES_DATA_INDEX, create=True)
 

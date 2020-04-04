@@ -13,28 +13,21 @@ class ES:
     # 数据类型
     type = "doc"
     # 上传计数器
-    uploadCount = 0
+    upload_count = 0
     # 下载计数器
-    downloadCount = 0
+    download_count = 0
 
     def __init__(self, table, create=conf.ES_CREATE_ENABLE):
         self.table = table
 
         body = {
             "settings": {
-                "index.analysis.analyzer.default.type": "ik_max_word",
-                "index.analysis.analyzer.default_search.type": "ik_max_word",
                 "index.mapping.total_fields.limit": conf.ES_MAPPING_LIMIT,
             },
             "mappings": {
                 "doc": {
                     "properties": {
-                        "content": {
-                            "type": "text",
-                            "index_options": "offsets",
-                            "analyzer": "ik_max_word",
-                            "search_analyzer": "ik_max_word"
-                        }
+
                     }
                 }
             }
@@ -46,139 +39,7 @@ class ES:
             # 在es中创建对应数据
             es.indices.create(index=table, ignore=400, timeout=conf.ES_TIMEOUT, body=body)
 
-    def searchByKeywords(self, timestamp, keywords, time_range):
-        """
-
-        """
-        # 生成关键词查询字典
-        keywordQueryBody = []
-        for keyword in keywords:
-            keywordQueryBody.extend([{'term': {conf.DOWNLOAD_FIELD_0: keyword}}, {'match': {conf.DOWNLOAD_FIELD_1: keyword}}])
-
-        # query = timestamp - time_range < copyDate <= timestamp && (keyword1 in [field1, ...] || keyword2 in [] ...)
-        body = {
-            "query": {"bool": {"must": [
-                {"range": {conf.DOWNLOAD_FIELD_TIME: {"gt": timestamp - time_range, "lte": timestamp}}},
-                {"bool": {"should": keywordQueryBody}}
-            ]}},
-            "highlight": {
-                "pre_tags": ["<K>"],
-                "post_tags": ["</K>"],
-                "fields": {
-                    "content": {},
-                    "topkeyword": {}
-                }
-            },
-            "collapse": {
-                "field": "id.keyword"
-            },
-            "from": 0,
-            "size": conf.ES_QUERY_MAX_SIZE
-        }
-
-        # 进行查询下载操作, 其中最大下载数据条数从配置文件中获取
-        response = es.search(index=conf.ES_NEWS_INDEX, size=conf.ES_QUERY_MAX_SIZE, body=body)
-
-        # 若未查询到结果, 则返回空值
-        if 'hits' in response and 'total' in response['hits'] and response['hits']['total'] != 0:
-            data = []
-            for dt in response['hits']['hits']:
-                dtSource = dt['_source']
-                dtSource['highlight'] = [] if 'highlight' not in dt else dt['highlight']
-                data.append(dtSource)
-            return {'timestamp': timestamp, 'type': 'none', 'data': data}
-        return {'timestamp': timestamp, 'type': 'none', 'data': []}
-
-    def searchByKeyword(self, timestamp, keyword, time_range):
-        """
-        下载数据 (按 单个关键词 进行不分词查询)
-        :param timestamp: 当前时间戳
-        :param keyword: 待查询关键词
-        :param time_range: 查询时间范围
-        :param args: ['字段1']
-        :return: {
-                   'timestamp': (int),
-                   'type': (str),
-                   'data': [{'timestamp': (int), 'type': (str), 'query_keyword': (str), ...}, ...]
-                 }
-        """
-        # 生成关键词查询字典
-        keywordQueryBody = {
-            'match_phrase': {
-                conf.DOWNLOAD_FIELD_0: keyword
-            }
-        }
-
-        # query = timestamp - time_range < copyDate <= timestamp && keyword in field
-        body = {
-            "query": {
-                "bool": {
-                    "must": [{
-                        "range": {
-                            "copyDate": {
-                                "gt": timestamp - time_range,
-                                "lte": timestamp
-                            }
-                        }
-                    }, keywordQueryBody]
-                }
-            },
-            "from": 0,
-            "size": conf.ES_QUERY_MAX_SIZE
-        }
-        # 进行查询下载操作, 其中最大下载数据条数从配置文件中获取
-        response = es.search(index=self.table, size=conf.ES_QUERY_MAX_SIZE, body=body)
-
-        # 若未查询到结果, 则返回空值
-        self.downloadCount += 1
-        if 'hits' in response and 'total' in response['hits'] and response['hits']['total'] != 0:
-            res = {}
-            data = []
-            num = 0
-            for dt in response['hits']['hits']:
-                dtSource = dt['_source']
-                dtSource['query_keyword'] = keyword
-                data.append(dtSource)
-                if num == 0:
-                    res['timestamp'] = dtSource['timestamp']
-                    res['type'] = dtSource['type']
-            res['data'] = data
-            return res
-        return {'timestamp': timestamp, 'type': 'none', 'data': []}
-
-    def searchAll(self):
-        """
-        查询表中所有数据
-        :return: {
-                   'timestamp': (int),
-                   'type': (str),
-                   'data': [{'timestamp': (int), 'type': (str), 'query_keyword': (str), ...}, ...]
-                 }
-        """
-        # query = all
-        body = {
-            "query": {
-                "match_all": {}
-            }
-        }
-        # 进行查询下载操作, 其中最大下载数据条数从配置文件中获取
-        response = es.search(index=self.table, size=conf.ES_QUERY_MAX_SIZE, body=body)
-
-        # 若未查询到结果, 则返回空值
-        if 'hits' in response and 'total' in response['hits'] and response['hits']['total'] != 0:
-            res = {}
-            data = []
-            num = 0
-            for dt in response['hits']['hits']:
-                dtSource = dt['_source']
-                data.append(dtSource)
-                if num == 0:
-                    res['timestamp'] = dtSource['timestamp']
-            res['data'] = data
-            return res
-        return None
-
-    def uploadBatch(self, data):
+    def upload_batch(self, data):
         """
         批量上传数据 (使用helpers.bulk)
         :param data: 批量待上传数据, {'timestamp': (int), 'type': (str), 'data': [{'timestamp': (int), 'type': (str), ...}, ...]}
@@ -205,92 +66,100 @@ class ES:
 
         # 批量插入
         res = helpers.bulk(es, actions)
-        self.uploadCount += 1
+        self.upload_count += 1
         return res
 
-# 数据打包/解析类, 用于将数据打包成合法格式上传至es
-class Data:
-    # 待打包数据
-    data = None
-    # 基本类型字段的合法类型映射字典, {'字段1': '基本类型1', '字段2': '基本类型2', ...}
-    types = []
-
-    def __init__(self, data=None):
+# Sebastian's Harmonized Data
+class SHD:
+    """
+    data: 待打包数据
+    types: 为数据设置特殊报错属性类型 (暂时提供Integer, Float, String等类型)
+    parsed: 打包 / 解析状态
+    """
+    def __init__(self, data, **kwargs):
         self.data = data
+        self.types = kwargs
+        self.parsed = False
 
-    def parse(self, data):
-        """
-        打包映射数据 (外部方法)
-        :param data: 待打包数据
-        :return: 合法格式数据
-        """
-        return self.__parse(data)
+    # 一致化数据格式
+    def harmonize(self):
+        self.data = self.__harmonize(self.data)
+        return self.data
 
-    def extract_parse(self, data, *args):
-        """
-        打包并提取简略数据
-        :param data: 待打包数据
-        :param args: 待提取字段
-        :return: 合法格式原始数据, 合法格式简略数据
-        """
-        res = self.__parse(data)
-        lst = []
-        for ele in res['data']:
-            dic = {'timestamp': data['timestamp'], 'type': data['type']}
-            for arg in args:
-                dic[arg] = ele[arg]
-            lst.append(dic)
-        res_ = {'timestamp': data['timestamp'], 'type': data['type'], 'data': lst}
-        return res, res_
-
-    def __parse(self, data, **kwargs):
-        """
-        打包数据 (内部方法)
-        :param data: 待打包数据
-        :param kwargs: 待规范 字段-基本类型 参数, {'字段1': '基本类型1', '字段2': '基本类型2', ...}
-        :return: 合法格式数据
-        """
-        # 按待打包数据类型分配至不同打包方法
+    # 一致化 (内部方法)
+    def __harmonize(self, data, **kwargs):
         if str(type(data)) == "<class 'list'>":
-            res = self.__lst(data, **kwargs)
+            return self.__harmonize_lst(data, **kwargs)
         elif str(type(data)) == "<class 'dict'>":
-            res = self.__dic(data, **kwargs)
+            return self.__harmonize_dic(data, **kwargs)
         else:
-            res = self.__base(data, **kwargs)
+            return self.__base(data, **kwargs)
+
+    def __harmonize_lst(self, data, **kwargs):
+        res = []
+        for ele in data:
+            res.append(self.__harmonize(ele, **kwargs))
         return res
 
+    def __harmonize_dic(self, data, **kwargs):
+        res = {}
+        for k in data:
+            res.update({k: self.__harmonize(data[k], k=k)})
+        return res
+
+    # 打包映射数据
+    def parse(self):
+        res = self.data if self.parsed else self.__parse(self.data)
+        self.parsed = True
+        self.data = res
+        return self.data
+
+    # 打包数据 (内部方法)
+    def __parse(self, data, **kwargs):
+        if str(type(data)) == "<class 'list'>":
+            return self.__lst(data, **kwargs)
+        elif str(type(data)) == "<class 'dict'>":
+            return self.__dic(data, **kwargs)
+        else:
+            return self.__base(data, **kwargs)
+
+    # 打包列表 (内部方法)
     def __lst(self, data, **kwargs):
-        """
-        打包列表 (内部方法)
-        :param data: 待打包数据
-        :param kwargs: 待规范 字段-基本类型 参数, {'字段1': '基本类型1', '字段2': '基本类型2', ...}
-        :return: 合法格式列表数据
-        """
+        if data is []:
+            return {}
+
+        res = "{"
+        idx = 0
         for ele in data:
             sub = ele
             ele = self.__parse(sub)
-        return data
+            if str(type(ele)) == "<class 'str'>":
+                ele = "'" + ele + "'"
+            res += "'" + self.__idx(idx) + "'" + ": " + str(ele)
+            idx += 1
+            if idx != len(data):
+                res += ", "
 
+        res += "}"
+        try:
+            res = eval(res)
+        except:
+            res = {'_0_': None}
+        return res
+
+    # 打包字典 (内部方法)
     def __dic(self, data, **kwargs):
-        """
-        打包字典 (内部方法)
-        :param data: 待打包数据
-        :param kwargs: 待规范 字段-基本类型 参数, {'字段1': '基本类型1', '字段2': '基本类型2', ...}
-        :return: 合法格式字典数据
-        """
         for k in data.keys():
             sub = data[k]
             data[k] = self.__parse(sub, k=k)
+            if str(k).isdigit():
+                k_ = self.__key(k)
+                data.update({k_: data.pop(k)})
         res = data
         return res
 
+    # 打包基础类型 (内部方法)
     def __base(self, data, **kwargs):
-        """
-        打包基本类型数据 (内部方法)
-        :param data: 待打包数据
-        :param kwargs: 待规范 字段-基本类型 参数, {'字段1': '基本类型1', '字段2': '基本类型2', ...}
-        :return: 合法格式基本类型数据
-        """
         if 'k' in kwargs:
             k = kwargs['k']
             if k in self.types:
@@ -299,13 +168,68 @@ class Data:
         res = data
         return res
 
-    def set(self, **kwargs):
-        """
-        为es的映射设置特殊报错字段类型 (暂时提供Integer, Float, String等类型)
-        :param kwargs: 待规范 字段-基本类型 参数, {'字段1': '基本类型1', '字段2': '基本类型2', ...}
-        :return:
-        """
-        self.types = kwargs
+    # 解析映射数据
+    def unparse(self):
+        res = self.data if not self.parsed else self.__unparse(self.data)
+        self.parsed = False
+        self.data = res
+        return self.data
+
+    # 解析数据 (内部方法)
+    def __unparse(self, data, **kwargs):
+        if str(type(data)) != "<class 'dict'>":
+            return self.__unbase(data)
+        elif self.__a_idx() in data:
+            return self.__unlst(data)
+        else:
+            return self.__undic(data)
+
+    # 解析列表 (内部方法)
+    def __unlst(self, data, **kwargs):
+        lst = []
+        for k in data:
+            res = self.__unparse(data[k])
+            lst.append(res)
+        return lst
+
+    # 解析字典 (内部方法)
+    def __undic(self, data, **kwargs):
+        dic = {}
+        for k in data:
+            if self.__is_key(k):
+                k_ = self.__unkey(k)
+                data.update({k_: data.pop(k)})
+                k = k_
+            dic[k] = self.__unparse(data[k])
+        return dic
+
+    # 解析基础类型 (内部方法)
+    def __unbase(self, data, **kwargs):
+        return data
+
+    # 创建格式化数据中列表索引格式 '_n_'
+    def __idx(self, v):
+        return "_" + str(v) + "_"
+
+    # 格式化数据中键的规定索引格式 '_n_'
+    def __a_idx(self):
+        return "_" + str(0) + "_"
+
+    # 创建格式化数据中非法键的合法形式
+    def __key(self, v):
+        return "str_" + v
+
+    # 将合法形式的键还原
+    def __unkey(self, s):
+        return s[4:len(s)]
+
+    # 判断格式化数据中键是否被合法化
+    def __is_key(self, s):
+        pre = s[0:4]
+        post = s[4:len(s)]
+        if pre == "str_" and post.isdigit():
+            return True
+        return False
 
     def Integer(self, v):
         return int(v)

@@ -2,11 +2,18 @@ import datetime
 import time
 import hashlib
 import sys
+import pytz
 
 class Utils:
     @staticmethod
-    def get_current_unixtime():
-        return time.mktime(datetime.datetime.now().timetuple())
+    def get_current_time():
+        now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        timestamp = time.mktime(time.strptime(now, "%Y-%m-%d %H:%M:%S"))
+        return int(timestamp), str(now)
+
+    @staticmethod
+    def to_datetime(unixtime):
+        return datetime.datetime.fromtimestamp(unixtime, pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
 
     @staticmethod
     def to_hash(val):

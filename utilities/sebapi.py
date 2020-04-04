@@ -1,26 +1,9 @@
-class Simulation:
-    @staticmethod
-    def init_db(user_id, user_info_pool, satellite_database):
-        priority = [
-            {"id": "#000", "name": "GPS-xxx", "active": False, "executing": False},
-            {"id": "#002", "name": "SATELLITE", "active": True, "executing": False},
-            {"id": "#003", "name": "SEBASTIAN-2020", "active": False, "executing": False},
-            {"id": "#001", "name": "BEI-DOU", "active": True, "executing": False}
-        ]
-        origin = user_info_pool.get(user_id)
-        origin['priority'] = priority
-        user_info_pool.set(user_id, origin)
+"""
+Sebastian's Harmonized Data (SHD): dict => SHD format dict
+Sebastian's Objectified Dictionary (SOD): dict => json => class
+Sebastian's Multi-threading Tree (SMT): ?
+"""
 
-        satellite_database.set('#000', {'name': 'GPS-xxx', 'long': 0, 'lat': 0, 'data': 'GPS-data'})
-        satellite_database.set('#001', {'name': 'BEI-DOU', 'long': 10, 'lat': 10, 'data': 'BEI-data'})
-        satellite_database.set('#002', {'name': 'SATELLITE', 'long': -20, 'lat': 20, 'data': 'SAT-data'})
-        satellite_database.set('#003', {'name': 'SEBASTIAN-2020', 'long': -30, 'lat': 30, 'data': 'Seb-data'})
-
-    @staticmethod
-    def get_from_db(pool, id):
-        pool.get(id)
-
-# 数据 打包/解析 Sebastian's Harmonized Data (SHD)
 class SHD:
     """
     data: 待打包数据
@@ -34,9 +17,29 @@ class SHD:
 
     # 一致化数据格式
     def harmonize(self):
-        self.parse()
-        self.unparse()
+        self.data = self.__harmonize(self.data)
         return self.data
+
+    # 一致化 (内部方法)
+    def __harmonize(self, data, **kwargs):
+        if str(type(data)) == "<class 'list'>":
+            return self.__harmonize_lst(data, **kwargs)
+        elif str(type(data)) == "<class 'dict'>":
+            return self.__harmonize_dic(data, **kwargs)
+        else:
+            return self.__base(data, **kwargs)
+
+    def __harmonize_lst(self, data, **kwargs):
+        res = []
+        for ele in data:
+            res.append(self.__harmonize(ele, **kwargs))
+        return res
+
+    def __harmonize_dic(self, data, **kwargs):
+        res = {}
+        for k in data:
+            res.update({k: self.__harmonize(data[k], k=k)})
+        return res
 
     # 打包映射数据
     def parse(self):
@@ -171,59 +174,81 @@ class SHD:
     def String(self, v):
         return str(v)
 
-    class __Dict(dict):
-        __setattr__ = dict.__setitem__
-        __getattr__ = dict.__getitem__
-
-    def to_object(self):
-        if not self.parsed:
-            return None
-
-        return self.__to_object(self.data)
-
-    def __to_object(self, dic):
-        if not isinstance(dic, dict):
-            return dic
-
-        inst = self.__Dict()
-        for k, v in dic.items():
-            inst[k] = self.__to_object(v)
-        return inst
-
+    example = user = {'000': {'email': 'u6631954@anu.edu.au', 'password': '96e79218965eb72c92a549dd5a330112',
+                        'priority': [{'id': '0', 'name': 'GPS-xxx'}, {'id': 2, 'name': 'SATELLITE'},
+                                     {'id': 3, 'name': 'SEBASTIAN-2020'}, {'id': 1.0, 'name': 'BEI-DOU'}]}}
     @staticmethod
-    def test():
-        user = {'000': {'email': 'u6631954@anu.edu.au', 'password': '96e79218965eb72c92a549dd5a330112',
-                        'priority': [{'id': 0, 'name': 'GPS-xxx'}, {'id': 2, 'name': 'SATELLITE'},
-                                     {'id': 3, 'name': 'SEBASTIAN-2020'}, {'id': 1, 'name': 'BEI-DOU'}]}}
-
-        data = SHD(user)
-
+    def test_parse(dic):
+        data = SHD(
+            dic,
+            id=SHD.Integer
+        )
         print('parsed data' if data.parsed else 'unparsed data', ':\n   ', data.data, '\n')
 
         data.parse()
-
         print('parsed data' if data.parsed else 'unparsed data', ':\n   ', data.data, '\n')
-
-        obj = data.to_object()
-
-        print('obj:\n   ', obj.str_000, '\n')
 
         data.unparse()
-
         print('parsed data' if data.parsed else 'unparsed data', ':\n   ', data.data, '\n')
 
-'''
-Sebastian's Dictionary Objectification (SDO): dict => json => class
-'''
+    @staticmethod
+    def test_harmonize(dic):
+        data = SHD(
+            dic,
+            id=SHD.Float
+        )
+        print('harmonized data:\n   ', data.data)
 
+class Obj(dict):
+    def __init__(self, *args, **kwargs):
+        super(Obj, self).__init__(*args, **kwargs)
 
-class A:
-    def __init__(self, id, name):
-        self.__id=id
-        self.__name=name
+    def __getattr__(self, key):
+        value = super().__getitem__(key)
+        if isinstance(value, dict):
+            value = Obj(value)
+        return value
 
-    def to_dict(self):
-        return self.__dict__
+    def __setattr__(self, key, value):
+        super().__setattr__(key, value)
+        super().__setitem__(key, value)
 
-a = A(0, 4)
-print(a.to_dict())
+    def __getitem__(self, key):
+        raise TypeError('\'Obj\' object is not subscriptable')
+
+    def __setitem__(self, key, value):
+        raise TypeError('\'Obj\' object does not support item assignment')
+
+    def __str__(self):
+        return str(self.items())
+
+class SOD(Obj):
+    def __init__(self, data, **kwargs):
+        super().__init__(self.__harmonize(data, kwargs))
+
+    def __harmonize(self, data, types):
+        if isinstance(data, dict):
+            for k in data:
+                data[k] = self.__base(data[k], types, k=k)
+            return data
+        elif isinstance(data, int) or isinstance(data, float) or isinstance(data, str):
+            return data
+        else:
+            raise TypeError('\'SOD\' object only supports dict objectification')
+
+    def __base(self, data, types, **kwargs):
+        if 'k' in kwargs:
+            k = kwargs['k']
+            if k in types:
+                res = types[k](self, data)
+                return res
+        return data
+
+    def Integer(self, v):
+        return int(v)
+
+    def Float(self, v):
+        return float(v)
+
+    def String(self, v):
+        return str(v)

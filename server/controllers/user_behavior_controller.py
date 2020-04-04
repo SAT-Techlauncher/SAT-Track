@@ -1,5 +1,5 @@
 from server.controllers import *
-from server.services.data_storage_service import UserManager, PriorityManager
+from server.services.data_storage_service import UserManager, PriorityManager, SatelliteManager
 from server.services.satellite_location_service import fetch_satellite_info
 
 def controll_get_user_info(user_id):
@@ -7,7 +7,7 @@ def controll_get_user_info(user_id):
     if user is None:
         return RET.AUTHERR, None
 
-    return user
+    return RET.OK, user
 
 def controll_order_up_task(user_id, satellite_id):
     user = UserManager.get(user_id)
@@ -24,6 +24,9 @@ def controll_order_up_task(user_id, satellite_id):
 
 def controll_order_down_task(user_id, satellite_id):
     user = UserManager.get(user_id)
+    if user is None:
+        return RET.AUTHERR, None
+
     status, tasks = PriorityManager.order_down(user.priority, satellite_id)
     if status == RET.OK:
         user.priority = tasks
@@ -63,7 +66,13 @@ def controll_search_new_task(user_id, satellite_id):
     if user is None:
         return RET.AUTHERR, None
 
-    satellite = fetch_satellite_info(satellite_id)
+    satellite = SatelliteManager.get(satellite_id)
+    print('controll_search_new_task: satellite =', satellite)
+
+    satellite, shd = fetch_satellite_info(satellite_id) if satellite is None else satellite
+
+    # SatelliteManager.set(satellite)
+    SatelliteManager.upload(shd)
 
     status, tasks = PriorityManager.insert(user.priority, satellite)
     if status == RET.OK:
@@ -72,3 +81,4 @@ def controll_search_new_task(user_id, satellite_id):
         return RET.OK, tasks
 
     return status, None
+

@@ -9,7 +9,7 @@ def index():
     print('authenticated: ', user_id)
 
     if conf.CLEAR_REDIS:
-        from server.services.simulate_for_dev import Simulation
+        from utilities.simulate_for_dev import Simulation
         Simulation.init_db(user_id, user_info_pool, satellite_database)
 
     user_info_pool.show()
@@ -32,14 +32,18 @@ def get_user_info():
     if request.method == 'GET':
         user_id = session.get('user_id')
 
-        user = controll_get_user_info(user_id)
+        status, user = controll_get_user_info(user_id)
 
-        return jsonify(
-            code=RET.OK,
-            username=user.name,
-            priority=user.priority
-        )
-
+        if status == RET.OK:
+            return jsonify(
+                code=RET.OK,
+                username=user.name,
+                priority=user.priority
+            )
+        else:
+            return jsonify(
+                code=RET.SNTERR,
+            )
     return jsonify(
         code=RET.REQERR
     )

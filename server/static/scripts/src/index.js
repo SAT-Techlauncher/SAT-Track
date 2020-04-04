@@ -145,7 +145,8 @@ $(document).ready(function () {
     $('#submit_button').on('click', function (event) {
         event.preventDefault();
 
-        var satId = $('#satellite_input').val();
+        var input = $('#satellite_input');
+        var satId = input.val();
 
         $.get(
             '/searchNewTask',
@@ -161,8 +162,22 @@ $(document).ready(function () {
                 }
                 initTaskColor(tasks);
             }
-        )
+        );
+
+        $.get(
+            '/searchSatellite',
+            { 'id': satId },
+            function (data) {
+                if (data.code === 0) {
+                   var satelliteData = data.data;
+                }
+            }
+        );
+
+        input.val('');
     });
+
+    enter('#submit_button');
 
 });
 
@@ -194,4 +209,12 @@ function initTaskColor(tasks) {
         else
             $(task).css('background-color', '#ffffff');
     }
+}
+
+function enter(input) {
+    $(input).keydown(function (e) {
+        if (e.which === 13) {
+            $(input).click();
+        }
+    });
 }
