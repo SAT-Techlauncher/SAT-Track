@@ -1,0 +1,11 @@
+redis: https://github.com/microsoftarchive/redis/releases/tag/win-2.8.2401
+nodejs: https://nodejs.org/en/
+cnpm: npm install -g cnpm --registry=https://registry.npm.taobao.org (run in terminal after installing nodejs)
+grunt: npm install -g grunt -cli (run in terminal after installing nodejs)
+elasticsearch: https://www.elastic.co/cn/downloads/past-releases/elasticsearch-6-5-0
+elasticsearch-head: https://github.com/mobz/elasticsearch-head
+elasticsearch-analysis-ik: 1. cd .../elasticsearch-6.5.0/bin
+                           2. elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.5.0/elasticsearch-analysis-ik-6.5.0.zip
+
+
+installation: https://blog.csdn.net/qq_36819281/article/details/83963475
