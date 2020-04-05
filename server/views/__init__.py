@@ -12,6 +12,6 @@ from server.controllers.satellite_tracking_controller import controll_satellite_
 from server.models.form import LoginForm, RegisterForm
 from server.models.objects import User
 from server.services.data_storage_service import *
-from server.services.utils import Utils
 from server.models.status_code import RET
+from utilities.utils import Utils
 import json

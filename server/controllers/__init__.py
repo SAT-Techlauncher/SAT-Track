@@ -1,11 +1,9 @@
 from flask_apscheduler import APScheduler
-from concurrent.futures import ThreadPoolExecutor
 
 from config import conf
 from server.models.status_code import *
-from server.services.es_io import ES
-from server.services.redis_pool_io import RedisPool
-from server.services.concurrent_task import ConcurrentTask, ConcurrentTaskPool
+from utilities.es_io import ES
+from utilities.redis_pool_io import RedisPool
 from server.controllers.controller_manager import ControllerManager
 
 # 定时任务

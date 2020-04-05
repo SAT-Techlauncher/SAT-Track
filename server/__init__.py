@@ -55,5 +55,5 @@ if conf.CLEAR_REDIS:
 else:
     user_info_pool.show()
 
-from server.services.redis_pool_io import RedisOperator
-# RedisOperator.show()
+from utilities.redis_pool_io import RedisOperator
+RedisOperator.show()
