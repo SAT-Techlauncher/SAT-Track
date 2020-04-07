@@ -32,7 +32,7 @@ As stated above the end product will be run on a local system within Clearbox Sy
 Our team aims to document our discussions during team and client meetings through the use of minutes. Both these seperate meetings will take place weekly. We also aim to maintain a decision log to track key development choices and a reflection log to document our learning as a team. 
 * [Decision Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Decision-Log)
 * [Reflection Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Reflection-Log)
-* [Meeting Minutes](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Client-Meeting-Minutes)
+* [Meeting Minutes](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Meeting-Minutes)
 * [Team Work](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Team-Work)
 * [Weekly Reports](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Weekly-Reports)
 
