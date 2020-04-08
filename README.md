@@ -28,7 +28,6 @@ This project was proposed by [Clearbox Systems](http://www.clearboxsystems.com.a
 As stated above the end product will be run on a local system within Clearbox Systems. To aid Clearbox users and potential new teammates we will maitain documentation on how to use this project.
 * [Software Introduction](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Software-Introduction)
 * [How To Use](https://github.com/SAT-Techlauncher/SAT-Track/wiki/How-To-Use)
-* [Environment Requirements](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Environment-Requirements)
 
 ## Project Documentation <a id="3"></a>
 Our team aims to document our discussions during team and client meetings through the use of minutes. Both these seperate meetings will take place weekly. We also aim to maintain a decision log to track key development choices and a reflection log to document our learning as a team. 
