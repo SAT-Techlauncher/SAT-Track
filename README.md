@@ -1,6 +1,9 @@
 # Developing a Semi-Automated Satellite Tracking System (Sat-Track)
 This repository is for the semi-automated satellite tracking system project currently being run through the TechLauncher program at the Australian National University. 
 
+As the number of deployed satellites continues to increase, so does the need to have efficient, accurate and reliable monitoring of said satellites. Currently there are existing services such as [CelesTrak](https://celestrak.com/NORAD/elements/) that deliver various satellite's data such as position but they are not the whole picture. Our client requires more in depth data from these satellites and thus our project aims to allow them more efficient and accurate access to satellite data for spectrum analysis.
+
+
 ### Contents
 This repository utilises the GitHub wiki pages system to record team information and artifacts. For a more detailed list of available information, navigate to the [wiki](https://github.com/SAT-Techlauncher/SAT-Track/wiki), or simply use the following subheadings to find more specific information.
 * [Project Statement](#1)
@@ -12,7 +15,6 @@ This repository utilises the GitHub wiki pages system to record team information
 ## Project Statement <a id="1"></a>
 The SAT-Track project aims to provide a method for successfully tracking overhead systems without reliance on foreign data. The intention is to develop a satellite tracking system which is able to identify various satellites via spectrum analysis, position, and travel. Additionally a statement of work has been developed in collaboration with our client.
 
-* [Introduction & Background](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Introduction-&-Background)
 * [Problem & Requirement](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Problem-&-Requirements)
 * [Our goals](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Our-goals)
 * [Risk Management](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Risk-Management)
