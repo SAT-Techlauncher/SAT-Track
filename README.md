@@ -40,6 +40,8 @@ Our team aims to document our discussions during team and client meetings throug
 
 ## Group Members & Workflow <a id="5"></a>
 Our team consists of six members, all Australian National University students, who are completing degrees within Computer Science. For this project we divided the roles based on each members strengths but we plan to communicate often and are open to rotating roles should there be a need to do so. We manage tasks via Trello and evaluate and re-evaluate tasks at weekly meetings to manage progress. We also use Slack to communicate with our client and between members.
+
+We currently hold a team meeting via [Zoom](https://zoom.us/) every Tuesday and a client meeting every Friday, also via [Zoom](https://zoom.us/).
 * [Group Members](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Group-members)
 * [Gantt Chart](https://github.com/SAT-Techlauncher/SAT-Track/blob/master/Sat_Track%20Gantt%20Chart%207_4_20.xlsx)
 * [Deliverable](https://github.com/SAT-Techlauncher/SAT-Track/blob/master/Deliverables.docx)
