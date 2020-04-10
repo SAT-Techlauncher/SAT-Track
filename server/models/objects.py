@@ -103,16 +103,11 @@ class Task:
     def __str__(self):
         return str(self.to_dict())
 
-class Satellite:
-    def __init__(self, id, name, long, lat, data=None):
-        self.id = id
-        self.name = name
-        self.long = long
-        self.lat = lat
-        self.data = data
+class Satellite(SOD):
+    def __init__(self, dic, **kwargs):
+        super().__init__(dic, **kwargs)
 
-    def __str__(self):
-        return str(self.__dict__)
+
 
 
 

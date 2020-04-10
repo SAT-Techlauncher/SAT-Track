@@ -46,7 +46,7 @@ class BASE:
     DOWNLOAD_CONCURRENT_TASK_NUM = 3
 
     # 是否删除已存在的es索引表并建立新表
-    ES_CREATE_ENABLE = True
+    ES_CREATE_ENABLE = False
 
     CLEAR_REDIS = False
 

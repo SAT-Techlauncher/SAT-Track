@@ -16,8 +16,25 @@ class Utils:
         return datetime.datetime.fromtimestamp(unixtime, pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
 
     @staticmethod
+    def to_unixtime(datetime, format='%Y-%m-%d'):
+        return int(time.mktime(time.strptime(datetime, format)))
+
+    @staticmethod
     def to_hash(val):
         return hashlib.md5(val.encode('utf-8')).hexdigest() if val is not None else None
+
+    @staticmethod
+    def to_all_unixtime(date):
+        base = datetime.datetime.strptime('1970-01-01 08:00:00', '%Y-%m-%d %H:%M:%S')
+        date = datetime.datetime.strptime(date + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
+        return int((date - base).total_seconds())
+
+    @staticmethod
+    def to_all_datetime(unixtime, format='%Y-%m-%d'):
+        base = datetime.datetime.strptime('1970-01-01 08:00:00', '%Y-%m-%d %H:%M:%S')
+        date = datetime.datetime.fromtimestamp(abs(unixtime))
+        delta = int((date - base).days) if unixtime > 0 else - int((date - base).days)
+        return datetime.datetime.strftime(base + datetime.timedelta(days=delta, hours=-8), format)
 
 # 先入先出有序集合 (开发用)
 class LinkSetQueue():
@@ -92,3 +109,4 @@ class LinkSetQueue():
             index += 1
         res += ']'
         print(res)
+

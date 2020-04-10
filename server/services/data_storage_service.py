@@ -100,7 +100,7 @@ class PriorityManager:
     @staticmethod
     def insert(tasks, satellite):
         priority = Priority(tasks)
-        satellite_id = satellite.id
+        satellite_id = satellite.norad_id
         try:
             priority.insert(0, Task(
                 id=satellite_id,
@@ -116,53 +116,7 @@ class PriorityManager:
 
 class SatelliteManager:
     @staticmethod
-    def create(satellite):
-        satellite_pool.set(str(satellite.id), {
-            'name': satellite.name,
-            'long': satellite.long,
-            'lat': satellite.lat,
-        })
-        satellite_pool.show()
+    def get(info):
+        satellite_database.search(info)
 
-    @staticmethod
-    def get(id):
-        res = satellite_pool.get(str(id))
-        if res is None:
-            return None
 
-        return Satellite(
-            id=id,
-            name=res['name'],
-            long=res['long'],
-            lat=res['lat'],
-        )
-
-    @staticmethod
-    def set(satellite):
-        satellite_pool.set(str(satellite.id), {'data': satellite.data})
-        print('set satellite(', satellite.id, ')\'s info:', satellite.data)
-
-    @staticmethod
-    def upload(satellite_shd):
-        executor = ThreadPoolExecutor(max_workers=conf.MAX_WORKERS)
-        ConcurrentTask(
-            executor,
-            task=SatelliteManager.upload_task,
-            targs=(satellite_database, satellite_shd, 0),
-            callback=SatelliteManager.upload_callback,
-            cargs=()
-        ).run()
-
-    @staticmethod
-    def upload_task(es_obj, data, placeholder):
-        print('es upload starts')
-        response = es_obj.upload_batch(data)
-        return response
-
-    @staticmethod
-    def upload_callback():
-        print('es upload ends')
-
-    @staticmethod
-    def search(query):
-        ...

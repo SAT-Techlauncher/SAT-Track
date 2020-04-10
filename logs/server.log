@@ -686,3 +686,38 @@ Traceback (most recent call last):
   File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_location_service.py", line 32, in fetch_satellite_info
     executor = ThreadPoolExecutor(max_workers=conf.MAX_WORKERS)
 NameError: name 'conf' is not defined
+[2020-04-05 23:59:08,142][app.py:1891][ERROR][17352] - Exception on /searchNewTask [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 141, in search_new_task
+    status, tasks = controll_search_new_task(user_id, satellite_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\controllers\user_behavior_controller.py", line 69, in controll_search_new_task
+    satellite = SatelliteManager.get(satellite_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\data_storage_service.py", line 120, in get
+    satellite_database.search(info)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\utilities\es_io.py", line 115, in search
+    response = es.search(index=self.table, size=conf.ES_QUERY_MAX_SIZE, body=body)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\elasticsearch\client\utils.py", line 84, in _wrapped
+    return func(*args, params=params, **kwargs)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\elasticsearch\client\__init__.py", line 811, in search
+    "GET", _make_path(index, "_search"), params=params, body=body
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\elasticsearch\transport.py", line 358, in perform_request
+    timeout=timeout,
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\elasticsearch\connection\http_urllib3.py", line 257, in perform_request
+    self._raise_error(response.status, raw_data)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\elasticsearch\connection\base.py", line 182, in _raise_error
+    status_code, error_message, additional_info
+elasticsearch.exceptions.RequestError: RequestError(400, 'illegal_argument_exception', 'query malformed, empty clause found at [1:11]')

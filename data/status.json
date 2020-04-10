@@ -1,0 +1,1 @@
+[{"+": "Operational"}, {"-": "Nonoperational"}, {"P": "Partially Operational"}, {"B": "Backup/Standby"}, {"S": "Spare"}, {"X": "Extended Mission"}, {"D": "Decayed"}, {"?": "Unknown"}, {"*": "Active"}]

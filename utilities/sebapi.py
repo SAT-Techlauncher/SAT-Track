@@ -94,6 +94,9 @@ class SHD:
 
     # 打包基础类型 (内部方法)
     def __base(self, data, **kwargs):
+        if data == '' or data is None:
+            return None
+
         if 'k' in kwargs:
             k = kwargs['k']
             if k in self.types:
@@ -174,31 +177,6 @@ class SHD:
     def String(self, v):
         return str(v)
 
-    example = user = {'000': {'email': 'u6631954@anu.edu.au', 'password': '96e79218965eb72c92a549dd5a330112',
-                        'priority': [{'id': '0', 'name': 'GPS-xxx'}, {'id': 2, 'name': 'SATELLITE'},
-                                     {'id': 3, 'name': 'SEBASTIAN-2020'}, {'id': 1.0, 'name': 'BEI-DOU'}]}}
-    @staticmethod
-    def test_parse(dic):
-        data = SHD(
-            dic,
-            id=SHD.Integer
-        )
-        print('parsed data' if data.parsed else 'unparsed data', ':\n   ', data.data, '\n')
-
-        data.parse()
-        print('parsed data' if data.parsed else 'unparsed data', ':\n   ', data.data, '\n')
-
-        data.unparse()
-        print('parsed data' if data.parsed else 'unparsed data', ':\n   ', data.data, '\n')
-
-    @staticmethod
-    def test_harmonize(dic):
-        data = SHD(
-            dic,
-            id=SHD.Float
-        )
-        print('harmonized data:\n   ', data.data)
-
 class Obj(dict):
     def __init__(self, *args, **kwargs):
         super(Obj, self).__init__(*args, **kwargs)
@@ -252,3 +230,7 @@ class SOD(Obj):
 
     def String(self, v):
         return str(v)
+
+'''
+多线程归并排序
+'''

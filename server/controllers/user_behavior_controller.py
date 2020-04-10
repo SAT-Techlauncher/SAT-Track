@@ -1,6 +1,6 @@
 from server.controllers import *
 from server.services.data_storage_service import UserManager, PriorityManager, SatelliteManager
-from server.services.satellite_location_service import fetch_satellite_info
+from server.services.satellite_search_service import fetch_satellite_info
 
 def controll_get_user_info(user_id):
     user = UserManager.get(user_id)
@@ -68,11 +68,6 @@ def controll_search_new_task(user_id, satellite_id):
 
     satellite = SatelliteManager.get(satellite_id)
     print('controll_search_new_task: satellite =', satellite)
-
-    satellite, shd = fetch_satellite_info(satellite_id) if satellite is None else satellite
-
-    # SatelliteManager.set(satellite)
-    SatelliteManager.upload(shd)
 
     status, tasks = PriorityManager.insert(user.priority, satellite)
     if status == RET.OK:

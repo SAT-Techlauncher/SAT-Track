@@ -12,103 +12,7 @@ import time
 import json
 import math
 from concurrent.futures.thread import ThreadPoolExecutor
-
-# 单个并发任务类, 实现python异步非阻塞函数
-class ConcurrentTask:
-    def __init__(self, executor, task=None, callback=None, targs=None, cargs=None):
-        """
-        init
-        :param executor: python.concurrent.futures ThreadingPoolExecutor实例
-        :param task: 并发任务函数
-        :param callback: 回调函数
-        :param targs: 并发任务函数输入参数
-        :param cargs: 回调函数输入参数
-        """
-        self.task = task
-        self.callbackTask = callback
-        self.targs = targs
-        self.cargs = cargs
-        self.future = None
-        self.executor = executor
-
-    def run(self):
-        """
-        开启新线程运行并发任务并在有结果返回时运行回调函数
-        :return:
-        """
-        self.future = self.executor.submit(self.task, *self.targs)
-        if self.callbackTask is not None:
-            self.future.add_done_callback(self.__callback)
-
-    def __callback(self, future):
-        """
-        传入并发任务的返回结果并执行回调函数
-        :param future: python.concurrent.futures future实例
-        :return:
-        """
-        if self.callbackTask is None:
-            raise NotImplementedError
-        try:
-            self.callbackTask(*self.cargs, result=future.result())
-        except:
-            self.callbackTask(*self.cargs)
-
-    def getResult(self):
-        """
-        获取单个并发任务执行结果
-        :return: 执行结果
-        """
-        return self.future.result()
-
-# 多并发任务管理池
-class ConcurrentTaskPool:
-    def __init__(self, executor=None):
-        """
-        init
-        :param executor: python.concurrent.futures ThreadingPoolExecutor实例
-        """
-        self.tasks = []
-        self.executor = executor
-
-    def addTasks(self, tasks):
-        """
-        批量注册并执行并发任务
-        :param tasks: 并发任务列表 [ConcurrentTask, ConcurrentTask, ...]
-        :return:
-        """
-        for task in tasks:
-            task.future = self.executor.submit(task.task, *task.targs)
-            self.tasks.append(task)
-
-    def add(self, concurrentTask):
-        """
-        注册并执行并发任务
-        :param concurrentTask: 并发任务实例
-        :return:
-        """
-        concurrentTask.future = self.executor.submit(concurrentTask.task, *concurrentTask.targs)
-        self.tasks.append(concurrentTask)
-
-    def getResults(self, wait=False):
-        """
-        获取并发任务执行结果 (当最晚执行完毕的任务结束后返回结果, 此间线程阻塞)
-        :param wait: 设定获取结果时线程是否阻塞
-        :return: 返回结果列表
-        """
-        self.executor.shutdown(wait=wait)
-        results = []
-        for task in self.tasks:
-            result = task.future.result()
-            # print('result: ', result)
-            results.append(result)
-        # 获取所有并发任务结果后清空任务列表
-        self.tasks.clear()
-        return results
-
-
-'''
-for dev
-'''
+from utilities.concurrent_task import ConcurrentTask, ConcurrentTaskPool
 
 class Spyder():
     def __init__(self,satellite_number):
@@ -312,3 +216,157 @@ NUM = 0
 #     print(excepts)
 #
 #     print('Running time (spyder):' + str(time.time() - timer))
+
+
+
+
+from bs4 import BeautifulSoup as bs
+import requests
+import json
+
+URL = 'http://doc.chacuo.net/iso-3166-1'
+RAW_DIR = '../data/raw_iso_country_code.html'
+RIPE_DIR = '../data/iso_country_code.json'
+
+class Code:
+    def __init__(self, code_2, code_3, number, iso_code, country):
+        self.code_2 = code_2
+        self.code_3 = code_3
+        self.number = number
+        self.iso_code = iso_code
+        self.country = country
+
+    def __str__(self):
+        res = ''
+        res += str(self.code_2) + ', '
+        res += str(self.code_3) + ', '
+        res += str(self.number) + ', '
+        res += str(self.iso_code) + ', '
+        res += str(self.country)
+        return res
+
+    def keys(self):
+        return ('code_2', 'code_3', 'number', 'iso_code', 'country')
+
+    def __getitem__(self, item):
+        return getattr(self, item)
+
+def get_iso_country_codes(manually=True):
+    if not manually:
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+        }
+
+        url = URL
+
+        r = requests.get(url=url, headers=headers)
+        html = r.content.decode('utf-8')
+    else:
+        with open(RAW_DIR, 'r', encoding='utf-8') as f:
+            html = f.read()
+
+    soup = bs(html, 'html.parser')
+    raw_codes = soup.find_all('tr')
+    codes = []
+
+    for raw_code in raw_codes:
+        tds = raw_code.find_all('td')
+
+        try:
+            code_2 = tds[0].text
+            code_3 = tds[1].text
+            number = tds[2].text
+            iso_code = tds[3].text
+            country = tds[4].text
+
+            code = Code(code_2, code_3, number, iso_code, country)
+            codes.append(code)
+        except:
+            continue
+
+    lst = []
+    for code in codes:
+        lst.append(dict(code))
+
+    with open(RIPE_DIR, 'w') as file:
+        file.write(json.dumps(lst))
+
+# if __name__ == '__main__':
+#     get_iso_country_codes()
+
+
+
+from bs4 import BeautifulSoup as bs
+import requests
+import json
+
+URL = 'https://celestrak.com/satcat/maps/map' + '^_^' + '.php'
+URL_ = 'https://www.celestrak.com/satcat/launchsites.php'
+INDEX_DIR = '../data/satellites.json'
+RIPE_DIR = '../data/launch_sites.json'
+
+def get_launch_sites():
+    with open(INDEX_DIR, 'r') as file:
+        satellites = json.loads(file.read())
+
+    launch_sites = set()
+    for satellite in satellites:
+        launch_sites.add(satellite['launch_site'])
+
+    lst = []
+    for site in launch_sites:
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+            url = URL.replace('^_^', site)
+            r = requests.get(url=url, headers=headers)
+            html = r.content.decode('utf-8')
+
+            soup = bs(html, 'html.parser')
+            launch_site = soup.find_all('h2')[0].text
+            lst.append({site: str(launch_site)})
+            print(site, launch_site)
+        except:
+            print('error', site)
+
+    with open(RIPE_DIR, 'w') as file:
+        file.write(json.dumps(lst))
+
+'''
+WSC Wenchang Satellite Launch Center
+SUBL Submarine Launch Platform (mobile)
+WRAS Western Range Airspace
+ERAS Eastern Range Airspace
+'''
+
+# if __name__ == '__main__':
+#     get_launch_sites()
+
+
+RIPE_DIR = '../data/status.json'
+STATUS = [
+    '+  Operational',
+    '-  Nonoperational',
+    'P  Partially Operational',
+    'B  Backup/Standby',
+    'S  Spare',
+    'X  Extended Mission',
+    'D  Decayed',
+    '?  Unknown',
+    '*  Active'
+    ]
+
+def get_status():
+    status = STATUS
+
+    lst = []
+    for stat in status:
+        kv = stat.split('  ')
+        k, v = kv[0], kv[1]
+        lst.append({k: v})
+
+    with open(RIPE_DIR, 'w') as file:
+        file.write(json.dumps(lst))
+
+if __name__ == '__main__':
+    get_status()
