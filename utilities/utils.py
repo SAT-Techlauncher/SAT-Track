@@ -3,6 +3,7 @@ import time
 import hashlib
 import sys
 import pytz
+import math
 
 class Utils:
     @staticmethod
@@ -110,3 +111,20 @@ class LinkSetQueue():
         res += ']'
         print(res)
 
+# 近似等分数组
+def approx_bisection(lst, slice_num=5, dynamic_min=5):
+    slices = []
+    length = len(lst)
+
+    # 若数据条数大于最小设定值, 则执行分组; 否则, 不执行分组
+    if length >= dynamic_min:
+        # 近似等分数据
+        for i in range(slice_num):
+            ptr = math.floor(i / slice_num * length)
+            ptr_ = math.floor((i + 1) / slice_num * length)
+            slice = lst[ptr: ptr_]
+            slices.append(slice)
+    else:
+        slices.append(lst)
+
+    return slices

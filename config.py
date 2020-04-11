@@ -50,4 +50,10 @@ class BASE:
 
     CLEAR_REDIS = False
 
+
+    # 文本分析语料库
+    RAW_TEXT_ = os.path.dirname(__file__) + '/data/'
+    RIPE_TEXT_ = os.path.dirname(__file__) + '/data/lib/'
+
+
 conf = BASE
