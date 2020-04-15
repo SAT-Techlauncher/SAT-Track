@@ -12,6 +12,12 @@ with open(conf.RIPE_TEXT_ + 'countries_words.json', 'r', encoding='unicode_escap
     COUNTRIES_WORDS = json.loads(f.read())
 with open(conf.RIPE_TEXT_ + 'countries_fullname.json', 'r', encoding='unicode_escape') as f:
     COUNTRIES_NAMES = json.loads(f.read())
+with open(conf.RIPE_TEXT_ + 'sources_abbrev.json', 'r') as f:
+    SOURCES_ABBREV = json.loads(f.read())
+with open(conf.RIPE_TEXT_ + 'sources_words.json', 'r', encoding='unicode_escape') as f:
+    SOURCES_WORDS = json.loads(f.read())
+with open(conf.RIPE_TEXT_ + 'sources_fullname.json', 'r', encoding='unicode_escape') as f:
+    SOURCES_NAMES = json.loads(f.read())
 
 DIGIT_RATE, ALPHA_RATE, SIGN_RATE = 0.7357, 0.1591, 0.1051
 DIGIT_DIST_RANGE, ALPHA_DIST_RANGE, SIGN_DIST_RANGE = [-1.0, -0.6667], [0.6667, 1.0445], [-0.3015, 0.0]
@@ -27,7 +33,7 @@ ADVERBS = ['not', 'and', 'or', 'either', 'neither', 'nor', 'on', 'off', 'in', 'd
 with open(conf.RIPE_TEXT_ + 'stop_words.json', 'r') as f:
     STOP_WORDS = json.loads(f.read())
 
-SPLIT_CHARS = {".", "/", ",", "_"}
+SPLIT_CHARS = {".", "/", ",", "_", "\\"}
 
 def edit_distance(word1, word2):
     len1 = len(word1)
@@ -135,6 +141,22 @@ def is_country(word, **ranks):
 
     return max([fullname_w_prox, iso_w_prox, full_name_prox])
 
+def is_source(word, **ranks):
+    if word.isdigit():
+        return 0.01
+
+    abbrevs = list(SOURCES_ABBREV.keys())
+    if word in abbrevs:
+        return 0.7
+
+    fullname_words, weights = SOURCES_WORDS.keys(), SOURCES_WORDS.values()
+    fullname_prox, fullname_idx = max_prox(str_prox, word, list(fullname_words), list(weights))
+    fullname_prox_, fullname_idx_ = max_prox(edit_distance_prox, word, list(fullname_words), list(weights))
+
+    fullname_w_prox = round(0.5 * fullname_prox + 0.5 * fullname_prox_, 4)
+
+    return fullname_w_prox
+
 def is_intl_code(word, **ranks):
     if not (8 <= len(word) <= 12 and '-' in word):
         return 0
@@ -198,7 +220,7 @@ def is_year(word, **ranks):
 
 def is_month(word, **ranks):
     if word.isdigit() and len(word) < 3 and 1 <= int(word) <= 12:
-        return 0.5
+        return 0.8
 
     months = ['January', 'February', 'March', 'April', 'May', 'June',
               'July', 'August', 'September', 'October', 'November', 'December']
@@ -231,7 +253,9 @@ def is_date(words, **ranks):
     proximities = []
     for rank in ranks:
         proximity = 0
-        for word in words.split(' '):
+        wlst = words.split(' ')
+
+        for word in wlst:
             hits = rank[word] if isinstance(rank[word], list) else [rank[word]]
 
             for hit in hits:
@@ -246,7 +270,21 @@ def is_date(words, **ranks):
                 else:
                     proximity += -1 * rate
 
-        if proximity <= 0:
+                if len(wlst) > 3:
+                    proximity += -1 * rate
+
+        first, last = rank[wlst[0]][0], rank[wlst[-1]][0]
+
+        if first == last:
+            proximity *= 0.5
+
+        if len(wlst) == 3:
+            if first != last and rank[wlst[1]][0] == is_month.__name__:
+                proximity *= 0.95
+            else:
+                proximity *= 0.5
+
+        if proximity <= 0 or proximity > 1:
             proximity = 0
 
         proximities.append(proximity)
@@ -287,7 +325,7 @@ from utilities.utils import approx_bisection
 from utilities.concurrent_task import ConcurrentTaskPool, ConcurrentTask
 from concurrent.futures.thread import ThreadPoolExecutor
 
-CLASSIFIERS = [is_country, is_day, is_month, is_year, is_noun, is_verb, is_adjective, is_intl_code, is_number, is_date]
+CLASSIFIERS = [is_number, is_day, is_month, is_year, is_date]
 
 def classify(word, ranks):
     classifiers = CLASSIFIERS

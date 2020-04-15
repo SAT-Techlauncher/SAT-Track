@@ -52,7 +52,7 @@ def get_user_info():
 def order_up_task():
     if request.method == 'GET':
         user_id = session.get('user_id')
-        satellite_id = request.args.get('id')
+        satellite_id = int(request.args.get('id'))
 
         status, tasks = controll_order_up_task(user_id, satellite_id)
 
@@ -73,7 +73,7 @@ def order_up_task():
 def order_down_task():
     if request.method == 'GET':
         user_id = session.get('user_id')
-        satellite_id = request.args.get('id')
+        satellite_id = int(request.args.get('id'))
 
         status, tasks = controll_order_down_task(user_id, satellite_id)
 
@@ -94,7 +94,7 @@ def order_down_task():
 def delete_task():
     if request.method == 'GET':
         user_id = session.get('user_id')
-        satellite_id = request.args.get('id')
+        satellite_id = int(request.args.get('id'))
 
         status, tasks = controll_delete_task(user_id, satellite_id)
 
@@ -115,7 +115,7 @@ def delete_task():
 def activate_task():
     if request.method == 'GET':
         user_id = session.get('user_id')
-        satellite_id = request.args.get('id')
+        satellite_id = int(request.args.get('id'))
 
         status, is_active = controll_activate_task(user_id, satellite_id)
 
@@ -136,7 +136,7 @@ def activate_task():
 def search_new_task():
     if request.method == 'GET':
         user_id = session.get('user_id')
-        satellite_id = request.args.get('id')
+        satellite_id = int(request.args.get('id'))
 
         status, tasks = controll_search_new_task(user_id, satellite_id)
 

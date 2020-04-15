@@ -184,16 +184,20 @@ $(document).ready(function () {
 function generateTasks(priority) {
     var html = '';
     for (var i = 0; i < priority.length; i++) {
-        var satId = priority[i].id;
+        var noradId = priority[i].id;
         var satellite = priority[i].name;
+        var latitude = 46.12;
+        var longitude = 45.09;
         var active = priority[i].active;
         var executing = priority[i].executing;
         html +=
-            "<div class='task' id='task_" + i + "' data-index='" + i + "' data-satId='" + satId +
+            "<div class='task' id='task_" + i + "' data-index='" + i + "' data-satId='" + noradId +
             "' data-active='" + active + "' data-executing='" + executing + "' >" +
             "<div class='order_up'></div>" +
             "<div class='order_down'></div>" +
-            "<p class='satellite_name'>" + i + ". " + satellite + "</p>" +
+            "<p class='satellite_name'>" + satellite + "</p>" +
+            "<p class='norad_id'>norad id: " + noradId + "</p>" +
+            "<p class='position'>" + latitude + "° &nbsp" + longitude + "°</p>" +
             "<div class='delete_task'></div>" +
             "</div>";
     }

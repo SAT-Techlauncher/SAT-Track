@@ -1,4 +1,5 @@
 from . import *
+from utilities.sebapi import SOD
 
 class UserManager:
     @staticmethod
@@ -117,6 +118,7 @@ class PriorityManager:
 class SatelliteManager:
     @staticmethod
     def get(info):
-        satellite_database.search(info)
-
+        sat = satellite_database.search(info)[0]
+        satellite = Satellite(sat)
+        return satellite
 

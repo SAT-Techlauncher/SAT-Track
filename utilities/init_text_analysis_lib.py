@@ -107,4 +107,46 @@ def calculate_characters_distribution_for_codes():
 
     print(min(digit_dists), '~', max(digit_dists), ';', min(alpha_dists), '~', max(alpha_dists), ';', min(sign_dists), '~', max(sign_dists))
 
+def generate_source_jsons_from_source_json():
+    with open(RAW_TEXT_ + 'source.json', 'r') as f:
+        source = json.loads(f.read())
 
+    abbrevs = {}
+    sources = {}
+    for src in source:
+        abbrevs.update({src.lower(): '', src.lower(): ''})
+        sources.update({source[src].lower(): ''})
+
+    with open(RIPE_TEXT_ + 'sources_abbrev.json', 'w') as f:
+        f.write(json.dumps(abbrevs))
+    with open(RIPE_TEXT_ + 'sources_fullname.json', 'w') as f:
+        f.write(json.dumps(sources))
+
+def generate_sources_words_json_from_fullname_json():
+    with open(RIPE_TEXT_ + 'sources_fullname.json', 'r') as f:
+        sources = json.loads(f.read())
+
+    source_words, counts = [], {}
+    for country in sources.keys():
+        words = country.split(' ')
+        source_words.extend(words)
+        for word in words:
+            counts[word] = 1 if word not in counts else counts[word] + 1
+
+    ws = list()
+    max_val, min_val = -100, 100
+    for count in counts.values():
+        quality = 1 / len(counts.keys())
+        quatify = count / sum(counts.values())
+        w = round(quality / quatify, 4)
+        max_val = w if max_val < w else max_val
+        min_val = w if min_val > w else min_val
+        ws.append(w)
+
+    weights = {}
+    words = list(counts.keys())
+    for i in range(len(words)):
+        weights[words[i]] = round((ws[i] - min_val) / (max_val - min_val), 4)
+
+    with open(RIPE_TEXT_ + 'sources_words.json', 'w') as f:
+        f.write(json.dumps(weights))

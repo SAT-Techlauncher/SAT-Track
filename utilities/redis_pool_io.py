@@ -18,12 +18,10 @@ class RedisOperator:
             r.delete(name)
 
     @staticmethod
-    def show():
+    def show(name=''):
         print("RedisOperator:")
-        for k in r.keys():
-            name = k.decode('utf-8')
-            for key in r.hkeys(name):
-                print(name, ":", key.decode('utf-8'), ":", json.loads(r.hget(name, key)))
+        for key in r.hkeys(name):
+            print(name, ":", key.decode('utf-8'), ":", json.loads(r.hget(name, key)))
 
 # redis dict
 class RedisPool:

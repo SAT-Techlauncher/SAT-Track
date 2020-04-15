@@ -15,7 +15,25 @@
     position: absolute;
     top: 0;
     left: 40px;
-    font-size: 20px;
+    color: #2f0a79;
+    font-size: 15px;
+    z-index: 2;
+}
+
+.norad_id {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    font-weight: bold;
+    font-size: 10px;
+    z-index: 2;
+}
+
+.position {
+    position: absolute;
+    top: 30px;
+    left: 145px;
+    font-size: 10px;
     z-index: 2;
 }
 

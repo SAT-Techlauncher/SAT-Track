@@ -56,4 +56,4 @@ else:
     user_info_pool.show()
 
 from utilities.redis_pool_io import RedisOperator
-RedisOperator.show()
+RedisOperator.show(conf.USER_SAT_POOL_NAME)

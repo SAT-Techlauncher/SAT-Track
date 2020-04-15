@@ -140,12 +140,151 @@ def upload_satjson_to_es():
 
     print('finished upload')
 
-'''
-id code      name       country                               unixtime launch_site                                status   if_has_tle
-5  1958-002b vanguard_1 us usa united_states_of_america_(usa) 23571113 afetr air_force_eastern_test_range_(afetr) * active trackable
-'''
+def generate_sources_from_raw_source_json():
+    with open(RAW_TEXT_ + 'raw_source.txt', 'r') as f:
+        lines = f.readlines()
 
-# if __name__ == '__main__':
-#     generate_satsjson_from_satinfottle()
-#     upload_satjson_to_es()
+    sources = {}
+    for line in lines:
+        abbrev = ''
+        idx = 0
+        while idx < len(line) and (line[idx].isalpha() or line[idx].isdigit()):
+            s = line[idx]
+            abbrev += s
+            idx += 1
+
+        fullname = line[idx: -1].lstrip().rstrip()
+
+        sources.update({abbrev: fullname})
+    print(sources)
+
+    with open(RIPE_TEXT_ + 'source.json', 'w') as f:
+        f.write(json.dumps(sources))
+
+def upload_extracted_sats_to_es():
+    with open(RIPE_TEXT_ + 'extracted_satellites.json', 'r') as file:
+        sats = json.loads(file.read())
+
+    satellites = []
+    for id in sats:
+        satellites.append({'norad_id': int(id), 'extracted': sats[id]})
+
+    from utilities.sebapi import SHD
+    shd = SHD(
+        data=satellites,
+        norad_id=SHD.Integer,
+        extracted=SHD.String
+    ).harmonize()
+
+    from utilities.es_io import ES
+    satellite_database = ES(
+        db='satellites-extract',
+        table='extract',
+        create=True,
+        norad_id={'type': 'keyword'},
+        extracted={'type': 'text'}
+    )
+    satellite_database.concurrent_upload(
+        id_field='norad_id',
+        data=shd,
+        concurrent_num=6
+    )
+
+    print('finished upload')
+
+from utilities.sebapi import SOD
+
+class Satellite(SOD):
+    def __init__(self, dic, **kwargs):
+        super().__init__(dic, **kwargs)
+
+def to_standard_format(dic):
+    for k in dic:
+        if isinstance(dic[k], str):
+            dic[k] = dic[k].lower()
+    sat = Satellite(dic)
+
+    id = sat.norad_id
+
+    country_set = set()
+    country_set.add(sat.source)
+    country_set.add(SOURCES[sat.source.upper()].lower().replace(' ', '_'))
+
+    for coun in COUNTRIES:
+        country_set.add(coun['code_2'].lower())
+        country_set.add(coun['code_3'].lower())
+        country_set.add(coun['country'].lower().replace(' ', '_'))
+        break
+
+    source = ''
+    for country in country_set:
+        source += country + ' '
+    source = source[0: len(source) - 1]
+
+    from utilities.utils import Utils
+
+    launch_date = sat.launch_date.replace('-', '_') + ' ' + str(Utils.to_all_unixtime(sat.launch_date))
+
+    launch_site = ''
+    for site in SITES:
+        site_abbrev = list(site.keys())[0]
+        site_fullname = list(site.values())[0]
+        if sat.launch_site == site_abbrev.lower():
+            launch_site = sat.launch_site + ' ' + site_fullname.lower().replace(' ', '_')
+            break
+
+    decay_date = '' if sat.decay_date == '' else sat.decay_date.replace('-', '_') + ' ' + str(Utils.to_all_unixtime(sat.decay_date))
+
+
+    status = sat.status
+    for stat in STATUS:
+        status_abbrev = list(stat.keys())[0]
+        status_fullname = list(stat.values())[0]
+        for s in sat.status:
+            if s == status_abbrev.lower():
+                status += ' ' + status_fullname.lower()
+
+    trackable = 'trackable' if sat.tle != [] else 'untrackable'
+
+    data = sat.intl_code + ' ' + \
+           sat.name.replace(' ', '_') + ' ' + \
+           source + ' ' + launch_date + ' ' + \
+           launch_site + ' ' + decay_date + ' ' + \
+           status + ' ' + trackable
+
+    return id, data
+
+def generate_extracted_satellites_from_satellites_json():
+    """
+    id code      name       source                 country                               datetime   unixtime
+    5  1958-002b vanguard_1 pres asia organization us usa united_states_of_america_(usa) 2020-04-13 23571113
+
+    function
+    gps global_...
+
+    launch_site                                status   if_has_tle
+    afetr air_force_eastern_test_range_(afetr) * active trackable
+
+    {'intl_code': '1958-002B', 'tle': [], 'norad_id': 5, 'status': '*', 'name': 'VANGUARD 1', 'source': 'US', 'launch_date': '1958-03-17', 'launch_site': 'AFETR', 'decay_date': '', '_0_': 132.7, '_1_': 34.3, '_2_': 3834, '_3_': 649, '_4_': 0.122}
+    """
+    dic = {}
+    for sat in SATS:
+        sat_id, satellite = to_standard_format(sat)
+        dic.update({sat_id: satellite})
+        print(satellite)
+
+    with open(RIPE_TEXT_ + 'extracted_satellites.json', 'w') as f:
+        f.write(json.dumps(dic))
+
+
+with open(RAW_TEXT_ + 'satellites.json', 'r') as f:
+    SATS = json.loads(f.read())
+with open(RAW_TEXT_ + 'iso_country_code.json', 'r') as f:
+    COUNTRIES = json.loads(f.read())
+with open(RAW_TEXT_ + 'launch_sites.json', 'r') as f:
+    SITES = json.loads(f.read())
+with open(RAW_TEXT_ + 'status.json', 'r') as f:
+    STATUS = json.loads(f.read())
+with open(RAW_TEXT_ + 'source.json', 'r') as f:
+    SOURCES = json.loads(f.read())
 

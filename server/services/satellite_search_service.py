@@ -1,27 +1,27 @@
 from utilities.doc_classifier import classify, CLASSIFIERS, SPLIT_CHARS, STOP_WORDS
 from config import conf
 
-# from utilities.sebapi import SHD
-# from . import *
-#
-#
-# def fetch_satellite_info(id):
-#     print('fetch_satellite_info starts')
-#
-#     res = {'name': 'NewStar-0' + str(id), 'long': 20.45, 'lat': 78.42, 'data': {}}
-#
-#     # 规定字段类型 (若不加设定, 则可能导致字段类型不一致错误)
-#     res = shd = SHD(
-#         res,
-#         id=SHD.Integer,
-#         name=SHD.String,
-#         long=SHD.Float,
-#         lat=SHD.Float
-#     ).harmonize()
-#
-#     satellite = Satellite(res)
-#
-#     return satellite, shd
+from utilities.sebapi import SHD
+from . import *
+
+
+def fetch_satellite_info(id):
+    print('fetch_satellite_info starts')
+
+    res = {'name': 'NewStar-0' + str(id), 'long': 20.45, 'lat': 78.42, 'data': {}}
+
+    # 规定字段类型 (若不加设定, 则可能导致字段类型不一致错误)
+    res = shd = SHD(
+        res,
+        id=SHD.Integer,
+        name=SHD.String,
+        long=SHD.Float,
+        lat=SHD.Float
+    ).harmonize()
+
+    satellite = Satellite(res)
+
+    return satellite, shd
 
 def extract_user_input_info(any):
     print(any, '\n')
@@ -35,7 +35,12 @@ def extract_user_input_info(any):
 
     words = []
     for word in preprocessed.split(' '):
-        if word != '' and word not in STOP_WORDS:
+        try:
+            word = STOP_WORDS[word]
+        except:
+            ...
+
+        if word != '':
             words.append(word)
 
     length = len(words)
@@ -62,6 +67,7 @@ def extract_user_input_info(any):
             proximity, cls = classify(word, ranks)
             ranks.update({word: cls})
             print(word, '=' * (len(max(line)) - len(word) + 3) + '>', proximity)
+        print()
 
     print('time = ', time.time() - start, '\n')
 
@@ -73,6 +79,9 @@ def extract_user_input_info(any):
         for hit in hits:
             cls, rate = hit[0], hit[1]
 
+            if rate < 0.5:
+                continue
+
             has_inserted = False
             for i in range(len(classes[cls])):
                 if rate >= classes[cls][i][1]:
@@ -83,23 +92,26 @@ def extract_user_input_info(any):
             if not has_inserted:
                 classes[cls].append((word, rate))
 
+    res = {}
     for k in classes.keys():
-        print(k, ':', classes[k])
+        if classes[k] == []:
+            continue
+        res.update({k: classes[k]})
 
-    return classes
+    return res
 
-def turn_to_query(classes):
-
-    keyword = ''
+def turn_to_query_body(classes, user_input):
+    should = []
+    # for k in classes.keys():
+    #     print('{' + str(k) + ': ' + str(classes[k]) + '}')
+    #     if k == 'is_number' or k == 'is_year' or k == 'is_month' or k == 'is_day':
+    #         should.append({'match': {'norad_id': classes[k][0]}})
+    should.append({'match': {'extracted': user_input}})
 
     body = {
         'query': {
             'bool': {
-                'should': [
-                    {'match_phrase_prefix': {'name': keyword}},
-                    {'match_phrase_prefix': {'intl_code': keyword}},
-                    {'match_phrase_prefix': {'source': keyword}},
-                ]
+                'should': should
             }
         },
         'from': 0,
@@ -112,23 +124,34 @@ def search_satellites_from_es():
     from utilities.es_io import ES
 
     satellite_database = ES(
-        db='satellites',
-        table='satellite',
+        db='satellites-extract',
+        table='extract',
         create=False
     )
 
     '''
     1958-002b from US
-    the satellite that launched in 17th mar, 1958
+    the satellite that us launched in 17th mar, 1958
     '''
-    classes = extract_user_input_info('gps')
-    search_body = turn_to_query(classes)
+    user_input = '17th mar, 1958 us'
+    classes = extract_user_input_info(user_input)
+    search_body = turn_to_query_body(classes, user_input)
 
-    # res = satellite_database.search(keyword)
+    res = satellite_database.search_by_body(search_body)
+
+    if res == []:
+        return None
+
+    import json
+    with open('../../data/satellites.json', 'r') as f:
+        satellites = json.loads(f.read())
+    for sat in satellites:
+        if sat['norad_id'] == res[0]['norad_id']:
+            return sat
+
     # print(len(res))
     # for sat in res:
-    #     print(sat['name'], end=', ')
+    #     print(sat['extracted'][0:30], end=';    ')
 
 
-
-search_satellites_from_es()
+# search_satellites_from_es()
