@@ -145,3 +145,26 @@ class ES:
                 data.append(src)
             return data
         return []
+
+    def search_by_keyword(self, method, field, keyword):
+        """
+
+        """
+        # query =
+        body = {
+            'query': {method: {field: keyword}},
+            'from': 0,
+            'size': conf.ES_QUERY_MAX_SIZE
+        }
+
+        # 进行查询下载操作, 其中最大下载数据条数从配置文件中获取
+        response = es.search(index=self.table, size=conf.ES_QUERY_MAX_SIZE, body=body)
+
+        # 若未查询到结果, 则返回空值
+        if 'hits' in response and 'total' in response['hits'] and response['hits']['total'] != 0:
+            data = []
+            for dt in response['hits']['hits']:
+                src = dt['_source']
+                data.append(src)
+            return data
+        return []

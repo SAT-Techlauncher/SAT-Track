@@ -26,6 +26,8 @@ class Utils:
 
     @staticmethod
     def to_all_unixtime(date):
+        if date == '':
+            return None
         base = datetime.datetime.strptime('1970-01-01 08:00:00', '%Y-%m-%d %H:%M:%S')
         date = datetime.datetime.strptime(date + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
         return int((date - base).total_seconds())

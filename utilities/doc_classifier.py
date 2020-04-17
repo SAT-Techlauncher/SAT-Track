@@ -230,7 +230,7 @@ def is_month(word, **ranks):
         if word == month:
             return 0.9
         elif word == month[0:3]:
-            return 0.8
+            return 0.9
         else:
             prox.append(round(0.5 * str_prox(word, month) + 0.5 * edit_distance_prox(word, month), 4))
 
@@ -325,7 +325,7 @@ from utilities.utils import approx_bisection
 from utilities.concurrent_task import ConcurrentTaskPool, ConcurrentTask
 from concurrent.futures.thread import ThreadPoolExecutor
 
-CLASSIFIERS = [is_number, is_day, is_month, is_year, is_date]
+CLASSIFIERS = [is_number, is_day, is_month, is_year, is_date, is_intl_code]
 
 def classify(word, ranks):
     classifiers = CLASSIFIERS

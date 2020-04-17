@@ -3,7 +3,13 @@ import json
 RAW_TEXT_ = '../data/'
 RIPE_TEXT_ = '../data/lib/'
 
-def generate_satsjson_from_satinfottle():
+from utilities.sebapi import SOD
+
+class Satellite(SOD):
+    def __init__(self, dic, **kwargs):
+        super().__init__(dic, **kwargs)
+
+def generate_satellites_json_from_satinfottle():
     with open('../data/sattle.json', 'r') as file:
         tles = json.loads(file.read())
 
@@ -60,129 +66,64 @@ def generate_satsjson_from_satinfottle():
 
     print('finished write')
 
-def upload_satjson_to_es():
-    with open('../data/satellites.json', 'r') as file:
-        sats = json.loads(file.read())
-
-    na = 0
-    print(len(sats))
-    satellites = []
-    template = ['_' + str(i) + '_' for i in range(5)]
+def upload_sats_to_es():
+    with open(RAW_TEXT_ + 'satellites.json', 'r') as f:
+        sats = json.loads(f.read())
+    with open(RIPE_TEXT_ + 'extracts.json', 'r') as f:
+        extracts = json.loads(f.read())
 
     from utilities.utils import Utils
 
-    countries = set()
+    templates = ['_' + str(i) + '_' for i in range(5)]
+    satellites = []
+    keys = [
+        'intl_code', 'norad_id', 'name', 'source', 'launch_date', 'decay_date', 'launch_unixtime', 'decay_unixtime',
+        'launch_site', 'status', 'extract', 'tle'
+    ]
+
     for sat in sats:
-        countries.add(sat['source'])
+        for k in sat.keys():
+            if isinstance(sat[k], str):
+                sat[k] = sat[k].lower()
+        for i in range(len(templates)):
+            sat.pop(templates[i])
+        sat.update({'launch_unixtime': Utils.to_all_unixtime(sat['launch_date'])})
+        sat.update({'decay_unixtime': Utils.to_all_unixtime(sat['decay_date'])})
+        sat.update({'extract': extracts[str(sat['norad_id'])]})
 
-        sat['launch_date'] = Utils.to_all_unixtime(sat['launch_date'])
-        sat['decay_date'] = Utils.to_all_unixtime(sat['decay_date']) if sat['decay_date'] != '' else ''
+        satellite = {}
+        for key in keys:
+            satellite.update({key: sat[key]})
 
-        for k in template:
-            if sat[k] == '':
-                sat[k] = ''
-
-        if sat['_4_'] == 'N/A':
-            na += 1
-            sat['_4_'] = ''
-        else:
-            sat['_4_'] = float(sat['_4_'])
-        satellites.append(sat)
-
-    print('na', na)
-    print(len(satellites), countries)
+        satellites.append(satellite)
 
     from utilities.es_io import ES
     from utilities.sebapi import SHD
-
-    '''
-    {"intl_code": "1958-002B", "tle": 
-        ["1", "5U", "58002B", "20094.40380137", "+.00000161", "+00000-0", "+21977-3", "0", "9998", 
-         "2", "5", "034.2452", "099.5269", "1847031", "014.5693", "350.1537", "10.84830151197102"], 
-     "norad_id": 5, "status": "*", "name": "VANGUARD 1", "source": "US", "launch_date": "1958-03-17",
-     "launch_site": "AFETR", "decay_date": "", "_0_": 132.7, "_1_": 34.3, "_2_": 3834, "_3_": 649, "_4_": 0.122}
-    '''
 
     shd = SHD(
         data=satellites,
         intl_code=SHD.String,
         norad_id=SHD.Integer,
-        launch_date=SHD.Integer,
-        decay_date=SHD.Integer,
-        _0_=SHD.Float,
-        _1_=SHD.Float,
-        _2_=SHD.Float,
-        _3_=SHD.Float,
-        _4_=SHD.Float,
+        name=SHD.String,
+        launch_date=SHD.String,
+        launch_unixtime=SHD.Integer,
+        decay_date=SHD.String,
+        decay_unixtime=SHD.Integer
     ).harmonize()
 
-    # satellite_database = ES(
-    #     db='satellites',
-    #     table='satellite',
-    #     create=True,
-    #     norad_id={'type': 'keyword'},
-    #     intl_code={'type': 'keyword'},
-    #     source={'type': 'keyword'},
-    #     status={'type': 'keyword'},
-    #     launch_date={'type': 'long', 'ignore_malformed': False, 'null_value': None},
-    #     decay_date={'type': 'long', 'ignore_malformed': True, 'null_value': None},
-    #     _0_={'type': 'float', "null_value": None},
-    #     _1_={'type': 'float', "null_value": None},
-    #     _2_={'type': 'float', "null_value": None},
-    #     _3_={'type': 'float', "null_value": None},
-    #     _4_={'type': 'float', "null_value": None},
-    # )
-    # satellite_database.concurrent_upload(
-    #     id_field='norad_id',
-    #     data=shd,
-    #     concurrent_num=6
-    # )
+    print(len(shd))
 
-    print('finished upload')
-
-def generate_sources_from_raw_source_json():
-    with open(RAW_TEXT_ + 'raw_source.txt', 'r') as f:
-        lines = f.readlines()
-
-    sources = {}
-    for line in lines:
-        abbrev = ''
-        idx = 0
-        while idx < len(line) and (line[idx].isalpha() or line[idx].isdigit()):
-            s = line[idx]
-            abbrev += s
-            idx += 1
-
-        fullname = line[idx: -1].lstrip().rstrip()
-
-        sources.update({abbrev: fullname})
-    print(sources)
-
-    with open(RIPE_TEXT_ + 'source.json', 'w') as f:
-        f.write(json.dumps(sources))
-
-def upload_extracted_sats_to_es():
-    with open(RIPE_TEXT_ + 'extracted_satellites.json', 'r') as file:
-        sats = json.loads(file.read())
-
-    satellites = []
-    for id in sats:
-        satellites.append({'norad_id': int(id), 'extracted': sats[id]})
-
-    from utilities.sebapi import SHD
-    shd = SHD(
-        data=satellites,
-        norad_id=SHD.Integer,
-        extracted=SHD.String
-    ).harmonize()
-
-    from utilities.es_io import ES
     satellite_database = ES(
-        db='satellites-extract',
-        table='extract',
+        db='satellites',
+        table='satellite',
         create=True,
         norad_id={'type': 'keyword'},
-        extracted={'type': 'text'}
+        intl_code={'type': 'keyword'},
+        source={'type': 'keyword'},
+        status={'type': 'keyword'},
+        launch_unixtime={'type': 'long', 'ignore_malformed': False, 'null_value': None},
+        decay_unixtime={'type': 'long', 'ignore_malformed': True, 'null_value': None},
+        extract={'type': 'text'}
     )
     satellite_database.concurrent_upload(
         id_field='norad_id',
@@ -192,13 +133,7 @@ def upload_extracted_sats_to_es():
 
     print('finished upload')
 
-from utilities.sebapi import SOD
-
-class Satellite(SOD):
-    def __init__(self, dic, **kwargs):
-        super().__init__(dic, **kwargs)
-
-def to_standard_format(dic):
+def to_extract_format(dic):
     for k in dic:
         if isinstance(dic[k], str):
             dic[k] = dic[k].lower()
@@ -206,35 +141,18 @@ def to_standard_format(dic):
 
     id = sat.norad_id
 
-    country_set = set()
-    country_set.add(sat.source)
-    country_set.add(SOURCES[sat.source.upper()].lower().replace(' ', '_'))
-
-    for coun in COUNTRIES:
-        country_set.add(coun['code_2'].lower())
-        country_set.add(coun['code_3'].lower())
-        country_set.add(coun['country'].lower().replace(' ', '_'))
-        break
-
-    source = ''
-    for country in country_set:
-        source += country + ' '
-    source = source[0: len(source) - 1]
-
-    from utilities.utils import Utils
-
-    launch_date = sat.launch_date.replace('-', '_') + ' ' + str(Utils.to_all_unixtime(sat.launch_date))
+    source = sat.source + ';'
+    for s in SRC_COUN_MAPPING[sat.source]:
+        source += s + ' '
+    source = source.replace(';', ' ')
 
     launch_site = ''
     for site in SITES:
         site_abbrev = list(site.keys())[0]
         site_fullname = list(site.values())[0]
         if sat.launch_site == site_abbrev.lower():
-            launch_site = sat.launch_site + ' ' + site_fullname.lower().replace(' ', '_')
+            launch_site = ' ' + sat.launch_site + '  ' + site_fullname.lower()
             break
-
-    decay_date = '' if sat.decay_date == '' else sat.decay_date.replace('-', '_') + ' ' + str(Utils.to_all_unixtime(sat.decay_date))
-
 
     status = sat.status
     for stat in STATUS:
@@ -244,17 +162,21 @@ def to_standard_format(dic):
             if s == status_abbrev.lower():
                 status += ' ' + status_fullname.lower()
 
+    group = ''
+    if str(id) in SAT_GROUP_MAPPING:
+        group += ' ' + SAT_GROUP_MAPPING[str(id)].lower()
+
     trackable = 'trackable' if sat.tle != [] else 'untrackable'
 
-    data = sat.intl_code + ' ' + \
-           sat.name.replace(' ', '_') + ' ' + \
-           source + ' ' + launch_date + ' ' + \
-           launch_site + ' ' + decay_date + ' ' + \
-           status + ' ' + trackable
+    data = sat.name + ' | ' + \
+           source + ' | ' + \
+           launch_site + ' | ' + \
+           group + ' | ' + \
+           status + ' | ' + trackable
 
     return id, data
 
-def generate_extracted_satellites_from_satellites_json():
+def generate_extracts_from_satellites_json():
     """
     id code      name       source                 country                               datetime   unixtime
     5  1958-002b vanguard_1 pres asia organization us usa united_states_of_america_(usa) 2020-04-13 23571113
@@ -268,23 +190,29 @@ def generate_extracted_satellites_from_satellites_json():
     {'intl_code': '1958-002B', 'tle': [], 'norad_id': 5, 'status': '*', 'name': 'VANGUARD 1', 'source': 'US', 'launch_date': '1958-03-17', 'launch_site': 'AFETR', 'decay_date': '', '_0_': 132.7, '_1_': 34.3, '_2_': 3834, '_3_': 649, '_4_': 0.122}
     """
     dic = {}
+    idx = 0
     for sat in SATS:
-        sat_id, satellite = to_standard_format(sat)
+        sat_id, satellite = to_extract_format(sat)
         dic.update({sat_id: satellite})
-        print(satellite)
+        idx += 1
+        print(idx, '/', len(SATS))
 
-    with open(RIPE_TEXT_ + 'extracted_satellites.json', 'w') as f:
+    with open(RIPE_TEXT_ + 'extracts.json', 'w') as f:
         f.write(json.dumps(dic))
 
 
 with open(RAW_TEXT_ + 'satellites.json', 'r') as f:
     SATS = json.loads(f.read())
-with open(RAW_TEXT_ + 'iso_country_code.json', 'r') as f:
-    COUNTRIES = json.loads(f.read())
 with open(RAW_TEXT_ + 'launch_sites.json', 'r') as f:
     SITES = json.loads(f.read())
 with open(RAW_TEXT_ + 'status.json', 'r') as f:
     STATUS = json.loads(f.read())
-with open(RAW_TEXT_ + 'source.json', 'r') as f:
-    SOURCES = json.loads(f.read())
+with open(RIPE_TEXT_ + 'sources_countries_mapping.json', 'r') as f:
+    SRC_COUN_MAPPING = json.loads(f.read())
+with open(RIPE_TEXT_ + 'satellites_groups_mapping.json', 'r') as f:
+    SAT_GROUP_MAPPING = json.loads(f.read())
 
+
+# if __name__ == '__main__':
+#     generate_extracts_from_satellites_json()
+#     upload_sats_to_es()
