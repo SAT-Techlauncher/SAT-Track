@@ -133,6 +133,7 @@ def search_satellite():
     if request.method == 'GET':
         user_id = session.get('user_id')
         user_input = request.args.get('input')
+        print(user_input)
 
         status, satellites = controll_search_satellites(user_id, user_input)
 
@@ -153,14 +154,14 @@ def search_satellite():
 def select_satellite():
     if request.method == 'GET':
         user_id = session.get('user_id')
-        satellite_id = request.args.get('satellite')
+        satellite_id = int(request.args.get('id'))
 
-        status, satellites = controll_select_satellite(user_id, satellite_id)
+        status, tasks = controll_select_satellite(user_id, satellite_id)
 
         if status == RET.OK:
             return jsonify(
                 code=RET.OK,
-                lst=satellites
+                priority=tasks
             )
         else:
             return jsonify(

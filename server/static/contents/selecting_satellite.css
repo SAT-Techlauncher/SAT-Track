@@ -1,0 +1,49 @@
+.selecting_satellite {
+    position: relative;
+    float: left;
+    margin-top: 7px;
+    margin-left: 10px;
+    width: 630px;
+    height: 50px;
+    background-color: #f7ff86;
+    box-shadow: 0 1px 1px 0 #99bcd7;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 7;
+}
+
+.selecting_name {
+    position: absolute;
+    top: 0;
+    left: 50px;
+    color: #2f0a79;
+    font-size: 15px;
+    z-index: 2;
+}
+
+.selecting_norad_id {
+    position: absolute;
+    top: 0;
+    left: 150px;
+    color: #2f0a79;
+    font-size: 15px;
+    z-index: 2;
+}
+
+.selecting_intl_code {
+    position: absolute;
+    top: 0;
+    left: 250px;
+    color: #2f0a79;
+    font-size: 15px;
+    z-index: 2;
+}
+
+.selecting_launch_date {
+    position: absolute;
+    top: 0;
+    left: 450px;
+    color: #2f0a79;
+    font-size: 15px;
+    z-index: 2;
+}

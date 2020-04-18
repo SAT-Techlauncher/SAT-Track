@@ -78,9 +78,7 @@ def controll_search_satellites(user_id, user_input):
     status, res = SatelliteManager.to_satellites(satellite_lst)
 
     if status == RET.OK:
-        satellites = res if len(res) <= 10 else res[0:10]
-        user.priority = res
-        UserManager.set(user)
+        satellites = res if 0 < len(res) <= 10 else res[0:10]
         return RET.OK, satellites
 
     errors = res
@@ -92,12 +90,15 @@ def controll_select_satellite(user_id, satellite_id):
     if user is None:
         return RET.AUTHERR, None
 
-    satellite = SatelliteManager.get(satellite_id)
-    status, tasks = PriorityManager.insert(user.priority, satellite)
-    if status == RET.OK:
+    status_0, satellite = SatelliteManager.get(satellite_id)
+    if status_0 != RET.OK:
+        return status_0, None
+
+    status_1, tasks = PriorityManager.insert(user.priority, satellite)
+    if status_1 == RET.OK:
         user.priority = tasks
         UserManager.set(user)
         return RET.OK, tasks
 
     print('error in controll_select_satellite: error =', tasks)
-    return status, None
+    return status_1, None

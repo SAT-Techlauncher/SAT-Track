@@ -125,16 +125,13 @@ class SatelliteManager:
     @staticmethod
     def get(id):
         try:
-            satellite = satellite_database.search_by_keyword(method='match', field='norad_id', keyword=id)
+            satellite = satellite_database.search_by_keyword(method='match', field='norad_id', keyword=id)[0]
             return RET.OK, SOD(satellite)
         except:
             return RET.EXECERR, None
 
     @staticmethod
     def to_satellites(lst):
-        if lst == []:
-            return RET.NODATA, None
-
         satellites = []
         errors = []
         for sat in lst:
