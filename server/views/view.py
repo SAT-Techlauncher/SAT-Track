@@ -8,10 +8,6 @@ def index():
     user_id = session.get('user_id')
     print('authenticated: ', user_id)
 
-    if conf.CLEAR_REDIS:
-        from utilities.simulate_for_dev import Simulation
-        Simulation.init_db(user_id, user_info_pool, satellite_database)
-
     user_info_pool.show()
     # satellite_database.show()
 
@@ -132,18 +128,18 @@ def activate_task():
         code=RET.REQERR,
     )
 
-@view_bp.route('/searchNewTask', methods=['GET'])
-def search_new_task():
+@view_bp.route('/searchSatellite', methods=['GET'])
+def search_satellite():
     if request.method == 'GET':
         user_id = session.get('user_id')
-        satellite_id = int(request.args.get('id'))
+        user_input = request.args.get('input')
 
-        status, tasks = controll_search_new_task(user_id, satellite_id)
+        status, satellites = controll_search_satellites(user_id, user_input)
 
         if status == RET.OK:
             return jsonify(
                 code=RET.OK,
-                priority=tasks
+                lst = satellites
             )
         else:
             return jsonify(
@@ -153,6 +149,26 @@ def search_new_task():
         code=RET.REQERR,
     )
 
+@view_bp.route('/selectSatellite', methods=['GET'])
+def select_satellite():
+    if request.method == 'GET':
+        user_id = session.get('user_id')
+        satellite_id = request.args.get('satellite')
+
+        status, satellites = controll_select_satellite(user_id, satellite_id)
+
+        if status == RET.OK:
+            return jsonify(
+                code=RET.OK,
+                lst=satellites
+            )
+        else:
+            return jsonify(
+                code=RET.SNTERR,
+            )
+    return jsonify(
+        code=RET.REQERR,
+    )
 
         # @view_bp.before_app_request
 # def load_logged_in_user():

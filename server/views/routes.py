@@ -2,7 +2,7 @@ from . import *
 from . import routes_bp
 
 # app routes
-@routes_bp.route('/search_satellite', methods=['GET', 'POST'])
+@routes_bp.route('/tracking', methods=['GET', 'POST'])
 def search_satellite():
     """
     1. Get satellite id from frontend. -> views.search_new_task

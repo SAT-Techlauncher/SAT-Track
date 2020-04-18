@@ -36,8 +36,11 @@ class Priority:
         self.__task_ids = [task['id'] for task in priority]
 
     def get(self, id):
-        index = self.__task_ids.index(id)
-        return self.__tasks[index]
+        try:
+            index = self.__task_ids.index(id)
+            return self.__tasks[index]
+        except:
+            return None
 
     def insert(self, index, task):
         self.__task_ids.insert(index, task.id)

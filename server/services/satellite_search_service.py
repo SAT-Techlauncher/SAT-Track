@@ -1,27 +1,5 @@
 from utilities.doc_classifier import classify, CLASSIFIERS, SPLIT_CHARS, STOP_WORDS
-from utilities.utils import Utils
-from config import conf
-from utilities.sebapi import SHD
 from . import *
-
-
-def fetch_satellite_info(id):
-    print('fetch_satellite_info starts')
-
-    res = {'name': 'NewStar-0' + str(id), 'long': 20.45, 'lat': 78.42, 'data': {}}
-
-    # 规定字段类型 (若不加设定, 则可能导致字段类型不一致错误)
-    res = shd = SHD(
-        res,
-        id=SHD.Integer,
-        name=SHD.String,
-        long=SHD.Float,
-        lat=SHD.Float
-    ).harmonize()
-
-    satellite = Satellite(res)
-
-    return satellite, shd
 
 def extract_user_input_info(any):
 
@@ -169,10 +147,17 @@ def turn_to_query_body(classes, user_input):
             must.append({'match': {'intl_code': top_hit}})
             numbers.extend(top_hit.split(' '))
 
+    origin_input = user_input.lower().rstrip().lstrip()
     extract_input = ''
-    for word in user_input.lower().rstrip().lstrip().split(' '):
+    origin_count, extract_count = 1, 1
+    for word in origin_input.split(' '):
         if word not in set(numbers) and word != '':
             extract_input += word + ' '
+            extract_count += 1
+        origin_count += 1
+
+    if origin_count - extract_count <= 2:
+        extract_input = origin_input
 
     extract_input = extract_input.lstrip().rstrip()
     origin_query.update({'match': {'extract': extract_input}}) \
@@ -194,18 +179,11 @@ def turn_to_query_body(classes, user_input):
         'from': 0,
         'size': conf.ES_QUERY_MAX_SIZE
     }
+    print('satellite_search_service:', body)
 
     return body
 
 def search_satellites_from_es(user_input):
-    from utilities.es_io import ES
-
-    satellite_database = ES(
-        db='satellites',
-        table='satellite',
-        create=False
-    )
-
     classes = extract_user_input_info(user_input)
     search_body = turn_to_query_body(classes, user_input)
 
@@ -222,13 +200,6 @@ def search_satellites_from_es(user_input):
             'status': sat['status'],
             'tle': sat['tle']
         })
-
-    print()
-    print(len(lst))
-    for sat in lst[0:10]:
-        print(sat)
-    print('...')
-    print()
 
     return lst
 

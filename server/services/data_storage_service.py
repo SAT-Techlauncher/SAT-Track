@@ -100,9 +100,15 @@ class PriorityManager:
 
     @staticmethod
     def insert(tasks, satellite):
+        if satellite is None:
+            return RET.EXECERR, None
+
         priority = Priority(tasks)
         satellite_id = satellite.norad_id
         try:
+            if priority.get(satellite_id) is not None:
+                return RET.OK, priority.to_dict()
+
             priority.insert(0, Task(
                 id=satellite_id,
                 name=satellite.name,
@@ -117,8 +123,29 @@ class PriorityManager:
 
 class SatelliteManager:
     @staticmethod
-    def get(info):
-        sat = satellite_database.search(info)[0]
-        satellite = Satellite(sat)
-        return satellite
+    def get(id):
+        try:
+            satellite = satellite_database.search_by_keyword(method='match', field='norad_id', keyword=id)
+            return RET.OK, SOD(satellite)
+        except:
+            return RET.EXECERR, None
 
+    @staticmethod
+    def to_satellites(lst):
+        if lst == []:
+            return RET.NODATA, None
+
+        satellites = []
+        errors = []
+        for sat in lst:
+            try:
+                satellite = SOD(sat)
+                satellites.append(satellite)
+            except:
+                error_id = sat['norad_id']
+                errors.append(error_id)
+
+        if len(lst) != len(satellites):
+            return RET.EXECERR, errors
+
+        return RET.OK, satellites

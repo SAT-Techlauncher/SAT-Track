@@ -146,30 +146,21 @@ $(document).ready(function () {
         event.preventDefault();
 
         var input = $('#satellite_input');
-        var satId = input.val();
-
-        $.get(
-            '/searchNewTask',
-            { 'id': satId },
-            function (data) {
-                if (data.code === 0) {
-                    priority = data.priority;
-                    var tasksHtml = generateTasks(priority);
-                    tasks.html(tasksHtml);
-                } else {
-                    priority = data.priority;
-                    tasks.html('');
-                }
-                initTaskColor(tasks);
-            }
-        );
+        var userInput = input.val();
 
         $.get(
             '/searchSatellite',
-            { 'id': satId },
+            { 'input': userInput },
             function (data) {
                 if (data.code === 0) {
-                   var satelliteData = data.data;
+                    var satellites = data.lst;
+                    for (var i = 0; i < satellites.length; i++) {
+                        console.log(satellites[i]);
+                    }
+
+                } else {
+                    priority = data.lst;
+                    tasks.html('');
                 }
             }
         );
@@ -179,6 +170,31 @@ $(document).ready(function () {
 
     enter('#submit_button');
 
+    // user type and search new satellite
+    // $('#submit_button').on('click', function (event) {
+    //     event.preventDefault();
+    //
+    //     var input = $('#satellite_input');
+    //     var userInput = input.val();
+    //
+    //     $.get(
+    //         '/selectSatellite',
+    //         { 'input': userInput },
+    //         function (data) {
+    //             if (data.code === 0) {
+    //                 priority = data.priority;
+    //                 var tasksHtml = generateTasks(priority);
+    //                 tasks.html(tasksHtml);
+    //             } else {
+    //                 priority = data.priority;
+    //                 tasks.html('');
+    //             }
+    //             initTaskColor(tasks);
+    //         }
+    //     );
+    //
+    //     input.val('');
+    // });
 });
 
 function generateTasks(priority) {

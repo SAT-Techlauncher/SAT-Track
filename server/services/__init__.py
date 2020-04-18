@@ -10,7 +10,6 @@ from server.models.objects import *
 from server.models.status_code import *
 from utilities.utils import Utils
 from utilities.concurrent_task import ConcurrentTask, ConcurrentTaskPool
-from server.services.satellite_search_service import fetch_satellite_info
 
 # 用户信息池 { key : user_id, value: { email, password }}
 user_info_pool = RedisPool(conf.USER_POOL_NAME)
@@ -25,5 +24,3 @@ satellite_database = ES(
     table='satellite',
     create=conf.ES_CREATE_ENABLE
 )
-
-
