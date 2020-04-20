@@ -126,7 +126,7 @@ class SatelliteManager:
     def get(id):
         try:
             satellite = satellite_database.search_by_keyword(method='match', field='norad_id', keyword=id)[0]
-            return RET.OK, SOD(satellite)
+            return RET.OK, Satellite(satellite, name=Satellite.Upper, intl_code=Satellite.Upper, status=Satellite.String)
         except:
             return RET.EXECERR, None
 
@@ -136,7 +136,7 @@ class SatelliteManager:
         errors = []
         for sat in lst:
             try:
-                satellite = SOD(sat)
+                satellite = Satellite(sat, name=Satellite.Upper, intl_code=Satellite.Upper, status=Satellite.String)
                 satellites.append(satellite)
             except:
                 error_id = sat['norad_id']

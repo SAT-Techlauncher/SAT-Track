@@ -78,7 +78,7 @@ def controll_search_satellites(user_id, user_input):
     status, res = SatelliteManager.to_satellites(satellite_lst)
 
     if status == RET.OK:
-        satellites = res if 0 < len(res) <= 10 else res[0:10]
+        satellites = res if 0 < len(res) <= 10 else res[0 : conf.SEARCH_RESULT_LMT]
         return RET.OK, satellites
 
     errors = res

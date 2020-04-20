@@ -110,6 +110,14 @@ class Satellite(SOD):
     def __init__(self, dic, **kwargs):
         super().__init__(dic, **kwargs)
 
+    def Upper(self, v):
+        v = str(v) if not isinstance(v, str) else v
+        return v.upper()
+
+    def String(self, v):
+        return str(v) if v is not None else str('none')
+
+
 
 
 

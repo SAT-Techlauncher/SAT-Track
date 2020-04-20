@@ -242,16 +242,19 @@ function generateSelectingSats(lst) {
     var html = '';
     for (var i = 0; i < lst.length; i++) {
         var noradId = lst[i].norad_id;
+
+        var rawName = lst[i].name;
         var name = lst[i].name;
         var intlCode = lst[i].intl_code;
+        var status = lst[i].status;
         var launchDate = lst[i].launch_date;
         html +=
-            "<div class='selecting_satellite' id='selecting_satellite_" + i + "' data-index='" + i +
-            "' data-satId='" + noradId + "'>" +
-            "<p class='selecting_name'>" + name + "</p>" +
-            "<p class='selecting_norad_id'>" + noradId + "</p>" +
-            "<p class='selecting_intl_code'>" + intlCode + "</p>" +
-            "<p class='selecting_launch_date'>" + launchDate + "</p>" +
+            "<div class='selecting_satellite' id='selecting_satellite_" + i + "' data-index='" + i + "' data-satId='" + noradId + "'>" +
+            "<div class='selecting_name'><div class='tag_val'>" + name + "</div></div>" +
+            "<div class='selecting_norad_id'><p class='tag_head'>NORAD ID:</p><p class='tag_val'>" + noradId + "</p></div>" +
+            "<div class='selecting_intl_code'><p class='tag_head'>Int'l Code:</p><p class='tag_val'>" + intlCode + "</p></div>" +
+            "<div class='selecting_launch_date'><p class='tag_head'>Launch Date:</p><p class='tag_val'>" + launchDate + "</p></div>" +
+            "<div class='selecting_status'><p class='tag_head'>Status:</p><p class='tag_val'>" + status + "</p></div>" +
             "</div>"
         ;
     }

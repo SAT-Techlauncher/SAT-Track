@@ -8,11 +8,7 @@ Created on Wed Mar 25 17:27:48 2020
 import urllib.request
 import urllib.response
 import re
-import time
 import json
-import math
-from concurrent.futures.thread import ThreadPoolExecutor
-from utilities.concurrent_task import ConcurrentTask, ConcurrentTaskPool
 
 class Spyder():
     def __init__(self,satellite_number):
@@ -35,7 +31,7 @@ class Spyder():
     def parse(self):
         pattern = re.compile(r'.*?<pre?>(.*?)</pre>',re.S)
         result = re.findall(pattern, self.get_response().read().decode())
-        return result[0].split()
+        return result[0]
 
 
 class SatCatalog:
@@ -110,120 +106,6 @@ class SatCatalog:
         with open(dir, 'r') as file:
             return json.loads(file.read())[self.start:self.end + 1]
 
-
-def get_sat(start, end):
-    sat_cat = SatCatalog(start, end)
-
-    sat_cat.read_raw(RAW_DIR)
-    data = sat_cat.to_json()
-
-    sat_cat.write_ripe(RIPE_DIR, ripe=data)
-
-def concurrent_tasks(length, task):
-    # python多线程池对象 (最大线程数从配置文件中获取)
-    executor = ThreadPoolExecutor(max_workers=100)
-
-    global NUM
-    NUM = 0
-    # 并发任务列表
-    tasks = []
-    # 获取origins和extracts中数据条数 (两者相等)
-    # 从配置文件中获取es上传并发数
-    concurrentNum = CONCURRENT_NUM
-    # 若数据条数大于最小并发触发数, 则执行并发上传; 否则, 执行单线程上传
-    # 近似等分待上传数据并注册并发任务
-    for i in range(concurrentNum):
-        ptr = math.floor(i / concurrentNum * length)
-        ptr_ = math.floor((i + 1) / concurrentNum * length) - 1
-
-        print(ptr, ptr_)
-        # 注册并发任务 (简略新闻数据和原始新闻数据分开上传)
-        tasks.extend([
-            ConcurrentTask(executor, task=task, targs=(RES_DIR_ + str(i) + '.json', ptr, ptr_, i)),
-        ])
-
-    # 并发任务池对象
-    taskPool = ConcurrentTaskPool(executor)
-    # 添加并执行es上传并发任务
-    taskPool.addTasks(tasks)
-    # 获取es上传结果列表 (当最晚执行完毕的任务结束后返回结果, 此间线程阻塞)
-    results = taskPool.getResults(wait=True)
-
-    # 根据es上传结果列表计算上传成功的数据总数
-    excepts = []
-    for result in results:
-        excepts += result
-
-def get_tle(dir, start, end, index):
-    sat_cat = SatCatalog(start, end)
-
-    satellites = sat_cat.read_ripe(RIPE_DIR)
-
-    res = []
-    excepts = []
-    global NUM
-
-    with open(dir, 'a') as file:
-        file.write('[')
-
-    idx = 0
-    for sat in satellites:
-        norad_id = sat['NORAD ID']
-
-        try:
-            tle = Spyder(str(norad_id)).parse()
-            dt = {str(norad_id): tle} if tle != [] else {str(norad_id): ['None']}
-        except:
-            dt = {str(norad_id): ['Error']}
-            excepts.append(norad_id)
-
-        with open(dir, 'a') as file:
-            if idx != len(satellites) - 1:
-                file.write(json.dumps(dt) + ', ')
-            else:
-                file.write(json.dumps(dt))
-
-        res.append(dt)
-        NUM += 1
-        idx += 1
-        print(NUM, '/', 45475, '(', str(index), '):    ' ,dt)
-
-    with open(dir, 'a') as file:
-        file.write(']')
-
-    return excepts
-
-
-RAW_DIR = '../../data/raw_satcat.txt'
-RIPE_DIR = '../../data/sattle/ripe_satcat.json'
-RES_DIR_ = '../../data/sattle/res_'
-CONCURRENT_NUM = 60
-NUM = 0
-
-# if __name__ == '__main__':
-#     timer = time.time()
-#
-#     start = 0
-#     end = 45475
-#
-#     get_sat(0, end)
-#
-#     print(end - start / 6)
-#
-#
-#     excepts = concurrent_tasks(end - start, get_tle)
-#
-#     print(excepts)
-#
-#     print('Running time (spyder):' + str(time.time() - timer))
-
-
-
-
-from bs4 import BeautifulSoup as bs
-import requests
-import json
-
 URL = 'http://doc.chacuo.net/iso-3166-1'
 RAW_DIR = '../data/raw_iso_country_code.html'
 RIPE_DIR = '../data/iso_country_code.json'
@@ -291,10 +173,6 @@ def get_iso_country_codes(manually=True):
     with open(RIPE_DIR, 'w') as file:
         file.write(json.dumps(lst))
 
-# if __name__ == '__main__':
-#     get_iso_country_codes()
-
-
 
 from bs4 import BeautifulSoup as bs
 import requests
@@ -339,10 +217,6 @@ WRAS Western Range Airspace
 ERAS Eastern Range Airspace
 '''
 
-# if __name__ == '__main__':
-#     get_launch_sites()
-
-
 RIPE_DIR = '../data/status.json'
 STATUS = [
     '+  Operational',
@@ -367,6 +241,3 @@ def get_status():
 
     with open(RIPE_DIR, 'w') as file:
         file.write(json.dumps(lst))
-
-if __name__ == '__main__':
-    get_status()

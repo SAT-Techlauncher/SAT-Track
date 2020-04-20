@@ -47,13 +47,15 @@ class BASE:
 
     # 是否删除已存在的es索引表并建立新表
     ES_CREATE_ENABLE = False
-
+    # 启动服务器时是否清空redis
     CLEAR_REDIS = False
 
+    # 一次查询返回最大卫星数据条数
+    SEARCH_RESULT_LMT = 100
 
     # 文本分析语料库
-    RAW_TEXT_ = os.path.dirname(__file__) + '/data/'
-    RIPE_TEXT_ = os.path.dirname(__file__) + '/data/lib/'
+    RAW_DIR_ = os.path.dirname(__file__) + '/data/'
+    RIPE_DIR_ = os.path.dirname(__file__) + '/data/lib/'
 
 
 conf = BASE

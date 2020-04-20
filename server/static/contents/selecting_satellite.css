@@ -8,42 +8,148 @@
     background-color: #f7ff86;
     box-shadow: 0 1px 1px 0 #99bcd7;
     border-radius: 5px;
+    font-family: 'Arial';
     cursor: pointer;
     z-index: 7;
+    opacity: 0.9;
+}
+
+.selecting_satellite:hover {
+    opacity: 1.0;
+}
+
+.selecting_satellite:active {
+    margin-top: 8px;
+    margin-left: 11px;
+    width: 628px;
+    height: 48px;
 }
 
 .selecting_name {
     position: absolute;
     top: 0;
-    left: 50px;
-    color: #2f0a79;
-    font-size: 15px;
+    width: 150px;
+    height: inherit;
+    margin-left: 30px;
     z-index: 2;
+}
+
+.selecting_name .tag_val {
+    display:flex;
+    justify-content:left;
+    align-items:center;
+    height:100%;
+    width:100%;
+    text-align: center;
+    color: #2f0a79;
+    font-size: 17px;
+    font-weight: bold;
 }
 
 .selecting_norad_id {
     position: absolute;
-    top: 0;
-    left: 150px;
-    color: #2f0a79;
-    font-size: 15px;
+    top: 3px;
+    margin-left: 200px;
+    height: 25px;
     z-index: 2;
+}
+
+.selecting_norad_id .tag_head {
+    position: relative;
+    float: left;
+    margin-top: 5px;
+    margin-left: 0;
+    color: #2f0a79;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.selecting_norad_id .tag_val {
+    position: relative;
+    float: left;
+    margin-top: 5px;
+    margin-left: 10px;
+    color: #2f0a79;
+    font-size: 14px;
 }
 
 .selecting_intl_code {
     position: absolute;
-    top: 0;
-    left: 250px;
-    color: #2f0a79;
-    font-size: 15px;
+    bottom: 3px;
+    margin-left: 200px;
+    height: 25px;
     z-index: 2;
+}
+
+.selecting_intl_code .tag_head {
+    position: relative;
+    float: left;
+    margin-top: 5px;
+    margin-left: 0;
+    color: #2f0a79;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.selecting_intl_code .tag_val {
+    position: relative;
+    float: left;
+    margin-top: 5px;
+    margin-left: 16px;
+    color: #2f0a79;
+    font-size: 14px;
 }
 
 .selecting_launch_date {
     position: absolute;
-    top: 0;
-    left: 450px;
-    color: #2f0a79;
-    font-size: 15px;
+    top: 3px;
+    margin-left: 400px;
+    height: 25px;
     z-index: 2;
+}
+
+.selecting_launch_date .tag_head {
+    position: relative;
+    float: left;
+    margin-top: 5px;
+    margin-left: 0;
+    color: #2f0a79;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.selecting_launch_date .tag_val {
+    position: relative;
+    float: left;
+    margin-top: 5px;
+    margin-left: 10px;
+    color: #2f0a79;
+    font-size: 14px;
+}
+
+.selecting_status {
+    position: absolute;
+    bottom: 3px;
+    margin-left: 400px;
+    height: 25px;
+    z-index: 2;
+}
+
+.selecting_status .tag_head {
+    position: relative;
+    float: left;
+    margin-top: 5px;
+    margin-left: 0;
+    color: #2f0a79;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.selecting_status .tag_val {
+    position: relative;
+    float: left;
+    margin-top: 5px;
+    margin-left: 10px;
+    color: #2f0a79;
+    font-size: 14px;
 }
