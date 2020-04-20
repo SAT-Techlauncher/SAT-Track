@@ -67,8 +67,7 @@ def generate_satellites_json_from_satinfottle():
     print('finished write')
 
 def upload_sats_to_es():
-    with open(RAW_TEXT_ + 'satellites.json', 'r') as f:
-        sats = json.loads(f.read())
+    sats = SATS
     with open(RIPE_TEXT_ + 'extracts.json', 'r') as f:
         extracts = json.loads(f.read())
 
@@ -201,7 +200,7 @@ def generate_extracts_from_satellites_json():
         f.write(json.dumps(dic))
 
 
-with open(RAW_TEXT_ + 'satellites.json', 'r') as f:
+with open(RIPE_TEXT_ + 'satellites.json', 'r') as f:
     SATS = json.loads(f.read())
 with open(RAW_TEXT_ + 'launch_sites.json', 'r') as f:
     SITES = json.loads(f.read())

@@ -4,19 +4,19 @@ import numpy as np
 import math
 from config import conf
 
-with open(conf.RIPE_TEXT_ + 'countries_abbrev.json', 'r') as f:
+with open(conf.RIPE_DIR_ + 'countries_abbrev.json', 'r') as f:
     COUNTRIES_ABBREV = json.loads(f.read())
-with open(conf.RIPE_TEXT_ + 'countries_iso_code.json', 'r') as f:
+with open(conf.RIPE_DIR_ + 'countries_iso_code.json', 'r') as f:
     COUNTRIES_ISO_CODE = json.loads(f.read())
-with open(conf.RIPE_TEXT_ + 'countries_words.json', 'r', encoding='unicode_escape') as f:
+with open(conf.RIPE_DIR_ + 'countries_words.json', 'r', encoding='unicode_escape') as f:
     COUNTRIES_WORDS = json.loads(f.read())
-with open(conf.RIPE_TEXT_ + 'countries_fullname.json', 'r', encoding='unicode_escape') as f:
+with open(conf.RIPE_DIR_ + 'countries_fullname.json', 'r', encoding='unicode_escape') as f:
     COUNTRIES_NAMES = json.loads(f.read())
-with open(conf.RIPE_TEXT_ + 'sources_abbrev.json', 'r') as f:
+with open(conf.RIPE_DIR_ + 'sources_abbrev.json', 'r') as f:
     SOURCES_ABBREV = json.loads(f.read())
-with open(conf.RIPE_TEXT_ + 'sources_words.json', 'r', encoding='unicode_escape') as f:
+with open(conf.RIPE_DIR_ + 'sources_words.json', 'r', encoding='unicode_escape') as f:
     SOURCES_WORDS = json.loads(f.read())
-with open(conf.RIPE_TEXT_ + 'sources_fullname.json', 'r', encoding='unicode_escape') as f:
+with open(conf.RIPE_DIR_ + 'sources_fullname.json', 'r', encoding='unicode_escape') as f:
     SOURCES_NAMES = json.loads(f.read())
 
 DIGIT_RATE, ALPHA_RATE, SIGN_RATE = 0.7357, 0.1591, 0.1051
@@ -30,7 +30,7 @@ ADJECTIVES = ['active', 'inactive', 'operational', 'nonoperational', 'partially 
 VERBS = ['launch', 'decay']
 ADVERBS = ['not', 'and', 'or', 'either', 'neither', 'nor', 'on', 'off', 'in', 'during', 'out', 'from', 'for']
 
-with open(conf.RIPE_TEXT_ + 'stop_words.json', 'r') as f:
+with open(conf.RIPE_DIR_ + 'stop_words.json', 'r') as f:
     STOP_WORDS = json.loads(f.read())
 
 SPLIT_CHARS = {".", "/", ",", "_", "\\"}

@@ -160,7 +160,7 @@ def turn_to_query_body(classes, user_input):
         extract_input = origin_input
 
     extract_input = extract_input.lstrip().rstrip()
-    origin_query.update({'match': {'extract': extract_input}}) \
+    origin_query.update({'fuzzy': {'extract': extract_input}}) \
         if extract_input != '' and not extract_input.isnumeric() else ...
 
     for query in should_query:
@@ -203,4 +203,4 @@ def search_satellites_from_es(user_input):
 
     return lst
 
-# search_satellites_from_es('beidou 2018 1 11')
+# search_satellites_from_es('vaguard')
