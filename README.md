@@ -34,7 +34,6 @@ Our team aims to document our discussions during team and client meetings throug
 * [Decision Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Decision-Log)
 * [Reflection Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Reflection-Log)
 * [Meeting Minutes](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Meeting-Minutes)
-* [Team Work](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Team-Work)
 * [Weekly Reports](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Weekly-Reports)
 
 ## Group Members & Workflow <a id="5"></a>
