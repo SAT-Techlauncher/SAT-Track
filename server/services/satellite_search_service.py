@@ -120,7 +120,11 @@ def to_date(classes):
 
     ripe_date = str(year) + '-' + str(month) + '-' + str(day)
 
-    return ripe_date, Utils.to_all_unixtime(ripe_date)
+    text_date = ''
+    for s in ripe_date:
+        text_date = text_date + s if s != '-' else text_date + ' '
+
+    return ripe_date, Utils.to_all_unixtime(ripe_date), text_date
 
 def turn_to_query_body(classes, user_input):
     origin_query = []
@@ -149,6 +153,10 @@ def turn_to_query_body(classes, user_input):
 
         if k == 'is_year':
             must.append({'match': {'launch_date_text': top_hit}})
+            numbers.extend(top_hit.split(' '))
+
+        if k == 'is_date' and 0.5 <= classes[k][0][1] < 0.7:
+            must.append({'match': {'launch_date_text': to_date(classes)[2]}})
             numbers.extend(top_hit.split(' '))
 
     numbers = set(numbers)

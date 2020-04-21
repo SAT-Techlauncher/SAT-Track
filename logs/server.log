@@ -624,3 +624,53 @@ Traceback (most recent call last):
   File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\controllers\user_behavior_controller.py", line 72, in controll_search_satellites
     print(len(satellite_lst))
 TypeError: object of type 'NoneType' has no len()
+[2020-04-22 02:07:38,645][app.py:1891][ERROR][6132] - Exception on /searchSatellite [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 138, in search_satellite
+    status, satellites, beyond_lmt = controll_search_satellites(user_id, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\controllers\user_behavior_controller.py", line 69, in controll_search_satellites
+    satellite_lst = search_satellites_from_es(user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 195, in search_satellites_from_es
+    search_body, like_norad_ids = turn_to_query_body(classes, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 145, in turn_to_query_body
+    like_norad_ids.add(int(hit[0]))
+ValueError: invalid literal for int() with base 10: 'mar'
+[2020-04-22 02:11:20,171][app.py:1891][ERROR][14812] - Exception on /searchSatellite [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 138, in search_satellite
+    status, satellites, beyond_lmt = controll_search_satellites(user_id, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\controllers\user_behavior_controller.py", line 69, in controll_search_satellites
+    satellite_lst = search_satellites_from_es(user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 199, in search_satellites_from_es
+    search_body, like_norad_ids = turn_to_query_body(classes, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 154, in turn_to_query_body
+    if 0.5 <= k == 'is_date' and classes[k][0][1] < 0.7:
+TypeError: '<=' not supported between instances of 'float' and 'str'

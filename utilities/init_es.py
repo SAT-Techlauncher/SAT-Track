@@ -91,6 +91,19 @@ def upload_sats_to_es():
         for e in str(sat['launch_date']):
             launch_date = launch_date + e if e != '-' else launch_date + ' '
         sat.update({'launch_date_text': launch_date})
+
+        status = sat['status']
+        status_info = ' ('
+        for stat in STATUS:
+            status_abbrev = list(stat.keys())[0]
+            status_fullname = list(stat.values())[0]
+            for s in sat['status']:
+                if s == status_abbrev.lower():
+                    status_info += status_fullname.lower() + ' '
+        status_info = '' if len(status_info) <= 2 else status_info[0:len(status_info)-1] + ')'
+        status_info = '' if status_info == ' ()' else status_info
+        sat.update({'status': status + status_info})
+
         sat.update({'launch_unixtime': Utils.to_all_unixtime(sat['launch_date'])})
         sat.update({'decay_unixtime': Utils.to_all_unixtime(sat['decay_date'])})
         sat.update({'extract': extracts[str(sat['norad_id'])]})
