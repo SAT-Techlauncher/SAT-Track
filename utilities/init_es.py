@@ -76,8 +76,8 @@ def upload_sats_to_es():
     templates = ['_' + str(i) + '_' for i in range(5)]
     satellites = []
     keys = [
-        'intl_code', 'norad_id', 'name', 'source', 'launch_date', 'decay_date', 'launch_unixtime', 'decay_unixtime',
-        'launch_site', 'status', 'extract', 'tle'
+        'intl_code', 'norad_id', 'name', 'source', 'launch_date_text', 'launch_date', 'decay_date',
+        'launch_unixtime', 'decay_unixtime', 'launch_site', 'status', 'extract', 'tle'
     ]
 
     for sat in sats:
@@ -86,6 +86,11 @@ def upload_sats_to_es():
                 sat[k] = sat[k].lower()
         for i in range(len(templates)):
             sat.pop(templates[i])
+
+        launch_date = ''
+        for e in str(sat['launch_date']):
+            launch_date = launch_date + e if e != '-' else launch_date + ' '
+        sat.update({'launch_date_text': launch_date})
         sat.update({'launch_unixtime': Utils.to_all_unixtime(sat['launch_date'])})
         sat.update({'decay_unixtime': Utils.to_all_unixtime(sat['decay_date'])})
         sat.update({'extract': extracts[str(sat['norad_id'])]})
@@ -105,6 +110,7 @@ def upload_sats_to_es():
         norad_id=SHD.Integer,
         name=SHD.String,
         launch_date=SHD.String,
+        launch_date_text=SHD.String,
         launch_unixtime=SHD.Integer,
         decay_date=SHD.String,
         decay_unixtime=SHD.Integer
@@ -120,6 +126,7 @@ def upload_sats_to_es():
         intl_code={'type': 'keyword'},
         source={'type': 'keyword'},
         status={'type': 'keyword'},
+        launch_date_text={'type': 'text'},
         launch_unixtime={'type': 'long', 'ignore_malformed': False, 'null_value': None},
         decay_unixtime={'type': 'long', 'ignore_malformed': True, 'null_value': None},
         extract={'type': 'text'}
@@ -145,6 +152,10 @@ def to_extract_format(dic):
         source += s + ' '
     source = source.replace(';', ' ')
 
+    launch_date_text = ''
+    for e in str(sat.launch_date):
+        launch_date_text = launch_date_text + e if e != '-' else launch_date_text + ' '
+
     launch_site = ''
     for site in SITES:
         site_abbrev = list(site.keys())[0]
@@ -169,6 +180,7 @@ def to_extract_format(dic):
 
     data = sat.name + ' | ' + \
            source + ' | ' + \
+           launch_date_text + ' | ' + \
            launch_site + ' | ' + \
            group + ' | ' + \
            status + ' | ' + trackable
@@ -212,6 +224,6 @@ with open(RIPE_TEXT_ + 'satellites_groups_mapping.json', 'r') as f:
     SAT_GROUP_MAPPING = json.loads(f.read())
 
 
-# if __name__ == '__main__':
-#     generate_extracts_from_satellites_json()
-#     upload_sats_to_es()
+if __name__ == '__main__':
+    generate_extracts_from_satellites_json()
+    upload_sats_to_es()

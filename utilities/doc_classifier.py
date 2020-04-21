@@ -224,17 +224,14 @@ def is_month(word, **ranks):
 
     months = ['January', 'February', 'March', 'April', 'May', 'June',
               'July', 'August', 'September', 'October', 'November', 'December']
-    prox = []
     for m in months:
         month = m.lower()
         if word == month:
             return 0.9
         elif word == month[0:3]:
             return 0.9
-        else:
-            prox.append(round(0.5 * str_prox(word, month) + 0.5 * edit_distance_prox(word, month), 4))
 
-    return round(max(prox), 4)
+    return 0
 
 def is_day(word, **ranks):
     word = str(word).strip('th').strip('st').strip('nd').strip('rd')

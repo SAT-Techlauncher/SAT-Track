@@ -78,8 +78,13 @@ def controll_search_satellites(user_id, user_input):
     status, res = SatelliteManager.to_satellites(satellite_lst)
 
     if status == RET.OK:
-        satellites = res if 0 < len(res) <= 10 else res[0 : conf.SEARCH_RESULT_LMT]
-        return RET.OK, satellites
+        if 0 < len(res) <= conf.SEARCH_RESULT_LMT:
+            satellites = res
+            beyond_lmt = False
+        else:
+            satellites = res[0 : conf.SEARCH_RESULT_LMT]
+            beyond_lmt = True
+        return RET.OK, satellites, beyond_lmt
 
     errors = res
     print('error in controll_search_satellites: errors(' + str(len(errors)) + ') =', errors)

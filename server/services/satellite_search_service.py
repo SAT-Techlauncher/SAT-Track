@@ -98,7 +98,7 @@ def to_date(classes):
                 month_hit = hit
 
     if 'is_day' in date_classes:
-        day_hit = date_classes['is_day']
+        day_hit = date_classes['is_day'][0]
 
     year, month, day = 0, 0, 0
     if year_hit != () and str(year_hit[0]).isdigit():
@@ -123,51 +123,58 @@ def to_date(classes):
     return ripe_date, Utils.to_all_unixtime(ripe_date)
 
 def turn_to_query_body(classes, user_input):
-    origin_query = {}
+    origin_query = []
     should_query = set().union({})
     should = []
     must = []
     numbers = []
+    like_norad_ids = set()
 
     for k in classes.keys():
-        # print('{' + str(k) + ': ' + str(classes[k]) + '}')
+        print('{' + str(k) + ': ' + str(classes[k]) + '}')
 
         top_hit = classes[k][0][0]
 
         if k == 'is_date' and classes[k][0][1] >= 0.7:
             must.append({'match': {'launch_unixtime': to_date(classes)[1]}})
-            # must.append({'match': {'launch_unixtime': Utils.to_all_unixtime(top_hit)}})
             numbers.extend(top_hit.split(' '))
         elif ('is_date' not in classes.keys() or classes['is_date'][0][1] < 0.7) \
-                and (k == 'is_number' or k == 'is_year' or k == 'is_month' or k == 'is_day'):
+                and (k == 'is_number' or k == 'is_year' or (k == 'is_month' and classes[k][0][1] >= 0.6) or k == 'is_day'):
             for hit in classes[k]:
                 should_query.add(('term', 'norad_id', int(hit[0]))) if str(hit[0]).isnumeric() else ...
+                like_norad_ids.add(int(hit[0]))
             numbers.extend(top_hit.split(' '))
         elif k == 'is_intl_code':
             must.append({'match': {'intl_code': top_hit}})
+
+        if k == 'is_year':
+            must.append({'match': {'launch_date_text': top_hit}})
             numbers.extend(top_hit.split(' '))
+
+    numbers = set(numbers)
 
     origin_input = user_input.lower().rstrip().lstrip()
     extract_input = ''
     origin_count, extract_count = 1, 1
     for word in origin_input.split(' '):
-        if word not in set(numbers) and word != '':
+        if word not in numbers and word != '':
             extract_input += word + ' '
             extract_count += 1
         origin_count += 1
-
-    if origin_count - extract_count <= 2:
-        extract_input = origin_input
-
     extract_input = extract_input.lstrip().rstrip()
-    origin_query.update({'fuzzy': {'extract': extract_input}}) \
-        if extract_input != '' and not extract_input.isnumeric() else ...
+
+    print('numbers ->', numbers, 'extract_input ->', extract_input + '; origin_input ->'+ origin_input)
+
+    origin_query.extend([
+        {'fuzzy': {'extract': extract_input}},
+        {'match_phrase': {'extract': extract_input}},
+    ]) if extract_input != '' and not extract_input.isnumeric() else ...
 
     for query in should_query:
         (method, field, value) = query
         should.append({method: {field: value}})
 
-    should.extend([origin_query]) if origin_query != {} else ...
+    should.extend(origin_query)
     should.extend(must)
 
     body = {
@@ -181,26 +188,31 @@ def turn_to_query_body(classes, user_input):
     }
     print('satellite_search_service:', body)
 
-    return body
+    return body, like_norad_ids
 
 def search_satellites_from_es(user_input):
     classes = extract_user_input_info(user_input)
-    search_body = turn_to_query_body(classes, user_input)
+    search_body, like_norad_ids = turn_to_query_body(classes, user_input)
 
     res = satellite_database.search_by_body(search_body)
 
     # name norad_id intl_code launch_date status tle
-    lst = []
+    lower_prior_lst, higher_prior_lst = [], []
     for sat in res:
-        lst.append({
+        satellite = {
             'name': sat['name'],
             'norad_id': sat['norad_id'],
             'intl_code': sat['intl_code'],
             'launch_date': sat['launch_date'],
             'status': sat['status'],
             'tle': sat['tle']
-        })
+        }
 
-    return lst
+        if sat['norad_id'] in like_norad_ids:
+            higher_prior_lst.append(satellite)
+        else:
+            lower_prior_lst.append(satellite)
+
+    return higher_prior_lst + lower_prior_lst
 
 # search_satellites_from_es('vaguard')

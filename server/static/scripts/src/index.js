@@ -142,6 +142,7 @@ $(document).ready(function () {
     });
 
     var selectingSatellites = $('#selecting_satellites');
+    var searchingResultTip = $('#selecting_placeholder_tail');
 
     // user type and search new satellite
     $('#submit_button').on('click', function (event) {
@@ -155,8 +156,17 @@ $(document).ready(function () {
             { 'input': userInput },
             function (data) {
                 if (data.code === 0) {
-                    var satsHtml = generateSelectingSats(data.lst);
-                    selectingSatellites.html(satsHtml);
+                    if (data.lst.length === 0) {
+                        searchingResultTip.html('no search result...');
+                    } else {
+                        var satsHtml = generateSelectingSats(data.lst);
+                        selectingSatellites.html(satsHtml);
+                        if (data.more === true) {
+                            searchingResultTip.html('cannot show more, please search in more details...');
+                        } else {
+                            searchingResultTip.html('all search result');
+                        }
+                    }
                 } else {
                     selectingSatellites.html('');
                 }
@@ -164,6 +174,8 @@ $(document).ready(function () {
         );
 
         input.val('');
+        selectingSatellites.html('');
+        searchingResultTip.html('');
     });
 
     // user select a satellite into priority tasks list
@@ -190,6 +202,8 @@ $(document).ready(function () {
                 initTaskColor(tasks);
             }
         );
+
+        searchingResultTip.html('');
     });
 
     enter('#submit_button');
@@ -242,8 +256,6 @@ function generateSelectingSats(lst) {
     var html = '';
     for (var i = 0; i < lst.length; i++) {
         var noradId = lst[i].norad_id;
-
-        var rawName = lst[i].name;
         var name = lst[i].name;
         var intlCode = lst[i].intl_code;
         var status = lst[i].status;

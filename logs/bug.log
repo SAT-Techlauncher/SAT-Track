@@ -1,7 +1,6 @@
-1. still cannot search satellites with any info successfully.
-5. lack of interface to interact with slave system.
-2. code structure is not so clear and reasonable.
+5. lack of interface to interact with slave system. (since the rasberry Pi has not been received)
 
-
+- 2. code structure is not so clear and reasonable.
+- 1. still cannot search satellites with any info successfully.
 - 3. have not completed satellites select user interface.
 - 4. have not added latitude and longitude parameters into user priority.

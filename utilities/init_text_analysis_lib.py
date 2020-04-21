@@ -267,21 +267,31 @@ def generate_sources_countries_mapping():
     sources_countries_mapping = {}
     for hit in hits_ripe_match:
         src, coun = hit[0], hit[1]
-        key = ''
         for k, v in sources.items():
             if src == v:
                 key = k.lower()
-                if k not in sources_countries_mapping:
-                    sources_countries_mapping.update({k.lower(): [v.lower(), ';']})
+                if key not in sources_countries_mapping:
+                    sources_countries_mapping.update({key: [v.lower(), coun]})
+                else:
+                    sources_countries_mapping[key] += [coun]
                 count += 1
 
-        for country in countries:
-            if coun == country['country']:
-                sources_countries_mapping[key].extend([country['code_2'].lower(), country['code_3'].lower(), country['country'].lower(), ';'])
-    print(count, '/', len(sources_countries_mapping))
+    final_mapping = {}
+    for k, v in sources_countries_mapping.items():
+        src = v[0]
+        couns = v[1:len(v)]
+
+        final_mapping.update({k: [src, ';']})
+
+        for coun in couns:
+            for country in countries:
+                if coun == country['country']:
+                    final_mapping[k].extend([country['code_2'].lower(), country['code_3'].lower(), country['country'].lower(), ';'])
+
+    print(count, '/', len(final_mapping))
 
     with open(RIPE_TEXT_ + 'sources_countries_mapping.json', 'w') as f:
-        f.write(json.dumps(sources_countries_mapping))
+        f.write(json.dumps(final_mapping))
 
 def generate_groups_mapping_from_sat_groups():
     with open(RAW_TEXT_ + 'sat_groups.json', 'r') as f:

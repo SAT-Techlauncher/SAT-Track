@@ -135,12 +135,13 @@ def search_satellite():
         user_input = request.args.get('input')
         print(user_input)
 
-        status, satellites = controll_search_satellites(user_id, user_input)
+        status, satellites, beyond_lmt = controll_search_satellites(user_id, user_input)
 
         if status == RET.OK:
             return jsonify(
                 code=RET.OK,
-                lst = satellites
+                lst=satellites,
+                more=beyond_lmt
             )
         else:
             return jsonify(
