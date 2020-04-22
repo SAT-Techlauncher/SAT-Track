@@ -35,6 +35,7 @@ Our team aims to document our discussions during team and client meetings throug
 * [Reflection Log](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Reflection-Log)
 * [Meeting Minutes](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Meeting-Minutes)
 * [Weekly Reports](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Weekly-Reports)
+* [Design Document](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Design-Document)
 
 ## Group Members & Workflow <a id="5"></a>
 Our team consists of six members, all Australian National University students, who are completing degrees within Computer Science. For this project we divided the roles based on each members strengths but we plan to communicate often and are open to rotating roles should there be a need to do so. We manage tasks via Trello and evaluate and re-evaluate tasks at weekly meetings to manage progress. We also use Slack to communicate with our client and between members.
