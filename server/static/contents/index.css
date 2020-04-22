@@ -118,7 +118,7 @@
 #back_to_top {
     position: fixed;
     bottom: 80px;
-    margin-left: 110px;
+    margin-left: 640px;
     width: 45px;
     height: 40px;
     cursor: pointer;
@@ -126,6 +126,7 @@
     background-size: 45px 40px;
     opacity: 0.3;
     z-index: 10;
+    visibility: hidden;
 }
 
 #back_to_top:hover {

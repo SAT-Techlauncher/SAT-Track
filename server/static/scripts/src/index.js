@@ -143,6 +143,7 @@ $(document).ready(function () {
 
     var selectingSatellites = $('#selecting_satellites');
     var searchingResultTip = $('#selecting_placeholder_tail');
+    var selectingBackToTop = $('#back_to_top');
 
     // user type and search new satellite
     $('#submit_button').on('click', function (event) {
@@ -166,9 +167,11 @@ $(document).ready(function () {
                         } else {
                             searchingResultTip.html('all search result');
                         }
+                        selectingBackToTop.css('visibility', 'visible');
                     }
                 } else {
                     selectingSatellites.html('');
+                    selectingBackToTop.css('visibility', 'hidden');
                 }
             }
         );
@@ -176,6 +179,7 @@ $(document).ready(function () {
         input.val('');
         selectingSatellites.html('');
         searchingResultTip.html('');
+        selectingBackToTop.css('visibility', 'hidden');
     });
 
     // user select a satellite into priority tasks list
@@ -195,6 +199,7 @@ $(document).ready(function () {
                     var tasksHtml = generateTasks(priority);
                     tasks.html(tasksHtml);
                     selectingSatellites.html('');
+                    selectingBackToTop.css('visibility', 'hidden');
                 } else {
                     priority = data.priority;
                     tasks.html('');

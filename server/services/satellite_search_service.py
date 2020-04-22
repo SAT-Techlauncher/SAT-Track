@@ -112,13 +112,16 @@ def to_date(classes):
             month = str(lst.index(month_hit[0]) + 1)
         month = '0' + month if len(month) == 1 else month
 
-    if day_hit != ():
+    if isinstance(day_hit, tuple) and day_hit != ():
         d = ''
         for s in day_hit[0]:
             d = d + s if str(s).isdigit() else d + ''
         day = '0' + d if len(d) == 1 else d
+    day = '0' + str(day) if len(str(day)) == 1 else str(day)
+    day = '01' if day == '00' else day
 
     ripe_date = str(year) + '-' + str(month) + '-' + str(day)
+    print(ripe_date)
 
     text_date = ''
     for s in ripe_date:
@@ -146,7 +149,10 @@ def turn_to_query_body(classes, user_input):
                 and (k == 'is_number' or k == 'is_year' or (k == 'is_month' and classes[k][0][1] >= 0.6) or k == 'is_day'):
             for hit in classes[k]:
                 should_query.add(('term', 'norad_id', int(hit[0]))) if str(hit[0]).isnumeric() else ...
-                like_norad_ids.add(int(hit[0]))
+                try:
+                    like_norad_ids.add(int(hit[0]))
+                except:
+                    ...
             numbers.extend(top_hit.split(' '))
         elif k == 'is_intl_code':
             must.append({'match': {'intl_code': top_hit}})
@@ -176,6 +182,7 @@ def turn_to_query_body(classes, user_input):
     origin_query.extend([
         {'fuzzy': {'extract': extract_input}},
         {'match_phrase': {'extract': extract_input}},
+        {'match': {'extract': extract_input}}
     ]) if extract_input != '' and not extract_input.isnumeric() else ...
 
     for query in should_query:

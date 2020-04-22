@@ -674,3 +674,181 @@ Traceback (most recent call last):
   File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 154, in turn_to_query_body
     if 0.5 <= k == 'is_date' and classes[k][0][1] < 0.7:
 TypeError: '<=' not supported between instances of 'float' and 'str'
+[2020-04-22 19:42:44,922][app.py:1891][ERROR][10348] - Exception on /searchSatellite [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 138, in search_satellite
+    status, satellites, beyond_lmt = controll_search_satellites(user_id, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\controllers\user_behavior_controller.py", line 69, in controll_search_satellites
+    satellite_lst = search_satellites_from_es(user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 203, in search_satellites_from_es
+    search_body, like_norad_ids = turn_to_query_body(classes, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 149, in turn_to_query_body
+    like_norad_ids.add(int(hit[0]))
+ValueError: invalid literal for int() with base 10: 'mar'
+[2020-04-22 19:43:38,715][app.py:1891][ERROR][11256] - Exception on /searchSatellite [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 138, in search_satellite
+    status, satellites, beyond_lmt = controll_search_satellites(user_id, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\controllers\user_behavior_controller.py", line 69, in controll_search_satellites
+    satellite_lst = search_satellites_from_es(user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 206, in search_satellites_from_es
+    search_body, like_norad_ids = turn_to_query_body(classes, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 162, in turn_to_query_body
+    must.append({'match': {'launch_date_text': to_date(classes)[2]}})
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 117, in to_date
+    for s in day_hit[0]:
+IndexError: list index out of range
+[2020-04-22 19:44:22,046][app.py:1891][ERROR][13552] - Exception on /searchSatellite [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 138, in search_satellite
+    status, satellites, beyond_lmt = controll_search_satellites(user_id, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\controllers\user_behavior_controller.py", line 69, in controll_search_satellites
+    satellite_lst = search_satellites_from_es(user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 206, in search_satellites_from_es
+    search_body, like_norad_ids = turn_to_query_body(classes, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 162, in turn_to_query_body
+    must.append({'match': {'launch_date_text': to_date(classes)[2]}})
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 127, in to_date
+    return ripe_date, Utils.to_all_unixtime(ripe_date), text_date
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\utilities\utils.py", line 32, in to_all_unixtime
+    date = datetime.datetime.strptime(date + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\_strptime.py", line 577, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\_strptime.py", line 359, in _strptime
+    (data_string, format))
+ValueError: time data '1958-03-0 00:00:00' does not match format '%Y-%m-%d %H:%M:%S'
+[2020-04-22 19:45:54,494][app.py:1891][ERROR][12668] - Exception on /searchSatellite [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 138, in search_satellite
+    status, satellites, beyond_lmt = controll_search_satellites(user_id, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\controllers\user_behavior_controller.py", line 69, in controll_search_satellites
+    satellite_lst = search_satellites_from_es(user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 207, in search_satellites_from_es
+    search_body, like_norad_ids = turn_to_query_body(classes, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 163, in turn_to_query_body
+    must.append({'match': {'launch_date_text': to_date(classes)[2]}})
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 128, in to_date
+    return ripe_date, Utils.to_all_unixtime(ripe_date), text_date
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\utilities\utils.py", line 32, in to_all_unixtime
+    date = datetime.datetime.strptime(date + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\_strptime.py", line 577, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\_strptime.py", line 359, in _strptime
+    (data_string, format))
+ValueError: time data '1958-03-0 00:00:00' does not match format '%Y-%m-%d %H:%M:%S'
+[2020-04-22 19:46:22,640][app.py:1891][ERROR][7280] - Exception on /searchSatellite [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 138, in search_satellite
+    status, satellites, beyond_lmt = controll_search_satellites(user_id, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\controllers\user_behavior_controller.py", line 69, in controll_search_satellites
+    satellite_lst = search_satellites_from_es(user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 208, in search_satellites_from_es
+    search_body, like_norad_ids = turn_to_query_body(classes, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 164, in turn_to_query_body
+    must.append({'match': {'launch_date_text': to_date(classes)[2]}})
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 120, in to_date
+    day = '0' + day if len(day) == 1 else day
+TypeError: object of type 'int' has no len()
+[2020-04-22 19:47:10,912][app.py:1891][ERROR][6600] - Exception on /searchSatellite [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 138, in search_satellite
+    status, satellites, beyond_lmt = controll_search_satellites(user_id, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\controllers\user_behavior_controller.py", line 69, in controll_search_satellites
+    satellite_lst = search_satellites_from_es(user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 208, in search_satellites_from_es
+    search_body, like_norad_ids = turn_to_query_body(classes, user_input)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 164, in turn_to_query_body
+    must.append({'match': {'launch_date_text': to_date(classes)[2]}})
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\satellite_search_service.py", line 129, in to_date
+    return ripe_date, Utils.to_all_unixtime(ripe_date), text_date
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\utilities\utils.py", line 32, in to_all_unixtime
+    date = datetime.datetime.strptime(date + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\_strptime.py", line 577, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\_strptime.py", line 359, in _strptime
+    (data_string, format))
+ValueError: time data '1958-03-00 00:00:00' does not match format '%Y-%m-%d %H:%M:%S'

@@ -135,6 +135,11 @@ def search_satellite():
         user_input = request.args.get('input')
         print(user_input)
 
+        if user_input == '':
+            return jsonify(
+                code=RET.SNTERR,
+            )
+
         status, satellites, beyond_lmt = controll_search_satellites(user_id, user_input)
 
         if status == RET.OK:
@@ -172,7 +177,7 @@ def select_satellite():
         code=RET.REQERR,
     )
 
-        # @view_bp.before_app_request
+# @view_bp.before_app_request
 # def load_logged_in_user():
 #     user_id = session.get('user_id')
 #     g.user = User.get(user_id) if user_id is not None else None
