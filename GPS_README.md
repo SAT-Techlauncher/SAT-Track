@@ -26,7 +26,7 @@ This should print out comma separated values from the device. e.g:
   $GPGSV,1,1,01,03,,,19*73
   $GPGLL,,,,,043149.00,V,N*41
   $GPRMC,043150.00,V,,,,,,,110520,,,N*7C
-
+  
 This verifies that the device is functioning. It still requires a decent lock to multiple GPS satellites to function correctly.
 It is best to position the device near a window if possible.
 
