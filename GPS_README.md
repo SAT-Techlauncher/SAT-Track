@@ -33,7 +33,7 @@ This should print out comma separated values from the device (or similar):
 This verifies that the device is communicating. It still requires a decent lock to multiple GPS satellites to function correctly.
 It is best to position the device near a window if possible.
 
-##The following is to be able to use python libraries with the device and to test out any other info you may need.
+## The following is to be able to use python libraries with the device and to test out any other info you may need.
 
 After getting successful queries above, enter into terminal:
 ```
@@ -44,7 +44,7 @@ Edit the following file:
   /etc/defaults/gpsd
   ```
   To look like:
-	```
+```
     # Default settings for the gpsd init script and the hotplug wrapper.
 
     # Start the gpsd daemon automatically at boot time
@@ -59,7 +59,8 @@ Edit the following file:
 
     # Other options you want to pass to gpsd
     GPSD_OPTIONS=""
-    ```
+```
+
 run in terminal (not all are neccesary):
 ```
   sudo apt-get install python-gi-cairo
@@ -71,13 +72,13 @@ run in terminal (not all are neccesary):
 
 Run the following in terminal to get some info back:
   For simple display:
-	```
+```
     cgps -s
-		```
+```
   For GUI:
-	```
+```
   xgps
-  ```
+```
 	
 ==================================
 
