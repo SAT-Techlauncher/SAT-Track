@@ -1,7 +1,8 @@
-This is the setup procedure for the GP-20U7 GPS module.
+# Setup procedure for the GP-20U7 GPS module.
 
 Datasheet: https://cdn.sparkfun.com/datasheets/GPS/GP-20U7.pdf
 
+## Hardware Connections
 Raspberry Pi Pin connections:
   To be plugged in order:
     <Cable_Colour>-<Title>-<Raspi_Pin>
@@ -9,6 +10,7 @@ Raspberry Pi Pin connections:
     White-Serial-10
     Red-VCC(3.3v)-1
     
+## Raspberry Pi Configuration
 RaspberryPi config from desktop:
   Raspberry Pi Configuration->Interfaces Tab->Serial Port = Enable
   Raspberry Pi Configuration->Interfaces Tab->Serial Console = Disable
@@ -16,31 +18,35 @@ RaspberryPi config from desktop:
 Restart RaspberryPi
 
 run:
+```
   sudo cat /dev/ttyS0
-  
+  ```
 This should print out comma separated values from the device. e.g:
-
+```
   $GPVTG,,,,,,,,,N*30
   $GPGGA,043149.00,,,,,0,00,99.99,,,,,,*6D
   $GPGSA,A,1,,,,,,,,,,,,,99.99,99.99,99.99*30
   $GPGSV,1,1,01,03,,,19*73
   $GPGLL,,,,,043149.00,V,N*41
   $GPRMC,043150.00,V,,,,,,,110520,,,N*7C
-  
+```
 This verifies that the device is functioning. It still requires a decent lock to multiple GPS satellites to function correctly.
 It is best to position the device near a window if possible.
 
 
 =========================================================================
-The following is to be able to use python libraries with the device and to test out any other info you may need.
+##The following is to be able to use python libraries with the device and to test out any other info you may need.
 
 After getting successful queries above, enter into terminal:
+```
   sudo apt-get install gpsd python-gps gpsd-clients
-  
+  ```
 Edit the following file:
+```
   /etc/defaults/gpsd
-  
+  ```
   To look like:
+	```
     # Default settings for the gpsd init script and the hotplug wrapper.
 
     # Start the gpsd daemon automatically at boot time
@@ -55,20 +61,26 @@ Edit the following file:
 
     # Other options you want to pass to gpsd
     GPSD_OPTIONS=""
-    
+    ```
 run in terminal (not all are neccesary):
+```
   sudo apt-get install python-gi-cairo
   sudo systemctl enable gpsd.service
   sudo systemctl enable gpsd.socket
   sudo systemctl start gpsd.service
   sudo gpsd /dev/ttyS0 -F /var/run/gpsd.sock
+```
 
 Run the following in terminal to get some info back:
   For simple display:
+	```
     cgps -s
+		```
   For GUI:
+	```
   xgps
-  
+  ```
+	
 ==================================
 
 This may be handy:
