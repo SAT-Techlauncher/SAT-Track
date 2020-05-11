@@ -3,25 +3,25 @@
 Datasheet: https://cdn.sparkfun.com/datasheets/GPS/GP-20U7.pdf
 
 ## Hardware Connections
-Raspberry Pi Pin connections:
-  To be plugged in order:
-    <Cable_Colour>-<Title>-<Raspi_Pin>
-    Black-Ground-9
-    White-Serial-10
-    Red-VCC(3.3v)-1
+Raspberry Pi Pin connections (To be plugged in order):
+Cable Colour (Type) | Raspi Pin
+------------ | -------------
+Black (GND) | 9
+White (Serial Data) | 10
+Red (VCC 3.3v) | 1
     
 ## Raspberry Pi Configuration
 RaspberryPi config from desktop:
-  Raspberry Pi Configuration->Interfaces Tab->Serial Port = Enable
-  Raspberry Pi Configuration->Interfaces Tab->Serial Console = Disable
+* Raspberry Pi Configuration->Interfaces Tab->Serial Port = Enable
+* Raspberry Pi Configuration->Interfaces Tab->Serial Console = Disable
   
-Restart RaspberryPi
+**Restart RaspberryPi**
 
 run:
 ```
   sudo cat /dev/ttyS0
   ```
-This should print out comma separated values from the device. e.g:
+This should print out comma separated values from the device (or similar):
 ```
   $GPVTG,,,,,,,,,N*30
   $GPGGA,043149.00,,,,,0,00,99.99,,,,,,*6D
@@ -30,11 +30,9 @@ This should print out comma separated values from the device. e.g:
   $GPGLL,,,,,043149.00,V,N*41
   $GPRMC,043150.00,V,,,,,,,110520,,,N*7C
 ```
-This verifies that the device is functioning. It still requires a decent lock to multiple GPS satellites to function correctly.
+This verifies that the device is communicating. It still requires a decent lock to multiple GPS satellites to function correctly.
 It is best to position the device near a window if possible.
 
-
-=========================================================================
 ##The following is to be able to use python libraries with the device and to test out any other info you may need.
 
 After getting successful queries above, enter into terminal:
