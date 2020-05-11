@@ -71,11 +71,12 @@ run in terminal (not all are neccesary):
 ```
 
 Run the following in terminal to get some info back:
-  For simple display:
+  * For simple display:
+  
 ```
     cgps -s
 ```
-  For GUI:
+  * For GUI:
 ```
   xgps
 ```
