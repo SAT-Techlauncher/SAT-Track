@@ -19,6 +19,7 @@ The SAT-Track project aims to provide a method for successfully tracking overhea
 * [Our goals](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Our-goals)
 * [Risk Management](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Risk-Management)
 * [Statement of Work](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Statement-of-Work)
+* [User Stories](https://github.com/SAT-Techlauncher/SAT-Track/wiki/User-Stories)
 
 ## Project Stakeholders <a id="2"></a>
 This project was proposed by [Clearbox Systems](http://www.clearboxsystems.com.au/). Clearbox requires accurate and reliable satellite data to be readily available as they need it. Therefore this project will aid them in actively tracking satellites as they require. They are the sole stakeholder for this project and are also the only planned users. 
