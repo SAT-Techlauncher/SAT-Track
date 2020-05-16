@@ -46,6 +46,6 @@ Our team consists of six members, all Australian National University students, w
 
 We currently hold a team meeting via [Zoom](https://zoom.us/) every Tuesday and a client meeting every Friday, also via [Zoom](https://zoom.us/).
 * [Group Members](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Group-members)
-* [Gantt Chart](https://github.com/SAT-Techlauncher/SAT-Track/blob/master/Sat_Track%20Gantt%20Chart%2013_5_2020.xlsx)
+* [Gantt Chart](https://github.com/SAT-Techlauncher/SAT-Track/blob/master/Sat_Track%20Gantt%20Chart%2016_5_2020.xlsx)
 * [Deliverable](https://github.com/SAT-Techlauncher/SAT-Track/blob/master/Deliverables.docx)
 * [Milestone](https://github.com/SAT-Techlauncher/SAT-Track/blob/master/Milestone.docx)
