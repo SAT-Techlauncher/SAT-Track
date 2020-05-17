@@ -38,10 +38,11 @@ Our team aims to document our discussions during team and client meetings throug
 * [Weekly Reports](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Weekly-Reports)
 * [Design Document](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Design-Document)
 * [Financial Records](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Financial-Records)
+* [Poster](https://drive.google.com/open?id=1BRjw5VS8lRQ-rbkMAlT4aFJetap6jcgS)
 * [Audit 1](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Audit-1)
 * [Audit 2](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Audit-2)
 * [Audit 3](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Audit-3)
-* [Poster](https://drive.google.com/open?id=1BRjw5VS8lRQ-rbkMAlT4aFJetap6jcgS)
+
 
 ## Group Members & Workflow <a id="5"></a>
 Our team consists of six members, all Australian National University students, who are completing degrees within Computer Science. For this project we divided the roles based on each members strengths but we plan to communicate often and are open to rotating roles should there be a need to do so. We manage tasks via Trello and evaluate and re-evaluate tasks at weekly meetings to manage progress. We also use Slack to communicate with our client and between members.
