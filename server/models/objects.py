@@ -3,12 +3,14 @@ from flask_login import UserMixin
 import json
 
 class User(UserMixin):
-    def __init__(self, email, password, priority=list()):
+    def __init__(self, email, password, priority=list(), ip='', location=None):
         self.email = email
         self.password = password
         self.id = Utils.to_hash(email)
         self.name = email.split('@')[0]
         self.priority = priority
+        self.ip = ip
+        self.location = [-1.0, -1.0, -1.0] if location is not None else location
 
     def is_authenticated(self):
         return True
@@ -21,6 +23,17 @@ class User(UserMixin):
 
     def get_id(self):
         return self.id
+
+    def set_ip(self, ip):
+        self.ip = ip
+        return self
+
+    def set_location(self, location):
+        self.location = location
+        return self
+
+    def get_name(self):
+        return self.email.split('@')[0]
 
     def to_dict(self):
         return self.__dict__
@@ -108,6 +121,7 @@ class Task:
 
 class Satellite(SOD):
     def __init__(self, dic, **kwargs):
+        self.__dic = dic
         super().__init__(dic, **kwargs)
 
     def Upper(self, v):
@@ -116,6 +130,9 @@ class Satellite(SOD):
 
     def String(self, v):
         return str(v) if v is not None else str('none')
+
+    def to_dict(self):
+        return self.__dic
 
 
 

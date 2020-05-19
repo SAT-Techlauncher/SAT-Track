@@ -183,10 +183,12 @@ $(document).ready(function () {
     });
 
     // user select a satellite into priority tasks list
-    selectingSatellites.on('click', '.selecting_satellite', function (event) {
-        var id = $(this).attr('id');
-        var index = $(this).attr('data-index');
-        var satId = $(this).attr('data-satId');
+    selectingSatellites.on('click', '.selecting_satellite .selecting_button', function (event) {
+        event.stopPropagation();
+
+        var id = $(this).parent().attr('id');
+        var index = $(this).parent().attr('data-index');
+        var satId = $(this).parent().attr('data-satId');
 
         console.log("select: " + index + ", " + satId + ", " + id + ", " + $('#' + id).text());
 
@@ -211,6 +213,17 @@ $(document).ready(function () {
         searchingResultTip.html('');
     });
 
+    // user select a satellite into priority tasks list
+    selectingSatellites.on('click', '.selecting_satellite', function (event) {
+        var id = $(this).attr('id');
+        var index = $(this).attr('data-index');
+        var satId = $(this).attr('data-satId');
+
+        console.log("select: " + index + ", " + satId + ", " + id + ", " + $('#' + id).text());
+
+        window.location.href='/getSatInfo?id=' + satId;
+    });
+
     enter('#submit_button');
 
 });
@@ -222,6 +235,8 @@ function generateTasks(priority) {
         var satellite = priority[i].name;
         var latitude = 46.12;
         var longitude = 45.09;
+        var uplink = 55.655;
+        var downlink = -23.443;
         var active = priority[i].active;
         var executing = priority[i].executing;
         html +=
@@ -231,6 +246,8 @@ function generateTasks(priority) {
             "<div class='order_down'></div>" +
             "<p class='satellite_name'>" + satellite + "</p>" +
             "<p class='norad_id'>norad id: " + noradId + "</p>" +
+            "<p class='uplink'>up: " + uplink + "</p>" +
+            "<p class='downlink'>down: " + downlink + "</p>" +
             "<p class='position'>" + latitude + "° &nbsp" + longitude + "°</p>" +
             "<div class='delete_task'></div>" +
             "</div>";
@@ -267,6 +284,7 @@ function generateSelectingSats(lst) {
         var launchDate = lst[i].launch_date;
         html +=
             "<div class='selecting_satellite' id='selecting_satellite_" + i + "' data-index='" + i + "' data-satId='" + noradId + "'>" +
+            "<div class='selecting_button'></div>" +
             "<div class='selecting_name'><div class='tag_val'>" + name + "</div></div>" +
             "<div class='selecting_norad_id'><p class='tag_head'>NORAD ID:</p><p class='tag_val'>" + noradId + "</p></div>" +
             "<div class='selecting_intl_code'><p class='tag_head'>Int'l Code:</p><p class='tag_val'>" + intlCode + "</p></div>" +

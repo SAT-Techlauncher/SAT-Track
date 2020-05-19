@@ -1,0 +1,256 @@
+#satellite_map_div {
+    position: absolute;
+    top: 90px;
+    left: 205px;
+    right: 300px;
+    height: 450px;
+    /*background-color: red;*/
+    -moz-user-select: text;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+#satellite_map {
+    margin-left: 50px;
+    margin-right: 50px;
+    height: 480px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 2px 2px 0 #99bcd7;
+}
+
+#world_map {
+    margin: 0;
+    width: inherit;
+    height: inherit;
+    background-color: black;
+    background: url(../assets/images/worldmap_.png) 0 0 no-repeat;
+    background-size: inherit;
+}
+
+#info_list_layer {
+    position: fixed;
+    right: 20px;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    padding-right: 20px;
+    box-shadow: 0 3px 3px 0 #99bcd7;
+    background-color: #3a38b5;
+    opacity: 0.45;
+}
+
+#info_list_div {
+    position: fixed;
+    top: 58px;
+    right: 20px;
+    width: 270px;
+    height: 100%;
+    /*background-color: white;*/
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+    #info_list_div::-webkit-scrollbar {
+        display: none;
+    }
+
+#info_head {
+    position: absolute;
+    top: 25px;
+    margin-top: 7px;
+    margin-left: 10px;
+    width: 250px;
+    height: 83px;
+    background-color: #fff;
+    box-shadow: 0 2px 1px 0 #99bcd7;
+    border-radius: 3px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#user_info {
+    position: absolute;
+    top: 118px;
+    margin-top: 7px;
+    margin-left: 10px;
+    width: 250px;
+    height: 120px;
+    background-color: #fff;
+    box-shadow: 0 2px 1px 0 #99bcd7;
+    border-radius: 3px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#info_body {
+    position: absolute;
+    top: 248px;
+    margin-top: 7px;
+    margin-left: 10px;
+    width: 250px;
+    height: 250px;
+    background-color: #fff;
+    box-shadow: 0 2px 1px 0 #99bcd7;
+    border-radius: 3px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#info_head p {
+    position: absolute;
+    z-index: 2;
+}
+
+#satellite_name {
+    top: -10px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#intl_code {
+    top: 30px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+#norad_id {
+    top: 48px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 10px;
+    color: #20460b;
+}
+
+#uplink {
+    top: 30px;
+    left: 120px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+#downlink {
+    top: 48px;
+    left: 120px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+
+#user_info p {
+    position: absolute;
+    z-index: 2;
+}
+
+#user_ip {
+    top: -3px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+#lat {
+    top: 30px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+#long {
+    top: 50px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+#elev {
+    top: 70px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+#az {
+    top: 30px;
+    left: 135px;
+    font-weight: bold;
+    font-size: 10px;
+    color: #20460b;
+}
+
+#alt {
+    top: 50px;
+    left: 135px;
+    font-weight: bold;
+    font-size: 10px;
+    color: #20460b;
+}
+
+#vel {
+    top: 70px;
+    left: 135px;
+    font-weight: bold;
+    font-size: 10px;
+    color: #20460b;
+}
+
+
+#info_body p {
+    position: absolute;
+    z-index: 2;
+}
+
+#detail_tag {
+    top: -8px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#source {
+    top: 30px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+#launch_date {
+    top: 55px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+#decay_date {
+    top: 80px;
+    left: 15px;
+    font-weight: bold;
+        font-size: 13px;
+}
+
+#launch_site {
+    top: 105px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+#group {
+    top: 130px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+#status {
+    top: 155px;
+    left: 15px;
+    font-weight: bold;
+    font-size: 13px;
+}

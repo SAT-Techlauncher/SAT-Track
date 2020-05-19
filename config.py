@@ -1,4 +1,5 @@
 import os
+import sys
 
 class BASE:
     # log path
@@ -21,6 +22,8 @@ class BASE:
     EMAIL_USER_POOL_NAME = 'email_user_pool'
     # satellite - user table
     SATELLITE_USERS_POOL_NAME = 'satellite_users_pool'
+    # satellite - user table
+    TRACKING_POOL_NAME = 'tracking_pool'
 
     # elasticsearch
     ES_DATA_INDEX = 'SAT'
@@ -33,7 +36,7 @@ class BASE:
     # es max download number of data
     ES_QUERY_MAX_SIZE = 5000
     # es max concurrent task number
-    MAX_WORKERS = 5
+    MAX_WORKERS = 10
     # es上传下载时间间隔 (按秒计算)
     UPLOAD_DOWNLOAD_INTERVAL = 1
     # es上传启动并发最小数据量
@@ -57,5 +60,23 @@ class BASE:
     RAW_DIR_ = os.path.dirname(__file__) + '/data/'
     RIPE_DIR_ = os.path.dirname(__file__) + '/data/lib/'
 
+    GOOGLEMAP_API_URL = 'https://maps.googleapis.com/maps/api/elevation/json?locations=%(lat)s,%(long)s&key=%(key)s'
+    GOOGLEMAP_API_KEY = 'AIzaSyCLfxHknd8lggQOOqLV3LHoSBAhMmLOZsU'
+    IPSTACK_API_URL = 'http://api.ipstack.com/%(ip)s?access_key=%(key)s'
+    IPSTACK_API_KEY = 'ac5dc2221554ed9fb1ec670d69aabb02'
 
-conf = BASE
+    POLLING_INTERVAL = 60
+
+
+class DEMO(BASE):
+    SERVER_HOST = '0.0.0.0'
+
+
+conf = DEMO
+
+if len(sys.argv) < 2:
+    conf = BASE
+elif sys.argv[1] == 'demo':
+    conf = DEMO
+
+

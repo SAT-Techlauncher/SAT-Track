@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAT-Track</title>
+    <link rel="stylesheet" type="text/css" href="../static/contents/layout.css" />
+    <link rel="stylesheet" type="text/css" href="../static/contents/info.css" />
+    <script src="../static/scripts/lib/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <!-- top navigator -->
+    <div id="top_bar_div">
+        <div id="page_link_div" class="no_select" onclick="location.href='./index.html'">
+            <a id="sat_track_title" class="no_select" href="{{ url_for('view.index') }}">SAT-Tracking</a>
+        </div>
+        <div id="user_link_div" class="no_select drop_down">
+            <div class="drop_down_list">
+                <div class="drop_down_content"><a href="">My info</a></div>
+                <div class="drop_down_content"><a href="">Setting</a></div>
+                <div class="drop_down_content"><a style="color: #eaff8e;" href="{{ url_for('auth.logout') }}">Logout</a></div>
+            </div>
+            <img id="user_avatar" src="../static/assets/ui/my_avatar.png" />
+            <a id="user_name" href="">{{ username }}</a>
+            <img id="down_arrow_tip" src="../static/assets/ui/down_arrow.png">
+        </div>
+    </div>
+
+    <!-- left navigator -->
+    <div id="navigator_div">
+        <div class="drop_down_content"><a href="">My info</a></div>
+        <div class="drop_down_content"><a href="./history.html">Data history</a></div>
+        <div class="drop_down_content"><a href="">Setting</a></div>
+        <div class="drop_down_content"><a href="">About us</a></div>
+        <div class="drop_down_content"><a href="">Contacts</a></div>
+        <div class="drop_down_content"><a style="color: #eaff8e;" href="{{ url_for('auth.logout') }}">Logout</a></div>
+        <div id="navigator_layer"></div>
+    </div>
+
+    <!-- main interface -->
+    <div id="main_interface_div">
+
+        <div id="satellite_map_div">
+            <div id="satellite_map">
+                <div id="world_map"></div>
+            </div>
+        </div>
+
+        <div id="info_list_div">
+            <div id="info_list">
+                <div id="info_list_layer"></div>
+                <div id="info_head">
+                    <p id="satellite_name">{{ name }}</p>
+                    <p id="intl_code">{{ intl_code }}</p>
+                    <p id="norad_id">No. {{ norad_id }}</p>
+                    <p id="uplink">up&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp76.22</p>
+                    <p id="downlink">down&nbsp:&nbsp123.55</p>
+                </div>
+                <div id="user_info">
+                    <p id="user_ip">IP: {{ ip }}</p>
+                    <p id="lat">latitude&nbsp&nbsp&nbsp&nbsp: {{ lat }}</p>
+                    <p id="long">longitude&nbsp: {{ long }}</p>
+                    <p id="elev">elevation&nbsp&nbsp: {{ elev }}</p>
+                    <p id="az">azimuth&nbsp: {{ az }}</p>
+                    <p id="alt">altitude&nbsp&nbsp: {{ alt }}</p>
+                    <p id="vel">velocity&nbsp&nbsp: {{ vel }}</p>
+                </div>
+                <div id="info_body">
+                    <p id="detail_tag">Details&nbsp:</p>
+                    <p id="source">source&nbsp: {{ source }}</p>
+                    <p id="launch_date">launch date&nbsp: {{ launch_date }}</p>
+                    <p id="decay_date">decay date&nbsp: {{ decay_date }}</p>
+                    <p id="launch_site">site&nbsp: {{ full_site }}</p>
+                    <p id="group">group&nbsp: {{ group }}</p>
+                    <p id="status">status&nbsp: {{ status }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/scripts/lib/jquery-1.10.2.js"></script>
+    <script src="../static/scripts/src/info.js"></script>
+</body>
+</html>

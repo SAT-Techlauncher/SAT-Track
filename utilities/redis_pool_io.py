@@ -43,6 +43,13 @@ class RedisPool:
         r.hdel(self.name, k)
         self.length -= 1
 
+    def get_all(self):
+        kvs = {}
+        for k in r.hkeys(self.name):
+            d = r.hget(self.name, k)
+            kvs.update({k.decode('utf-8'): json.loads(d)})
+        return kvs
+
     def clear(self):
         print("cleared " + self.name)
         r.delete(self.name)

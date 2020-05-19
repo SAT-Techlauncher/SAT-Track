@@ -49,6 +49,10 @@ app.register_blueprint(routes_bp)
 app.register_blueprint(view_bp)
 app.register_blueprint(auth_bp)
 
+from server.controllers import scheduler
+scheduler.init_app(app)
+scheduler.start()
+
 from server.services import user_info_pool
 if conf.CLEAR_REDIS:
     user_info_pool.clear()

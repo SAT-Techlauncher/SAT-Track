@@ -1,5 +1,6 @@
 from . import *
 from . import view_bp
+from server.services.data_storage_service import UserManager
 
 @view_bp.route('/', methods=['GET', 'POST'])
 @view_bp.route('/index', methods=['GET', 'POST'])
@@ -160,9 +161,13 @@ def search_satellite():
 def select_satellite():
     if request.method == 'GET':
         user_id = session.get('user_id')
-        satellite_id = int(request.args.get('id'))
+        satellite_id = request.args.get('id')
+        if satellite_id is None:
+            return jsonify(
+                code=RET.SNTERR,
+            )
 
-        status, tasks = controll_select_satellite(user_id, satellite_id)
+        status, tasks = controll_select_satellite(user_id, int(satellite_id))
 
         if status == RET.OK:
             return jsonify(
@@ -177,25 +182,76 @@ def select_satellite():
         code=RET.REQERR,
     )
 
+@view_bp.route('/satelliteInfo?<string:satinfo>', methods=['GET'])
+def satellite_info(satinfo):
+    try:
+        satinfo = json.loads(satinfo)
+    except Exception as e:
+        return jsonify(
+            code=RET.SNTERR,
+            msg=str(e)
+        )
+
+    if request.method == 'GET':
+        user_id = "5d109b88a0f925ccb8e957ea6d867911" # session.get('user_id')
+
+        try:
+            data = controll_modify_sat_info(user_id, satinfo)
+        except Exception as e:
+            user = UserManager.get(user_id)
+            data = satinfo
+            data.update({'username': user.get_name(), 'ip': user.ip})
+            print(e)
+
+        return render_template(
+            'info.html',
+            **data
+        )
+
+    return jsonify(
+        code=RET.REQERR,
+    )
+
+
+@view_bp.route('/getSatInfo', methods=['GET'])
+def get_sat_info():
+    if request.method == 'GET':
+        user_id = session.get('user_id')
+        satellite_id = request.args.get('id')
+
+        if satellite_id is None:
+            return jsonify(
+                code=RET.SNTERR,
+            )
+
+        status, satinfo = controll_get_sat_info(user_id, int(satellite_id))
+
+        return redirect(url_for('view.satellite_info', satinfo=json.dumps(satinfo)))
+
+    return jsonify(
+        code=RET.REQERR
+    )
+
+
 # @view_bp.before_app_request
 # def load_logged_in_user():
 #     user_id = session.get('user_id')
-#     g.user = User.get(user_id) if user_id is not None else None
-#
-# # log report api response
-# @view_bp.after_request
-# def after_app_request(response):
-#     api_name = request.url
-#     user_ip = request.remote_addr
-#     try:
-#         user_name = request.remote_user
-#     except Exception as e:
-#         user_name = e
-#     response_data = response.json
-#     if str(response.status_code).startswith('4') or str(response.status_code).startswith('5'):
-#         current_app.logger.info('{"api_name": "%s", "user_ip": "%s", "user_name": "%s", "status_code":"%s"}' % (
-#         api_name, user_ip, user_name, response.status_code))
-#     else:
-#         current_app.logger.info('{"api_name": "%s", "user_ip": "%s", "user_name": "%s", "status_code":"%s"}' % (
-#             api_name, user_ip, user_name, response.status_code))
-#     return response
+#     g.user = UserManager.get(user_id) if user_id is not None else None
+
+@view_bp.after_request
+def after_app_request(response):
+    api_name = request.url
+    user_ip = request.remote_addr
+    user_id = session.get('user_id')
+
+    user = UserManager.get(user_id)
+    if user is None:
+        return response
+
+    UserManager.set(user.set_ip(user_ip))
+
+    if str(response.status_code).startswith('4') or str(response.status_code).startswith('5'):
+        ...
+    print('{"api_name": "%s", "user_id": "%s", "user_ip": "%s", "status_code":"%s"}' % (
+            api_name, user_id, user_ip, response.status_code))
+    return response

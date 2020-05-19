@@ -39,6 +39,54 @@ class Utils:
         delta = int((date - base).days) if unixtime > 0 else - int((date - base).days)
         return datetime.datetime.strftime(base + datetime.timedelta(days=delta, hours=-8), format)
 
+class StrUtils:
+    @staticmethod
+    def __stringifiable(v):
+        try:
+            str(v)
+            return True
+        except:
+            return False
+
+    @staticmethod
+    def isint(v):
+        if not StrUtils.__stringifiable(v):
+            return False
+
+        s = str(v)
+
+        if s.count('.') != 0:
+            return False
+
+        try:
+            int(s)
+            return True
+        except:
+            return False
+
+    @staticmethod
+    def isfloat(v):
+        if StrUtils.isint(v):
+            return False
+
+        s = str(v)
+
+        if s.count('.') == 0:
+            return False
+
+        try:
+            float(s)
+            return True
+        except:
+            return False
+
+    @staticmethod
+    def isrealnum(v):
+        if StrUtils.isfloat(v) or StrUtils.isint(v):
+            return True
+        return False
+
+
 # 先入先出有序集合 (开发用)
 class LinkSetQueue():
     """ FIFO linked set """

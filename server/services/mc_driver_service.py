@@ -1,7 +1,12 @@
 from server.models import Utils
 
-def send_data_to_slave():
-
+def send_data_to_slave(ip, params):
     current_unixtime = Utils.get_current_time()
 
-    return
+    data = dict(ip=ip)
+    data.update(**params)
+    data.update(timestamp=current_unixtime)
+
+    response = None
+
+    return response

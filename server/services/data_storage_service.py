@@ -5,7 +5,16 @@ class UserManager:
     @staticmethod
     def create(user):
         user.id = Utils.to_hash(user.email)
-        user_info_pool.set(str(user.id), {'email': user.email, 'password': user.password, 'priority': []})
+        user_info_pool.set(
+            str(user.id),
+            {
+                'email': user.email,
+                'password': user.password,
+                'priority': [],
+                'ip': user.ip,
+                'location': user.location,
+            }
+        )
         user_info_pool.show()
 
     @staticmethod
@@ -19,12 +28,23 @@ class UserManager:
         return User(
             email=res['email'],
             password=res['password'],
-            priority=res['priority']
+            priority=res['priority'],
+            ip=res['ip'],
+            location=res['location']
         )
 
     @staticmethod
     def set(user):
-        user_info_pool.set(str(user.id), {'email': user.email, 'password': user.password, 'priority': user.priority})
+        user_info_pool.set(
+            str(user.id),
+            {
+                'email': user.email,
+                'password': user.password,
+                'priority': user.priority,
+                'ip': user.ip,
+                'location': user.location
+            }
+        )
         print('set user(', user.email, ')\'s info:', user.priority)
 
     @staticmethod
@@ -41,6 +61,19 @@ class UserManager:
 
         print('validate user (', user, ')')
         return RET.OK, Utils.to_hash(email)
+
+    @staticmethod
+    def get_all_users():
+        users = []
+        for _, v in user_info_pool.get_all().items():
+            users.append(User(
+                email=v['email'],
+                password=v['password'],
+                priority=v['priority'],
+                ip=v['ip'],
+                location=v['location']
+            ))
+        return users
 
 class PriorityManager:
     @staticmethod
@@ -146,3 +179,21 @@ class SatelliteManager:
             return RET.EXECERR, errors
 
         return RET.OK, satellites
+
+
+class TrackingManager:
+    @staticmethod
+    def set(sid, az_alt_v, loc, ip):
+        data = dict(ip=ip)
+        data.update(**az_alt_v)
+        data.update(**loc)
+        id = str(sid)
+        tracking_pool.set(id, data)
+
+    @staticmethod
+    def get(sid):
+        id = str(sid)
+        info = tracking_pool.get(id)
+        if info:
+            return RET.OK, info
+        return RET.NODATA, None

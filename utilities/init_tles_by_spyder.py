@@ -3,6 +3,7 @@ import urllib.response
 import re
 import time
 import json
+import math
 import ephem
 
 class Spyder():
@@ -121,12 +122,16 @@ def check_new_satellites():
                 line1 = satellite['name']
                 line2 = satellite['tle'][0]
                 line3 = satellite['tle'][1]
+                me = ephem.Observer()
+                me.lon, me.lat, me.elevation = '108.5000', '34.5000', 800.0
                 iss = ephem.readtle(line1, line2, line3)
-                iss.compute('2020/3/23')
-                print('%s %s' % (iss.sublong, iss.sublat))
+                me.date = ephem.now()
+                iss.compute(me)
+
+                print(iss.az * 180.0 / math.pi)  # 卫星的方位角
+                print(iss.alt * 180.0 / math.pi)  # 卫星的仰角
+                print(iss.range_velocity)
 
         print()
-
-
 
 check_new_satellites()

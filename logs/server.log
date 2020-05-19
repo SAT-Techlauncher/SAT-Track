@@ -852,3 +852,596 @@ Traceback (most recent call last):
   File "D:\ProgramData\Miniconda3\envs\comp8715\lib\_strptime.py", line 359, in _strptime
     (data_string, format))
 ValueError: time data '1958-03-00 00:00:00' does not match format '%Y-%m-%d %H:%M:%S'
+[2020-05-19 14:06:07,071][view.py:195][INFO][15264] - {"api_name": "http://127.0.0.1:5000/", "user_ip": "127.0.0.1", "status_code":"200"}
+[2020-05-19 14:06:07,597][view.py:195][INFO][11100] - {"api_name": "http://127.0.0.1:5000/getUserInfo", "user_ip": "127.0.0.1", "status_code":"200"}
+[2020-05-19 14:06:12,149][view.py:195][INFO][8284] - {"api_name": "http://127.0.0.1:5000/searchSatellite?input=oidsaa+", "user_ip": "127.0.0.1", "status_code":"200"}
+[2020-05-19 14:06:14,092][view.py:195][INFO][10444] - {"api_name": "http://127.0.0.1:5000/searchSatellite?input=V", "user_ip": "127.0.0.1", "status_code":"200"}
+[2020-05-19 14:06:37,048][view.py:195][INFO][956] - {"api_name": "http://127.0.0.1:5000/selectSatellite?id=25856", "user_ip": "127.0.0.1", "status_code":"200"}
+[2020-05-19 14:09:08,012][view.py:195][INFO][10304] - {"api_name": "http://127.0.0.1:5000/", "user_ip": "127.0.0.1", "status_code":"200"}
+[2020-05-19 14:09:08,679][view.py:195][INFO][12028] - {"api_name": "http://127.0.0.1:5000/getUserInfo", "user_ip": "127.0.0.1", "status_code":"200"}
+[2020-05-19 14:09:11,550][view.py:195][INFO][15300] - {"api_name": "http://127.0.0.1:5000/searchSatellite?input=vv", "user_ip": "127.0.0.1", "status_code":"200"}
+[2020-05-19 14:09:16,148][view.py:195][INFO][15144] - {"api_name": "http://127.0.0.1:5000/searchSatellite?input=v", "user_ip": "127.0.0.1", "status_code":"200"}
+[2020-05-19 14:21:54,208][app.py:1891][ERROR][12960] - Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 270, in decorated_view
+    elif not current_user.is_authenticated:
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\werkzeug\local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\werkzeug\local.py", line 306, in _get_current_object
+    return self.__local()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 26, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 346, in _get_user
+    current_app.login_manager._load_user()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\login_manager.py", line 318, in _load_user
+    user = self._user_callback(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\__init__.py", line 42, in load_user
+    return UserManager.get(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\data_storage_service.py", line 23, in get
+    ip=res['ip']
+KeyError: 'ip'
+[2020-05-19 14:21:54,314][app.py:1975][ERROR][12960] - Request finalizing failed with an error while handling an error
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 270, in decorated_view
+    elif not current_user.is_authenticated:
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\werkzeug\local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\werkzeug\local.py", line 306, in _get_current_object
+    return self.__local()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 26, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 346, in _get_user
+    current_app.login_manager._load_user()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\login_manager.py", line 318, in _load_user
+    user = self._user_callback(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\__init__.py", line 42, in load_user
+    return UserManager.get(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\data_storage_service.py", line 23, in get
+    ip=res['ip']
+KeyError: 'ip'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1969, in finalize_request
+    response = self.process_response(response)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2266, in process_response
+    response = handler(response)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 192, in after_app_request
+    user = UserManager.get(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\data_storage_service.py", line 23, in get
+    ip=res['ip']
+KeyError: 'ip'
+[2020-05-19 14:22:24,921][app.py:1891][ERROR][11896] - Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1969, in finalize_request
+    response = self.process_response(response)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2266, in process_response
+    response = handler(response)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 193, in after_app_request
+    UserManager.set(user.set_ip(user_ip))
+AttributeError: 'NoneType' object has no attribute 'set_ip'
+[2020-05-19 14:22:24,924][app.py:1975][ERROR][11896] - Request finalizing failed with an error while handling an error
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1969, in finalize_request
+    response = self.process_response(response)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2266, in process_response
+    response = handler(response)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 193, in after_app_request
+    UserManager.set(user.set_ip(user_ip))
+AttributeError: 'NoneType' object has no attribute 'set_ip'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1969, in finalize_request
+    response = self.process_response(response)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2266, in process_response
+    response = handler(response)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 193, in after_app_request
+    UserManager.set(user.set_ip(user_ip))
+AttributeError: 'NoneType' object has no attribute 'set_ip'
+[2020-05-19 14:22:26,857][app.py:1891][ERROR][9636] - Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1969, in finalize_request
+    response = self.process_response(response)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2266, in process_response
+    response = handler(response)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 193, in after_app_request
+    UserManager.set(user.set_ip(user_ip))
+AttributeError: 'NoneType' object has no attribute 'set_ip'
+[2020-05-19 14:22:26,859][app.py:1975][ERROR][9636] - Request finalizing failed with an error while handling an error
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1969, in finalize_request
+    response = self.process_response(response)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2266, in process_response
+    response = handler(response)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 193, in after_app_request
+    UserManager.set(user.set_ip(user_ip))
+AttributeError: 'NoneType' object has no attribute 'set_ip'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1969, in finalize_request
+    response = self.process_response(response)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2266, in process_response
+    response = handler(response)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 193, in after_app_request
+    UserManager.set(user.set_ip(user_ip))
+AttributeError: 'NoneType' object has no attribute 'set_ip'
+[2020-05-19 14:23:14,490][app.py:1891][ERROR][13456] - Exception on /login [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\auth.py", line 68, in login
+    return render_template('login.html', title="Login", form=form)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\templating.py", line 136, in render_template
+    ctx.app.update_template_context(context)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 838, in update_template_context
+    context.update(func())
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 379, in _user_context_processor
+    return dict(current_user=_get_user())
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 346, in _get_user
+    current_app.login_manager._load_user()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\login_manager.py", line 318, in _load_user
+    user = self._user_callback(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\__init__.py", line 42, in load_user
+    return UserManager.get(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\data_storage_service.py", line 23, in get
+    ip=res['ip']
+KeyError: 'ip'
+[2020-05-19 14:26:13,106][app.py:1891][ERROR][15256] - Exception on /login [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\auth.py", line 68, in login
+    return render_template('login.html', title="Login", form=form)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\templating.py", line 136, in render_template
+    ctx.app.update_template_context(context)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 838, in update_template_context
+    context.update(func())
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 379, in _user_context_processor
+    return dict(current_user=_get_user())
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 346, in _get_user
+    current_app.login_manager._load_user()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\login_manager.py", line 318, in _load_user
+    user = self._user_callback(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\__init__.py", line 42, in load_user
+    return UserManager.get(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\data_storage_service.py", line 23, in get
+    ip=res['ip']
+KeyError: 'ip'
+[2020-05-19 14:26:27,404][app.py:1891][ERROR][11724] - Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 270, in decorated_view
+    elif not current_user.is_authenticated:
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\werkzeug\local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\werkzeug\local.py", line 306, in _get_current_object
+    return self.__local()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 26, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 346, in _get_user
+    current_app.login_manager._load_user()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\login_manager.py", line 318, in _load_user
+    user = self._user_callback(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\__init__.py", line 42, in load_user
+    return UserManager.get(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\data_storage_service.py", line 23, in get
+    ip=res['ip']
+KeyError: 'ip'
+[2020-05-19 14:26:27,407][app.py:1975][ERROR][11724] - Request finalizing failed with an error while handling an error
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 270, in decorated_view
+    elif not current_user.is_authenticated:
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\werkzeug\local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\werkzeug\local.py", line 306, in _get_current_object
+    return self.__local()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 26, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\utils.py", line 346, in _get_user
+    current_app.login_manager._load_user()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_login\login_manager.py", line 318, in _load_user
+    user = self._user_callback(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\__init__.py", line 42, in load_user
+    return UserManager.get(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\data_storage_service.py", line 23, in get
+    ip=res['ip']
+KeyError: 'ip'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1969, in finalize_request
+    response = self.process_response(response)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2266, in process_response
+    response = handler(response)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 192, in after_app_request
+    user = UserManager.get(user_id)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\services\data_storage_service.py", line 23, in get
+    ip=res['ip']
+KeyError: 'ip'
+[2020-05-19 21:22:45,741][app.py:1891][ERROR][9336] - Exception on /selectSatellite [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 164, in select_satellite
+    satellite_id = int(request.args.get('id'))
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+[2020-05-19 21:22:46,528][app.py:1891][ERROR][15880] - Exception on /selectSatellite [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 164, in select_satellite
+    satellite_id = int(request.args.get('id'))
+TypeError: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+[2020-05-20 00:37:38,807][app.py:1891][ERROR][2708] - Exception on /getSatInfo [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 216, in get_sat_info
+    return redirect(url_for('satelliteInfo', satinfo=satinfo))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\helpers.py", line 370, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2215, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\helpers.py", line 358, in url_for
+    endpoint, values, method=method, force_external=external
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\werkzeug\routing.py", line 2179, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'satelliteInfo'. Did you mean 'view.satellite_info' instead?
+[2020-05-20 00:38:42,890][app.py:1891][ERROR][16228] - Exception on /getSatInfo [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 216, in get_sat_info
+    return redirect(url_for('view.satelliteInfo', satinfo=satinfo))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\helpers.py", line 370, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2215, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\helpers.py", line 358, in url_for
+    endpoint, values, method=method, force_external=external
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\werkzeug\routing.py", line 2179, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'view.satelliteInfo'. Did you mean 'view.satellite_info' instead?
+[2020-05-20 00:41:31,451][app.py:1891][ERROR][15988] - Exception on /satelliteInfo [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 194, in satellite_info
+    mag='this is satellite info html' + str(satinfo)
+NameError: name 'satinfo' is not defined
+[2020-05-20 01:18:07,419][app.py:1891][ERROR][14848] - Exception on /satelliteInfo [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+TypeError: satellite_info() missing 1 required positional argument: 'satinfo'
+[2020-05-20 01:19:58,503][app.py:1891][ERROR][15816] - Exception on /satelliteInfo?{"intl_code": "1978-093A", "norad_id": 11054, "name": "NAVSTAR 3 (OPS 5113)", "source": "us", "launch_date_text": "1978 10 07", "launch_date": "1978-10-07", "decay_date": null, "launch_unixtime": 276537600, "decay_unixtime": null, "launch_site": "afwtr", "status": "m*- (nonoperational active)", "extract": "navstar 3 (ops 5113) | us united states   us usa united states of america (usa)    | 1978 10 07 |  afwtr  air force western test range (afwtr) |  global positioning system (gps) constellation | m*- nonoperational active | trackable", "tle": ["1 11054U 78093A   20109.40549764 -.00000097 +00000-0 +00000-0 0  9996", "2 11054 064.0663 006.1805 0090677 231.2897 256.6120 01.93503869297126"], "ip": "127.0.0.1", "az": 99.99814269456955, "alt": -25.171200525599613, "vel": -687.9077758789062, "lat": -35.2712287902832, "long": 149.1183624267578, "elev": 565.9379272460938} [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 188, in satellite_info
+    return jsonify(**satinfo)
+TypeError: jsonify() argument after ** must be a mapping, not str
+[2020-05-20 01:43:57,695][app.py:1891][ERROR][15796] - Exception on /satelliteInfo?{"intl_code": "1978-093A", "norad_id": 11054, "name": "NAVSTAR 3 (OPS 5113)", "source": "us", "launch_date_text": "1978 10 07", "launch_date": "1978-10-07", "decay_date": null, "launch_unixtime": 276537600, "decay_unixtime": null, "launch_site": "afwtr", "status": "m*- (nonoperational active)", "extract": "navstar 3 (ops 5113) | us united states   us usa united states of america (usa)    | 1978 10 07 |  afwtr  air force western test range (afwtr) |  global positioning system (gps) constellation | m*- nonoperational active | trackable", "tle": ["1 11054U 78093A   20109.40549764 -.00000097 +00000-0 +00000-0 0  9996", "2 11054 064.0663 006.1805 0090677 231.2897 256.6120 01.93503869297126"], "ip": "127.0.0.1", "az": 99.75653841305869, "alt": -17.779428079386534, "vel": -732.994140625, "lat": -35.2712287902832, "long": 149.1183624267578, "elev": 565.9379272460938} [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 197, in satellite_info
+    username = UserManager.get(user_id).get_name()
+AttributeError: 'NoneType' object has no attribute 'get_name'
+[2020-05-20 01:57:14,562][app.py:1891][ERROR][10596] - Exception on /satelliteInfo?{"intl_code": "2018-102G", "norad_id": 43837, "name": "OBJECT G", "source": "tbd", "launch_date_text": "2018 12 07", "launch_date": "2018-12-07", "decay_date": null, "launch_unixtime": 1544112000, "decay_unixtime": null, "launch_site": "jsc", "status": "*+ (operational active)", "extract": "object g | tbd none    | 2018 12 07 |  jsc  jiuquan space center (jsc) |  | *+ operational active | trackable", "tle": ["1 43837U 18102G   20111.08665807  .00000832  00000-0  56134-4 0  9998", "2 43837  97.5753 188.8890 0015572  17.3823  99.8120 15.09292041 75384"], "lat": null, "long": null, "elev": null, "az": null, "alt": null, "vel": null} [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 197, in satellite_info
+    username = UserManager.get(user_id).get_name()
+AttributeError: 'NoneType' object has no attribute 'get_name'
+[2020-05-20 04:04:06,990][app.py:1891][ERROR][5544] - Exception on /satelliteInfo?null [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 205, in satellite_info
+    data.update({field: satinfo[field]})
+TypeError: 'NoneType' object is not subscriptable
+[2020-05-20 04:06:29,723][app.py:1891][ERROR][15104] - Exception on /satelliteInfo?{"intl_code": "1977-112F", "norad_id": 10594, "name": "SS 3", "source": "us", "launch_date_text": "1977 12 08", "launch_date": "1977-12-08", "decay_date": null, "launch_unixtime": 250358400, "decay_unixtime": null, "launch_site": "afwtr", "status": "* (active)", "group": "military", "extract": "ss 3 | us united states   us usa united states of america (usa)    | 1977 12 08 |  afwtr  air force western test range (afwtr) |  military | * active | trackable", "tle": ["1 10594U 77112F   20110.38649673  .00000477  00000-0  51204-4 0  9991", "2 10594  63.3014  63.6078 0735573 125.1451 242.0810 13.90856946 53137"], "full_src": "united states", "full_site": "air force western test range (afwtr)", "lat": null, "long": null, "elev": null, "az": null, "alt": null, "vel": null} [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 206, in satellite_info
+    data.update({'username': user.get_name(), 'ip': user.ip})
+AttributeError: 'NoneType' object has no attribute 'get_name'
+[2020-05-20 04:06:31,141][app.py:1891][ERROR][9480] - Exception on /satelliteInfo?{"intl_code": "2016-033E", "norad_id": 43427, "name": "NUSAT 1 DEB", "source": "argn", "launch_date_text": "2016 05 30", "launch_date": "2016-05-30", "decay_date": null, "launch_unixtime": 1464537600, "decay_unixtime": null, "launch_site": "taisc", "status": "none", "extract": "nusat 1 deb | argn argentina   ar arg argentina    | 2016 05 30 |  taisc  taiyuan space center (taisc) |  |  | trackable", "tle": ["1 43427U 16033E   20110.78246692 +.00000887 +00000-0 +91058-4 0  9991", "2 43427 097.4695 105.0152 0207107 215.6634 143.0595 14.78364441198827"], "lat": null, "long": null, "elev": null, "az": null, "alt": null, "vel": null} [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 205, in satellite_info
+    data.update({field: satinfo[field]})
+KeyError: 'full_site'
+[2020-05-20 05:04:55,335][app.py:1891][ERROR][11328] - Exception on /satelliteInfo?{"intl_code": "2016-025F", "norad_id": 41461, "name": "ASAP-S", "source": "fr", "launch_date_text": "2016 04 25", "launch_date": "2016-04-25", "decay_date": null, "launch_unixtime": 1461513600, "decay_unixtime": null, "launch_site": "frgui", "status": "none", "group": null, "extract": "asap-s | fr france   fr fra france    | 2016 04 25 |  frgui  europe's spaceport (frgui) |  |  | trackable", "tle": ["1 41461U 16025F   20110.85252785 +.00001369 +00000-0 +72853-4 0  9994", "2 41461 098.1234 219.7523 0173366 059.3237 302.4946 15.05183534218542"], "full_src": "france", "full_site": "europe's spaceport (frgui)", "lat": null, "long": null, "elev": null, "az": null, "alt": null, "vel": null} [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 206, in satellite_info
+    data.update({'username': user.get_name(), 'ip': user.ip, 'time': Utils.to_datetime(Utils.get_current_time())})
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\utilities\utils.py", line 17, in to_datetime
+    return datetime.datetime.fromtimestamp(unixtime, pytz.timezone('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')
+TypeError: an integer is required (got type tuple)
+[2020-05-20 06:25:19,226][app.py:1891][ERROR][13344] - Exception on /searchSatellite [GET]
+Traceback (most recent call last):
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1951, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask_cors\extension.py", line 161, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1820, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\ProgramData\Miniconda3\envs\comp8715\lib\site-packages\flask\app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\TedZhang\Courses\COMP8715\SAT-Track\server\views\view.py", line 144, in search_satellite
+    status, satellites, beyond_lmt = controll_search_satellites(user_id, user_input)
+ValueError: not enough values to unpack (expected 3, got 2)

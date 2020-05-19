@@ -70,6 +70,8 @@ def upload_sats_to_es():
     sats = SATS
     with open(RIPE_TEXT_ + 'extracts.json', 'r') as f:
         extracts = json.loads(f.read())
+    with open(RIPE_TEXT_ + 'some_info.json', 'r') as f:
+        some_info = json.loads(f.read())
 
     from utilities.utils import Utils
 
@@ -77,7 +79,8 @@ def upload_sats_to_es():
     satellites = []
     keys = [
         'intl_code', 'norad_id', 'name', 'source', 'launch_date_text', 'launch_date', 'decay_date',
-        'launch_unixtime', 'decay_unixtime', 'launch_site', 'status', 'extract', 'tle'
+        'launch_unixtime', 'decay_unixtime', 'launch_site', 'status', 'group', 'extract', 'tle', 'full_src',
+        'full_site'
     ]
 
     for sat in sats:
@@ -103,9 +106,9 @@ def upload_sats_to_es():
         status_info = '' if len(status_info) <= 2 else status_info[0:len(status_info)-1] + ')'
         status_info = '' if status_info == ' ()' else status_info
         sat.update({'status': status + status_info})
-
         sat.update({'launch_unixtime': Utils.to_all_unixtime(sat['launch_date'])})
         sat.update({'decay_unixtime': Utils.to_all_unixtime(sat['decay_date'])})
+        sat.update(**some_info[str(sat['norad_id'])])
         sat.update({'extract': extracts[str(sat['norad_id'])]})
 
         satellite = {}
@@ -130,6 +133,8 @@ def upload_sats_to_es():
     ).harmonize()
 
     print(len(shd))
+    for s in shd:
+        print(s)
 
     satellite_database = ES(
         db='satellites',
@@ -138,7 +143,10 @@ def upload_sats_to_es():
         norad_id={'type': 'keyword'},
         intl_code={'type': 'keyword'},
         source={'type': 'keyword'},
+        full_src={'type': 'text'},
         status={'type': 'keyword'},
+        full_stat={'type': 'text'},
+        full_site={'type': 'text'},
         launch_date_text={'type': 'text'},
         launch_unixtime={'type': 'long', 'ignore_malformed': False, 'null_value': None},
         decay_unixtime={'type': 'long', 'ignore_malformed': True, 'null_value': None},
@@ -157,6 +165,7 @@ def to_extract_format(dic):
         if isinstance(dic[k], str):
             dic[k] = dic[k].lower()
     sat = Satellite(dic)
+    some_info = {}
 
     id = sat.norad_id
 
@@ -164,6 +173,7 @@ def to_extract_format(dic):
     for s in SRC_COUN_MAPPING[sat.source]:
         source += s + ' '
     source = source.replace(';', ' ')
+    some_info.update({'full_src': SRC_COUN_MAPPING[sat.source][0]})
 
     launch_date_text = ''
     for e in str(sat.launch_date):
@@ -175,6 +185,7 @@ def to_extract_format(dic):
         site_fullname = list(site.values())[0]
         if sat.launch_site == site_abbrev.lower():
             launch_site = ' ' + sat.launch_site + '  ' + site_fullname.lower()
+            some_info.update({'full_site': site_fullname.lower()})
             break
 
     status = sat.status
@@ -188,6 +199,7 @@ def to_extract_format(dic):
     group = ''
     if str(id) in SAT_GROUP_MAPPING:
         group += ' ' + SAT_GROUP_MAPPING[str(id)].lower()
+    some_info.update({'group': group.lstrip()})
 
     trackable = 'trackable' if sat.tle != [] else 'untrackable'
 
@@ -198,7 +210,7 @@ def to_extract_format(dic):
            group + ' | ' + \
            status + ' | ' + trackable
 
-    return id, data
+    return id, data, some_info
 
 def generate_extracts_from_satellites_json():
     """
@@ -214,16 +226,19 @@ def generate_extracts_from_satellites_json():
     {'intl_code': '1958-002B', 'tle': [], 'norad_id': 5, 'status': '*', 'name': 'VANGUARD 1', 'source': 'US', 'launch_date': '1958-03-17', 'launch_site': 'AFETR', 'decay_date': '', '_0_': 132.7, '_1_': 34.3, '_2_': 3834, '_3_': 649, '_4_': 0.122}
     """
     dic = {}
+    some_info = {}
     idx = 0
     for sat in SATS:
-        sat_id, satellite = to_extract_format(sat)
+        sat_id, satellite, info = to_extract_format(sat)
         dic.update({sat_id: satellite})
+        some_info.update({sat_id: info})
         idx += 1
-        print(idx, '/', len(SATS))
+        print(idx, '/', len(SATS), info['group'])
 
     with open(RIPE_TEXT_ + 'extracts.json', 'w') as f:
         f.write(json.dumps(dic))
-
+    with open(RIPE_TEXT_ + 'some_info.json', 'w') as f:
+        f.write(json.dumps(some_info))
 
 with open(RIPE_TEXT_ + 'satellites.json', 'r') as f:
     SATS = json.loads(f.read())
