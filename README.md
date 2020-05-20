@@ -14,7 +14,6 @@ This repository utilises the GitHub wiki pages system to record team information
 ## Project Statement <a id="1"></a>
 The SAT-Track project aims to provide a method for successfully tracking overhead systems without reliance on foreign data. The intention is to develop a satellite tracking system which is able to identify various satellites via spectrum analysis, position, and travel. Additionally a statement of work has been developed in collaboration with our client.
 
-* [Problem & Requirement](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Problem-&-Requirements)
 * [Our goals](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Our-goals)
 * [Risk Management](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Risk-Management)
 * [Statement of Work](https://github.com/SAT-Techlauncher/SAT-Track/wiki/Statement-of-Work)
